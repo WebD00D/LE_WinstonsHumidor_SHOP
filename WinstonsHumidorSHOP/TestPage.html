@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>
+    </title>
+</head>
+<body>
+    <button class="btnAddToCart" data-product="1">Add Product 1</button>
+    <button class="btnAddToCart" data-product="2">Add Product 2</button>
+    <button id="btnGoToCart">What's in my Cart</button>
+</body>
+</html>
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+
+        $("#btnGoToCart").click(function () {
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GoToCart",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+
+
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+        })
+
+        $(".btnAddToCart").click(function () {
+
+            var ProductID = $(this).attr('data-product');
+            alert(ProductID);
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/AddToCart",
+                data: "{ProductID:'"+ ProductID +"'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+                  
+                  
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+        })
+
+    })
+</script>
