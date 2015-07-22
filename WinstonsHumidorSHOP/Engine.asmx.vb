@@ -2,6 +2,7 @@
 Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports System.Data.SqlClient
+Imports AuthorizeNet
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 <System.Web.Script.Services.ScriptService()> _
@@ -15,6 +16,40 @@ Public Class Engine
         Public ProductID As Integer
         Public Item As String
     End Class
+
+
+    <WebMethod(True)> _
+    Public Function Checkout()
+
+        'LIVE: https://secure.authorize.net/gateway/transact.dll
+        Dim post_url = "https://test.authorize.net/gateway/transact.dll"
+        Dim post_values As New Dictionary(Of String, String)
+
+        'the API Login ID and Transaction Key must be replaced with valid values
+        post_values.Add("x_login", "2hBf5VN3S")
+        post_values.Add("x_tran_key", "88tkv2t2D29z5NQT")
+
+        post_values.Add("x_delim_data", "TRUE")
+        post_values.Add("x_delim_char", "|")
+        post_values.Add("x_relay_response", "FALSE")
+
+        post_values.Add("x_type", "AUTH_CAPTURE")
+        post_values.Add("x_method", "CC")
+        post_values.Add("x_card_num", "4111111111111111")
+        post_values.Add("x_exp_date", "0115")
+
+        post_values.Add("x_amount", "19.99")
+        post_values.Add("x_description", "Sample Transaction")
+
+        post_values.Add("x_first_name", "John")
+        post_values.Add("x_last_name", "Doe")
+        post_values.Add("x_address", "1234 Street")
+        post_values.Add("x_state", "WA")
+        post_values.Add("x_zip", "98004")
+
+
+        Return ""
+    End Function
 
 
 
