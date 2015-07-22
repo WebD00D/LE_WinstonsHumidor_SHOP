@@ -13,16 +13,7 @@ Public Class Engine
 
     Public Class ShoppingCart
         Public ProductID As Integer
-        Public Property ItemList() As List(Of ShoppingCart)
-            Get
-                Return m_ObjectList
-            End Get
-            Set(value As List(Of ShoppingCart))
-                m_ObjectList = value
-            End Set
-        End Property
-
-        Private m_ObjectList As List(Of ShoppingCart)
+        Public Item As String
     End Class
 
 
@@ -31,7 +22,6 @@ Public Class Engine
     Public Function AddToCart(ByVal ProductID As Integer) As String
 
         If Session("Cart") Is Nothing Then
-           
             Dim i As New ShoppingCart
             Dim itemList As New List(Of ShoppingCart)
             i.ProductID = ProductID
@@ -42,25 +32,47 @@ Public Class Engine
             Dim i As New ShoppingCart
             i.ProductID = ProductID
             itemlist.Add(i)
-
         End If
-
-      
 
         Return ""
     End Function
 
 
     <WebMethod(True)> _
-    Public Function GoToCart() As String
+    Public Function GoToCart()
 
-        Dim itemlist As List(Of ShoppingCart) = Session("Cart")
+        Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+        Dim ReturnList As New List(Of ShoppingCart)
 
-
-
-
-        Return "Hello World"
+        For i As Integer = 0 To InMyCart.Count - 1
+            Dim sc As New ShoppingCart
+            Dim ProductID As Integer = InMyCart(i).ProductID
+            Dim Item As String = GetItemDetails(ProductID)
+            sc.ProductID = ProductID
+            sc.Item = Item
+            ReturnList.Add(sc)
+        Next
+        Return ReturnList
     End Function
 
+    <WebMethod()> _
+    Public Function GetItemDetails(ByVal ProductID As Integer)
 
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "sp_SHOP_GetProductDetails"
+            cmd.Parameters.AddWithValue("@ProductID", ProductID)
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        Return dt.Rows(0).Item(0)
+    End Function
 End Class

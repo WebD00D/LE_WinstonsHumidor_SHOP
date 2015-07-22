@@ -3,11 +3,19 @@
 <head>
     <title>
     </title>
+    <link href="css/bootstrap.min.css" rel="stylesheet" />
 </head>
 <body>
-    <button class="btnAddToCart" data-product="1">Add Product 1</button>
-    <button class="btnAddToCart" data-product="2">Add Product 2</button>
+    <button class="btnAddToCart" data-product="3">Add Product 1</button>
+    <button class="btnAddToCart" data-product="10">Add Product 2</button>
     <button id="btnGoToCart">What's in my Cart</button>
+    <br />
+    <br />
+    <div class="col-lg-12" id="productlist">
+        
+      
+    </div>
+   
 </body>
 </html>
 <script src="js/jquery.min.js" type="text/javascript"></script>
@@ -23,11 +31,24 @@
                 dataType: "json",
                 success: function (data) {
 
-                    //take data and append as list item parameters to be selected by user
                     var result = data.d;
+                    $("#productlist").empty();
+                    $.each(result, function (index, item) {
+
+                        var content =
+
+                         "<div href='#' id='" + item.ProductID + "' class='list-group-item coffeeitem col-lg-4'>" +
+                         " <ul class='list-inline'>" +
+                         "<li><img src='ImageHandler.ashx?id="+ item.ProductID + "' class='img-responsive '/></li></ul></div>";
+             
+                        $(content).hide().appendTo("#productlist").fadeIn();
 
 
-
+                    })
+                    
+  
+               
+            
                 },
                 failure: function (msg) {
                     alert(msg);
