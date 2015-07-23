@@ -17,6 +17,111 @@ Public Class Engine
         Public Item As String
     End Class
 
+    Public Class Accessory
+        Public AccessoryID As String
+        Public ProductID As String
+        Public SKU As String
+        Public Name As String
+        Public Qty As String
+        Public Description As String
+        Public Brand As String
+        Public Price As String
+        Public IsFeatured As String
+    End Class
+
+    Public Class Apparel
+        Public ApparelID As String
+        Public ProductID As String
+        Public SKU As String
+        Public Name As String
+        Public Description As String
+        Public Price As String
+        Public XS As String
+        Public SM As String
+        Public MD As String
+        Public LG As String
+        Public XL As String
+        Public XXL As String
+        Public XXXL As String
+        Public IsFeatured As String
+    End Class
+
+    Public Class Coffee
+        Public CoffeeID As String
+        Public ProductID As String
+        Public SKU As String
+        Public Name As String
+        Public Brand As String
+        Public Description As String
+        Public Body As String
+        Public Roast As String
+        Public Price As String
+        Public Qty As String
+        Public IsFeatured As String
+    End Class
+
+    Public Class Cigar
+        Public CigarID As String
+        Public ProductID As String
+        Public Brand As String
+        Public SKU As String
+        Public Name As String
+        Public Length As String
+        Public Ring As String
+        Public BoxCount As String
+        Public BoxQty As String
+        Public SingleQty As String
+        Public BoxPrice As String
+        Public SinglePrice As String
+        Public Description As String
+        Public IsSingleSaleOnly As String
+        Public IsBoxSaleOnly As String
+        Public IsFeatured As String
+    End Class
+
+    Public Class Pipe
+        Public PipeID As String
+        Public ProductID As String
+        Public Brand As String
+        Public Name As String
+        Public SKU As String
+        Public Description As String
+        Public Price As String
+        Public Qty As String
+        Public BowlFinish As String
+        Public StemShape As String
+        Public BodyShape As String
+        Public Material As String
+        Public IsFeatured As String
+    End Class
+
+    Public Class PipeTobacco
+        Public PipeTobaccoID As String
+        Public ProductID As String
+        Public SKU As String
+        Public Brand As String
+        Public Tobacco As String
+        Public Style As String
+        Public Cut As String
+        Public Strength As String
+        Public Price As String
+        Public Description As String
+        Public Qty As String
+        Public IsFeatured As String
+
+    End Class
+
+    Public Class NewsPosts
+        Public NewsPostID As String
+        Public PostTitle As String
+        Public PostDate As String
+        Public PostedBy As String
+        Public HTML As String
+    End Class
+
+
+
+
 
     <WebMethod(True)> _
     Public Function Checkout()
