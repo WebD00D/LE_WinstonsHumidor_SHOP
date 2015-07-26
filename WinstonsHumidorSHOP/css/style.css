@@ -45,7 +45,8 @@ body {
 	background-image: url(backgrounds/cigarback.png);
 	background-size: cover;
 	background-repeat: no-repeat;
-	width: ;
+	width: 100%;
+    
 	
 }
 
@@ -60,13 +61,14 @@ body {
 	padding: 0 0 0 5%;
 }
 
-.navbar-nav {
-	width: 90%;
+/*.navbar-nav {
+	width: 100%;
 	margin: 0 0 0% 27%;
-}
+}*/
 
 .active {
 	background-color: none;
+   
 }
 
 .collapse {
