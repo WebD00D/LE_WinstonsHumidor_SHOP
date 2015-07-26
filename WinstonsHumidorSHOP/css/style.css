@@ -42,15 +42,14 @@ h1 {
 }
 
 body {
-	background-image: url(backgrounds/cigarback.png);
-	background-size: cover;
+	background-image: url(backgrounds/cigarback2.png);
+	background-size: contain;
 	background-repeat: no-repeat;
 	width: 100%;
-    
 	
 }
 
-.navbar-default {
+/*.navbar-default {
 	background-color: rgba(0, 0, 0, 0.0);
 	border: none;
 }
@@ -58,30 +57,33 @@ body {
 #navbar {
 	margin: 5% 2% 2% 2%;
 	border: 1px solid rgba(176, 165, 147, .8);
-	padding: 0 0 0 5%;
+	padding: 0 0 0 0;
 }
 
-/*.navbar-nav {
+.navbar-nav {
 	width: 100%;
-	margin: 0 0 0% 27%;
-}*/
+}
 
 .active {
 	background-color: none;
-   
+	color: rgba(176, 165, 147, .8);
+	font-family: 'chiser' sans-serif;
+	font-size: 1.2em;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
+.list {
+	margin: 0 8% 0 8%;
 }
 
 .collapse {
 	background-color: rgba(0, 0, 0, 0.0);
 }
 
-#active {
-	background-color: rgba(0, 0, 0, .0);
-	color: rgba(176, 165, 147, .8);
-	margin: 0 0 0 -15%;
-	width: 40%;
-	font-family: 'chiser' sans-serif;
-	font-size: 1.2em;
+#active:hover {
+	color: rgba(255, 255, 255, 0.8);
+	text-decoration: none;
 }
 
 #carticon {
@@ -99,20 +101,20 @@ body {
 
 #tippytop {
 		margin: 1.25% 5% 0 0;
-}
+}*/
 
 
 .homebody {
 	background-color: rgba(0, 0, 0, 0.5);
 	width: 100%;
-	padding: 5% 0 16% 0%;
-	margin: -12% 0 0 0;
+	padding: 5% 0 3% 0%;
+	margin: -15% 0 0 0;
 }
 
 .hometext {
 	border: rgba(176, 165, 147, .8) 1px solid;
 	margin: 5% 2% 0 2%;
-	padding: 0 5% 7% 5%;
+	padding: 0 5% 7.5% 5%;
 }
 
 #WinstonsHumidor {
@@ -135,4 +137,19 @@ body {
 	font-size: 1.5em;
 	width: 68%;
 	margin: 0 0 0 2%;
+}
+
+#readmore {
+	color: #fff;
+}
+
+#readmore:hover {
+	color: rgba(255, 255, 255, 0.5);
+	text-decoration: none;
+}
+
+.homeheadlines {
+	font-family: 'chiser' sans-serif;
+	font-size: 3em;
+	border-top: 
 }
