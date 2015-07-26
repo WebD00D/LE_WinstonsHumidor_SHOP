@@ -117,12 +117,12 @@ Public Class Engine
         Public PostDate As String
         Public PostedBy As String
         Public HTML As String
+        Public NewsType As String
+
     End Class
 
 
-
-
-
+#Region "Shopping Cart and Checkout"
     <WebMethod(True)> _
     Public Function Checkout()
 
@@ -155,9 +155,6 @@ Public Class Engine
 
         Return ""
     End Function
-
-
-
     <WebMethod(True)> _
     Public Function AddToCart(ByVal ProductID As Integer) As String
 
@@ -215,4 +212,58 @@ Public Class Engine
 
         Return dt.Rows(0).Item(0)
     End Function
+
+
+#End Region
+
+
+#Region "Home Page"
+
+
+    Dim NewsList As New List(Of NewsPosts)
+
+    <WebMethod()> _
+    Public Function LoadNewsandEvents()
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT * FROM NewsPosts"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        If dt.Rows.Count > 0 Then
+
+            NewsList.Clear()
+            For Each item As DataRow In dt.Rows()
+                Dim i As New NewsPosts
+                i.NewsPostID = item("PipeTobaccoID")
+                i.PostTitle = item("PostTitle")
+                i.PostDate = item("PostDate")
+                i.PostedBy = item("PostedBy")
+                i.HTML = item("HTML")
+                NewsList.Add(i)
+            Next
+            Return NewsList
+        Else
+            Return 0
+        End If
+
+    End Function
+
+
+
+
+#End Region
+
+
+  
 End Class
