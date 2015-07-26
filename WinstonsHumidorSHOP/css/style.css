@@ -41,13 +41,13 @@ h1 {
 	font-size: 38px;
 }
 
-body {
+/*body {
 	background-image: url(backgrounds/cigarback2.png);
 	background-size: contain;
 	background-repeat: no-repeat;
 	width: 100%;
 	
-}
+}*/
 
 /*.navbar-default {
 	background-color: rgba(0, 0, 0, 0.0);
@@ -104,11 +104,20 @@ body {
 }*/
 
 
+.active {
+	background-color: none;
+	color: rgba(176, 165, 147, .8);
+	font-family: 'chiser' sans-serif;
+	font-size: 1.2em;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+}
+
 .homebody {
-	background-color: rgba(0, 0, 0, 0.5);
+	background-color: rgba(0, 0, 0, 0.65);
 	width: 100%;
 	padding: 5% 0 3% 0%;
-	margin: -15% 0 0 0;
+	margin: -5% 0 0 0;
 }
 
 .hometext {
