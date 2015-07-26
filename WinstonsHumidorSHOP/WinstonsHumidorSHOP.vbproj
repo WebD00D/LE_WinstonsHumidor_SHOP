@@ -96,6 +96,7 @@
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\style.css" />
     <Content Include="Engine.asmx" />
+    <Content Include="Events.html" />
     <Content Include="images\CARTiconred.png" />
     <Content Include="images\cigarback.png" />
     <Content Include="images\WinstonHumidor_Cigar_Brown.png" />
