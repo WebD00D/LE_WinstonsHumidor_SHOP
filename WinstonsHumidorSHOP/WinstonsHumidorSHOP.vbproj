@@ -94,7 +94,11 @@
   <ItemGroup>
     <Content Include="Checkout.html" />
     <Content Include="css\bootstrap.min.css" />
+    <Content Include="css\style.css" />
     <Content Include="Engine.asmx" />
+    <Content Include="images\CARTiconred.png" />
+    <Content Include="images\cigarback.png" />
+    <Content Include="images\WinstonHumidor_Cigar_Brown.png" />
     <Content Include="index.html" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.min.js" />
