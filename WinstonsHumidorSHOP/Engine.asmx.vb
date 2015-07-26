@@ -118,9 +118,14 @@ Public Class Engine
         Public PostedBy As String
         Public HTML As String
         Public NewsType As String
-
     End Class
 
+
+    Public Class BaseProducts
+        Public ProductID As String
+        Public SKU As String
+        Public Category As String
+    End Class
 
 #Region "Shopping Cart and Checkout"
     <WebMethod(True)> _
@@ -260,10 +265,49 @@ Public Class Engine
     End Function
 
 
+    Dim BaseProductList As New List(Of BaseProducts)
+
+    <WebMethod()> _
+    Public Function GetNewArrivals()
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT TOP 4 p.ProductID, p.SKU,p.Category FROM Products p ORDER BY ProductID DESC"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        If dt.Rows.Count > 0 Then
+
+            BaseProductList.Clear()
+            For Each item As DataRow In dt.Rows()
+                Dim i As New BaseProducts
+                i.ProductID = item("ProductId")
+                i.SKU = item("SKU")
+                i.Category = item("Category")
+       
+                BaseProductList.Add(i)
+            Next
+            Return BaseProductList
+        Else
+            Return 0
+        End If
+
+        Return ""
+    End Function
+
 
 
 #End Region
 
 
-  
+
 End Class
