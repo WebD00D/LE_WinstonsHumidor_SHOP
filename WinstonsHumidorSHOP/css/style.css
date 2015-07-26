@@ -1,3 +1,16 @@
+@font-face {
+    font-family: 'Fancy';
+    src: url('type/SundayBestFancyShadow-Simple-webfont.eot');
+    src: url('type/SundayBestFancyShadow-Simple-webfont.eot?#iefix') format('embedded-opentype'),
+         url('type/SundayBestFancyShadow-Simple-webfont.woff2') format('woff2'),
+         url('type/SundayBestFancyShadow-Simple-webfont.woff') format('woff'),
+         url('type/SundayBestFancyShadow-Simple-webfont.ttf') format('truetype'),
+         url('type/SundayBestFancyShadow-Simple-webfont.svg#sunday_best_fancy_shadosimple') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 h1 {
 	font-size: 38px;
 }
@@ -20,12 +33,18 @@ h1 {
 
 .navbar-nav {
 	width: 90%;
-	margin: 0 0 -1% 27%;
+	margin: 0 0 0% 27%;
 }
 
 .z0 {
 	z-index: 0;
 	position: absolute;
+}
+
+.z1 {
+	z-index: 1;
+	position: relative;
+	
 }
 
 .active {
@@ -41,13 +60,6 @@ h1 {
 	color: #fff;
 	margin: 0 0 0 -12%;
 	width: 35%;
-}
-
-#WinstonsHumidor {
-	font-family: serif;
-	color: #fff;
-	font-size: 4.5em;
-	margin: 22% 0 0 3%;
 }
 
 .hometext {
@@ -80,4 +92,11 @@ h1 {
 .homebody {
 	border: 1px solid #fff;
 	margin: 0 2% 10% 2%;
+}
+
+#WinstonsHumidor {
+	font-family: 'Fancy' serif;
+	color: #fff;
+	font-size: 4.5em;
+	margin: 22% 0 0 3%;
 }
