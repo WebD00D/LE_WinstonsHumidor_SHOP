@@ -3,6 +3,7 @@ Imports System.Web.Services.Protocols
 Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports AuthorizeNet
+Imports MailChimp
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
 <System.Web.Script.Services.ScriptService()> _
@@ -300,6 +301,27 @@ Public Class Engine
         Else
             Return 0
         End If
+
+        Return ""
+    End Function
+
+
+    <WebMethod()> _
+    Public Function SubscribeToMailingList(ByVal Email As String)
+
+
+
+        'This code should be working. 
+        ' When I test, it seems to be going through. I get an email to confirm subscribtion via Mail Chimp.
+        ' However, Within 5 min of subscribing I Don't see any subscribers in my list. 
+        ' I will check this later. 
+        Dim APIKey As String = "c4269d910681eaa8982069decf1e3175-us11"
+        Dim MCManager = New MailChimpManager(APIKey)
+        Dim MCEmail As New MailChimp.Helper.EmailParameter
+        With MCEmail
+            MCEmail.Email = Email
+        End With
+        MCManager.Subscribe("15bdfeb383", MCEmail)
 
         Return ""
     End Function
