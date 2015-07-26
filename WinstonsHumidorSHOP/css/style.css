@@ -36,6 +36,12 @@ h1 {
 	margin: 0 0 0% 27%;
 }
 
+#cigarback {
+	margin: 0 0 0 0%;
+	width: 
+	
+}
+
 .z0 {
 	z-index: 0;
 	position: absolute;
@@ -92,6 +98,7 @@ h1 {
 .homebody {
 	border: 1px solid #fff;
 	margin: 0 2% 10% 2%;
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 #WinstonsHumidor {
