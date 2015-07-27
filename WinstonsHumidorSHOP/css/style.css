@@ -131,6 +131,45 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
 	width: 100%;
 }
 
+.homepage-border {
+	border: solid 2px rgba(176, 165, 147, .8);
+	margin: 8% 0 3% 0;
+	padding: 2% 2% 2% 2%;
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+#homepage-border-mobile {
+	margin: 24% 0 0 0;
+	border: 2px solid rgba(176, 165, 147, .8) ;padding:30px;
+	background-color: rgba(0, 0, 0, 0.65);
+}
+
+#WinstonsHumidorhome {
+	font-family: 'Fancy' serif;
+	font-size: 5em;
+	color: rgba(255, 255, 255, .5);
+	margin: 2% 0 0 0;
+}
+
+#aboutHome {
+	font-family: 'chiser' sans-serif;
+	color: rgba(255, 255, 255, .7);
+	font-size: 2em;
+}
+
+#AboutHomeMobile {
+	font-family: 'chiser';
+	color: rgba(255, 255, 255, .7);
+	font-size: 2em;
+}
+
+#logo {
+	margin: 0 0 0 3%;
+}
+
+#content {
+	background-color: rgb(176, 165, 147);
+}
 .active {
     /*Hey, if you look above I switched out everything that was in here, to just the link element. The class .Active is also a bootstrap
         class that has some standard features we probably don't want to overwrite. So if you want to do something to a link specifically, just do it under 
@@ -173,7 +212,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
     background-size: cover;
 }
 
-.homebody {
+/*.homebody {
 	background-color: rgba(0, 0, 0, 0.65);
 	width: 100%;
 	padding: 5% 0 3% 0%;
@@ -221,4 +260,4 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
 	font-family: 'chiser' sans-serif;
 	font-size: 3em;
 	/*border-top:*/ 
-}
+}*/
