@@ -107,6 +107,7 @@
     <Content Include="Index_NEW.html" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="Pipes.html" />
     <Content Include="ProductDetails.html" />
     <Content Include="TestPage.html" />
     <Content Include="Web.config" />
