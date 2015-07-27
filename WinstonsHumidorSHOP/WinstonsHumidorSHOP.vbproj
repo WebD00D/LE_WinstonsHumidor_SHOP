@@ -98,9 +98,12 @@
     <Content Include="Engine.asmx" />
     <Content Include="Events.html" />
     <Content Include="images\CARTiconred.png" />
-    <Content Include="images\cigarback.png" />
+    <Content Include="images\CigarBackgroundTEST.jpg" />
+    <Content Include="images\CigarTest2.jpg" />
+    <Content Include="images\IMG_9642.jpg" />
     <Content Include="images\WinstonHumidor_Cigar_Brown.png" />
     <Content Include="index.html" />
+    <Content Include="Index_NEW.html" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="ProductDetails.html" />

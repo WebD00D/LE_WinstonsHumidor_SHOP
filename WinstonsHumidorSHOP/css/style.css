@@ -103,14 +103,61 @@ h1 {
 		margin: 1.25% 5% 0 0;
 }*/
 
-
-.active {
+a {
 	background-color: none;
 	color: rgba(176, 165, 147, .8);
 	font-family: 'chiser' sans-serif;
 	font-size: 1.2em;
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
+}
+
+a:hover{
+    color:white;
+}
+
+ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
+
+.active {
+    /*Hey, if you look above I switched out everything that was in here, to just the link element. The class .Active is also a bootstrap
+        class that has some standard features we probably don't want to overwrite. So if you want to do something to a link specifically, just do it under 
+        the a selector above. :) 
+    */
+}
+
+
+@media only screen and (max-width: 766px) {
+.collapsing, .in {background-color: #342A2A;}
+.collapsing ul li a, .in ul li a {color: #555!important;}
+.collapsing ul li a:hover, .in ul li a:hover {color: #f1f1f1!important;}
+.navbar {background-color:#342A2A;}
+}
+
+#headerwrap {
+	/*background-image: url(../img/BannerMe2.png);*/
+    /*background-size:contain;
+    background-repeat:no-repeat;
+    background-position-y:5%;*/
+   
+     
+    /*background: none;*/
+	margin-top: -10px;
+	padding-top:20px;
+	text-align:center;
+
+
+	
+	width: 100%;
+	
+    -webkit-background-size: 100%;
+    -moz-background-size: 100%;
+    -o-background-size: 100%;
+    background-size: 100%;
+
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 .homebody {
@@ -160,5 +207,5 @@ h1 {
 .homeheadlines {
 	font-family: 'chiser' sans-serif;
 	font-size: 3em;
-	border-top: 
+	/*border-top:*/ 
 }
