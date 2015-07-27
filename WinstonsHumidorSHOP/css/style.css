@@ -124,6 +124,13 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
 	width: 100%;
 }
 
+.featuredProductTitle a {
+    text-decoration:none;
+   
+}
+
+
+
 #WHnavbar {
 	font-family: 'Fancy' sans-serif;
 	letter-spacing: ..6em;
@@ -260,4 +267,4 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white; }
 	font-family: 'chiser' sans-serif;
 	font-size: 3em;
 	/*border-top:*/ 
-}*/
+/*}*/
