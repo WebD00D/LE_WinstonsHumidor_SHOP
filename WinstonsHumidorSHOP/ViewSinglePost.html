@@ -179,7 +179,61 @@
                 }
             }) //end ajax 
            
+            $(document).ready(function () {
+                var sPageURL = window.location.href
+                var postID = window.url('?postid', sPageURL);
 
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/LoadPost",
+                    data: "{PostID:'" + postID + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#PostToLoad").empty();
+                            return;
+                        }
+
+                        $("#PostImageHolder").empty();
+                        $("#PostToLoad").empty();
+                        $("#PostTitle").empty();
+                        $("#PostedBy").empty();
+                        $("#PostDate").empty()
+                        $("#PostType").empty();
+
+
+                        $.each(result, function (index, item) {
+                            $("#PostToLoad").html(item.HTML);
+                            $("#PostedBy").text(item.PostedBy);
+                            $("#PostDate").text(item.PostDate);
+                            $("#PostType").text(item.NewsType);
+                            $("#PostTitle").text(item.PostTitle);
+
+
+                            var img = "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                            $(img).hide().appendTo("#PostImageHolder").fadeIn(1000);
+
+                        })
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax 
+
+
+
+
+
+            })
 
 
 
