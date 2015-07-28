@@ -135,30 +135,15 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
+    <script src="js/url.js" type="text/javascript"></script>
     <script>
         $(document).ready(function () {
+            var sPageURL = window.location.href
+            var postID = window.url('?postid',sPageURL);
+           
+          
+           
 
-
-            // get url parameters to load post
-            function GetURLParameter(sParam)
-            {
-                var sPageURL = window.location.search.substring(1);
-                var sURLVariables = sPageURL.split('&');
-                for (var i = 0; i < sURLVariables.length; i++) 
-                {
-                    var sParameterName = sURLVariables[i].split('=');
-                    if (sParameterName[0] == sParam) 
-                    {
-                        return sParameterName[1];
-                    }
-                }
-            }​
-
-            //And this is how you can use this function assuming the URL is,
-            //'http://dummy.com/?technology=jquery&blog=jquerybyexample'. 
-                var tech = GetURLParameter('technology');
-                var blog = GetURLParameter('blog');
-               // So in above code variable "tech" will have "jquery" as value and "blog" variable's will be "jquerybyexample".
 
 
 

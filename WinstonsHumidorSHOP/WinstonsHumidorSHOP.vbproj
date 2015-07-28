@@ -110,6 +110,7 @@
     <Content Include="Index_NEW.html" />
     <Content Include="js\bootstrap.min.js" />
     <Content Include="js\jquery.min.js" />
+    <Content Include="js\url.js" />
     <Content Include="Pipes.html" />
     <Content Include="PipeTobacco.html" />
     <Content Include="ProductDetails.html" />
