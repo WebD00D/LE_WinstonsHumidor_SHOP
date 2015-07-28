@@ -190,10 +190,12 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 #content {
 	background-color: rgb(176, 165, 147);
+	padding: 0 0 5% 0;
 }
 
-#newarrivals {
-	margin-top:10px;
+
+.homeheadlines {
+	margin-top:5%;
 	color:#808080;
 	font-family:'chiser';
 	color: rgba(0, 0, 0, 0.65);
@@ -202,25 +204,16 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	padding: .5%;
 }
 
-#newseventshome {
-	margin-top:10px;
-	color:#808080;
-	font-family:'chiser';
-	color: rgba(0, 0, 0, 0.65);
-	border-top: double rgba(0, 0, 0, 0.65);
-	border-bottom: double rgba(0, 0, 0, 0.65);
-	padding: .5%;
-}
 
 .eventsnippet {
 	background-color: rgba(255, 255, 255, .5);
 	border: 2px solid #000000;
-	padding: 0% 2% 4% 2%;
+	padding: 0% 2% 3% 2%;
     margin-top:2%;
 }
 
-#datelocation {
-	margin: -20% 1% 0 0;
+.datelocation {
+	margin: -19.5% 1% 0 0;
 
 }
 
@@ -236,8 +229,19 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 
 .btn-news {
-    color:white;
-    background-color:#808080;
+    color: rgba(0, 0, 0, 0.65);
+    background-color:none;
+    padding-top:8px;
+    padding-bottom:8px;
+    padding-left:10px;
+    padding-right:10px;
+   border-radius:4px;
+   
+}
+
+.btn-news2 {
+	color: #fff;
+    background-color: rgba(206, 70, 70, 0.9);
     padding-top:8px;
     padding-bottom:8px;
     padding-left:10px;
@@ -248,9 +252,53 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 .btn-news:hover {
     text-decoration:none;
-    background-color:#342A2A;
+    background-color: rgba(0, 0, 0, 0.65);
+	color: white;
 }
 
+.btn-news2:hover {
+    text-decoration:none;
+    background-color: rgba(0, 0, 0, 0.65);
+	color: white;	
+}
+
+#footer_background {
+	background-color: rgba(10, 3, 0, 0.8);
+	padding: 2% 0 3% 0;
+}
+
+#footer_border {
+	border-top: double rgba(206, 70, 70, 0.9);
+}
+
+#footer_hours {
+	float: left;
+	margin: 1% 5% 0 5%;
+}
+
+#footer_contact {
+	float: left;
+	margin: 1% 0 0 0;
+}
+
+.footer_li {
+	font-family: 'tex' serif;
+	color: #fff;
+	font-size: 1.1em;
+}
+
+.footer_ul {
+	list-style: none;
+}
+
+#footer_images_top {
+	margin: 2% 5% 1% 2%;
+	
+}
+
+#footer_image_bottom {
+	margin: 0 5% 0 0;
+}
 
 
 @media only screen and (max-width: 766px) {
