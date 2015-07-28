@@ -173,6 +173,26 @@ Public Class Engine
         post_values.Add("x_zip", "98004")
 
 
+        'or 
+
+        'Step 1 - Create the request
+        'C#  var request = new AuthorizationRequest("4111111111111111", "1216", 10.00M, "Test Transaction ");"
+        Dim Request = New AuthorizationRequest("CARDNBR", "1216", 10.0, "Description")
+
+        'Step 2 - Create the gateway, sending in your credentials
+        'C#  var gate = new Gateway("YOUR_API_LOGIN_ID", "YOUR_TRANSACTION_KEY");
+
+        Dim gate = New Gateway("APILOGIN", "TRANSKEY")
+
+        ' Step 3 - Send the request to the gateway
+        'C#  var response = gate.Send(request);
+
+        Dim response = gate.Send(Request)
+
+        'Use for codes to showing to customer, and storing transaction id's in db
+        Dim ResponseCode As String = response.ResponseCode
+        Dim ResponseMsg As String = response.Message
+          
         Return ""
     End Function
     <WebMethod(True)> _
