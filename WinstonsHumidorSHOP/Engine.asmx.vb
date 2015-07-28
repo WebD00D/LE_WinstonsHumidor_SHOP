@@ -120,6 +120,7 @@ Public Class Engine
         Public PostDate As String
         Public PostedBy As String
         Public HTML As String
+        Public PlainText As String
         Public NewsType As String
     End Class
 
@@ -238,10 +239,8 @@ Public Class Engine
 #Region "Home Page"
 
 
-
-
     <WebMethod()> _
-    Public Function LoadNewsandEvents()
+    Public Function LoadPost(ByVal PostID As Integer)
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
         Dim dt As New DataTable
@@ -250,7 +249,7 @@ Public Class Engine
             cmd.Connection = con
             cmd.Connection.Open()
             cmd.CommandType = CommandType.Text
-            cmd.CommandText = "SELECT TOP 3 * FROM NewsPosts"
+            cmd.CommandText = "SELECT * FROM NewsPosts WHERE PostID = " & PostID
             Using da As New SqlDataAdapter
                 da.SelectCommand = cmd
                 da.Fill(dt)
@@ -268,6 +267,47 @@ Public Class Engine
                 i.PostDate = item("PostDate")
                 i.PostedBy = item("PostedBy")
                 i.HTML = item("HTML")
+                i.PlainText = item("PlainText")
+                i.NewsType = item("PostType")
+                NewsList.Add(i)
+            Next
+            Return NewsList
+        Else
+            Return 0
+        End If
+
+    End Function
+
+
+    <WebMethod()> _
+    Public Function LoadNewsandEvents()
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT TOP 3 * FROM NewsPosts ORDER BY PostDate DESC"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        If dt.Rows.Count > 0 Then
+
+            NewsList.Clear()
+            For Each item As DataRow In dt.Rows()
+                Dim i As New NewsPosts
+                i.NewsPostID = item("PostID")
+                i.PostTitle = item("PostTitle")
+                i.PostDate = item("PostDate")
+                i.PostedBy = item("PostedBy")
+                i.HTML = item("HTML")
+                i.PlainText = item("PlainText")
                 NewsList.Add(i)
             Next
             Return NewsList

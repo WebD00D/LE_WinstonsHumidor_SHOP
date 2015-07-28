@@ -69,11 +69,11 @@
     <div id="headerwrap" style="background-color:#EEEEEE;padding-bottom:20px">
         <div class="container text-center">
             <div class="col-lg-6 col-lg-offset-3">
-                <h1 style="color:#332e2e;margin-top:100px;"><b>Post Title</b></h1>
+                <h1 style="color:#332e2e;margin-top:100px;"><b id="PostTitle"></b></h1>
                 <ul class="list-inline">
-                    <li style="color:#0094ff">Christian Bryant</li>
-                    <li style="color:#625959">July 26th, 2015</li>
-                    <li style="color:green">News</li>
+                    <li style="color:#0094ff"><b id="PostedBy"></b></li>
+                    <li style="color:#625959"><b id="PostDate"></b></li>
+                    <li style="color:green"><b id="PostType"></b></li>
                 </ul>
         
             </div>
@@ -85,20 +85,12 @@
             <div class="col-lg-8">
 
                 <!--NEWS BLOCK START-->
-                <div class="col-lg-8 col-lg-offset-2" style="margin-top:10px">
+                <div class="col-lg-12" id="PostImageHolder">
+
+                </div>
+                <div id="PostToLoad" class="col-lg-12" style="margin-top:15px">
                    
-                    <p id="postText">
-
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-
-                        <br />
-                        <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-                        <br />
-                        <br />
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. 
-
-                    </p>
+                   
                     
                 </div>
                
@@ -140,8 +132,52 @@
         $(document).ready(function () {
             var sPageURL = window.location.href
             var postID = window.url('?postid',sPageURL);
-           
-          
+            
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/LoadPost",
+                data: "{PostID:'" + postID + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+
+                    if (result == 0) {
+                        $("#PostToLoad").empty();
+                        return;
+                    }
+
+                    $("#PostImageHolder").empty();
+                    $("#PostToLoad").empty();
+                    $("#PostTitle").empty();
+                    $("#PostedBy").empty();
+                    $("#PostDate").empty()
+                    $("#PostType").empty();
+
+
+                    $.each(result, function (index, item) {
+                        $("#PostToLoad").html(item.HTML);
+                        $("#PostedBy").text(item.PostedBy);
+                        $("#PostDate").text(item.PostDate);
+                        $("#PostType").text(item.NewsType);
+                        $("#PostTitle").text(item.PostTitle);
+
+
+                        var img = "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $(img).hide().appendTo("#PostImageHolder").fadeIn(1000);
+
+                    })
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax 
            
 
 
