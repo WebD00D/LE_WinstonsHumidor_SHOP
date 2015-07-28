@@ -212,11 +212,11 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	padding: .5%;
 }
 
-#eventsnippet {
+.eventsnippet {
 	background-color: rgba(255, 255, 255, .5);
 	border: 2px solid #000000;
 	padding: 0% 2% 4% 2%;
-
+    margin-top:2%;
 }
 
 #datelocation {
