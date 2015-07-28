@@ -193,7 +193,7 @@ Public Class Engine
         Dim ResponseCode As String = response.ResponseCode
         Dim ResponseMsg As String = response.Message
           
-        Return ""
+        Return "hey dude"
     End Function
     <WebMethod(True)> _
     Public Function AddToCart(ByVal ProductID As Integer) As String
