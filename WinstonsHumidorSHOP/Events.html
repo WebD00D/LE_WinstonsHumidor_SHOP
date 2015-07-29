@@ -28,7 +28,7 @@
 
         
 
-    <nav class="navbar navbar-fixed-top">
+    <nav class="navbar navbar-fixed-top" >
         <div class="navbar-background container">
             <div class=" WHnavbar navbar-header">
                 <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -39,9 +39,9 @@
                 </button>
                 <a class="navbar-brand" id="WHnavbar" href="#">WINSTON'S HUMIDOR</a>
             </div>
+            
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
                     <li><a href="#about">About</a></li>
                     <li class="dropdown list">
                         <a href="#" class="active dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <span class="caret"></span></a>
@@ -52,81 +52,131 @@
                             <li><a href="Coffee.html">Coffee</a></li>
                             <li><a href="Apparel.html">Apparel</a></li>
                             <li><a href="Accessories.html">Accessories</a></li>
-
                         </ul>
                     </li>
 
                     <li class="active"><a href="Events.html">News & Events</a></li>
-                    <li class="active"><a href="#">Contact</a></li>
+                    <li class="active"><a href="#">Contact</a></li>                
                     <li class="active"><a href="#">Directions</a></li>
-                    <li><a href="#contact">Cart <i class="badge" style="background-color:red">4</i></a></li>
+                    <li class="active"><a href="#">Log in</a></li>
+                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
 
            
-    <div id="headerwrap" style="background-color:#EEEEEE;padding-bottom:20px">
+    <!-----------------------------HEADER VIEWS START----------------------------------->
+    <!-- DESKTOP VIEW -->
+    <div id="headerwrap" class="hidden-sm hidden-xs" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
         <div class="container text-center">
-            <div class="col-lg-6 col-lg-offset-3">
-                <h1 style="color:#332e2e;margin-top:100px;"><b>News and Events</b></h1>
-              
-                <input style="border-radius:50px" class="form-control" placeholder="Search news and events by name or post date."/>
+            <div class="homepage-border col-lg-12">
+                <div class="col-lg-12 text-center">
+                    <h1 class="text-center shop_intros" id="WinstonsHumidorhome" style="font-size:7em; text-align: center"><b>News and Events</b></h1><br />
+
+                </div>
+
             </div>
+
         </div><!-- /container -->
     </div><!-- /headerwrap -->
     
-    <div id="content" style="margin-top:25px;background-color:white;margin-bottom:30px">
+        <!-- MOBILE VIEW -->
+    <div id="headerwrap" class="hidden-md hidden-lg hidden-xl" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
+        <div class="container text-center">
+            <div class="col-lg-12" id="homepage-border-mobile">
+
+                <div class="col-lg-12 text-center">
+                    <h1 class="text-center shop_intros" style="font-size:5em" id="WinstonsHumidorhome"><b>NEWS AND EVENTS</b></h1><br />
+                    <br />
+
+
+                </div>
+            </div>
+
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->
+   
+
+    <!-----------------------------HEADER VIEWS END----------------------------------->
+
+    <div id="content">
        <div class="container">
            <div class="col-lg-8">
 
                <!--NEWS BLOCK START-->
-               <div class="col-lg-8 col-lg-offset-2" style="margin-top:10px">
-                   <h2> <b>Herrera Esteli's are Back</b></h2>
-                   <ul class="list-inline">
-                       <li style="color:#0094ff">Christian Bryant</li>
-                       <li style="color:#625959">July 26th, 2015</li>
-                       <li style="color:green">News</li>
-                   </ul>
-                   <hr />
-                   <p style="color:#737C7F">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                   <br />
-                   <a href="#" class="btn btn-success" >Continue Reading...</a>
-               </div>
+                      <div class="col-lg-10 col-lg-offset-1 eventsnippet"  >
+                          <img src="images/NEWSiconred.png" class="hidden-med hidden-lg hidden-xl" style="float:left; width: 20%; margin: 6% 2.5% 1% .25%"/>
+                          <h2 style="font-family:'chiser'"> <b>Herrerra Estelli Boxes Are In!</b></h2>
+                          <ul class="list-inline">
+                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
+                              <li style="color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">July 26th, 2015</li>
+                              <li style="color: rgba(255,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">News</li>
+                          </ul>
+
+                          <p class="newsevent_p hidden-sm hidden-xs" style="margin: 0 15% 2% 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>               
+                          <a href="#" class="btn-news">Continue Reading...</a>
+                          
+                          <img src="images/NEWSiconred.png" class="hidden-sm hidden-xs" style="float:right; width: 25%; margin: -24% 0% 1% 0" />
+                      </div>
                <!--NEWS BLOCK END-->
 
                <!--EVENT BLOCK START-->
-               <div class="col-lg-8 col-lg-offset-2" style="margin-top:10px">
-                   <h2> <b>Rocky Patel Cigar Event</b></h2>
-                   <ul class="list-inline">
-                       <li style="color:#0094ff">Christian Bryant</li>
-                       <li style="color:#625959">July 26th, 2015</li>
-                       <li style="color:red">Event</li>
-                   </ul>
-                   <hr />
-                   <p style="color:#737C7F">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                   <br />
-                   <a href="#" class="btn btn-success">Continue Reading...</a>
-               </div>
+                      <div class="col-lg-10 col-lg-offset-1 eventsnippet">
+
+
+                          <h2 class="hidden-sm hidden-xs" style="font-family:'chiser'"> <b>Rocky Patel Cigar Event</b></h2>
+                          <h2 class="hidden-med hidden-lg hidden-xl" style="font-family:'chiser'; margin: 4% 0 0 20%"> <b>Rocky Patel Cigar Event</b></h2>
+                          <ul class="list-inline hidden-sm hidden-xs">
+                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
+                              <li style="color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">July 26th, 2015</li>
+                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
+                          </ul>
+                          <ul class="list-inline hidden-med hidden-lg hidden-xl" style="margin: 0 0 0 18%">
+                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
+                              <li style="color: rgba(0,0,0,0.5)">July 26th, 2015</li>
+                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
+                          </ul>                          
+                          <p class="newsevent_p hidden-sm hidden-xs" style="margin: 0 15% 2% 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
+                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>                          
+                          <a href="#" class="btn-news" style="background-color:none">Continue Reading...</a>
+                          
+                          <div class="datelocation hidden-sm hidden-xs" style="margin: -29% 0 0 0">
+                          <h1 class="events_month">july</h1>
+                          <h2 class="events_day">26</h2>
+                          <h1 class="events_location">location, va</h1>
+                          </div>
+                          
+                          <div class="datelocationMOBILE hidden-med hidden-lg hidden-xl">
+                          <h1 class="events_monthMOBILE">july</h1>
+                          <h2 class="events_dayMOBILE">26</h2>
+                          <h1 class="events_locationMOBILE">location, va</h1>
+                          </div>
+                          </div>               
                <!--EVENT BLOCK END-->
 
            </div>
+          
+          <!--SUBSCRIBE BLOCK-->
            <div class="col-lg-4">
-               <div class="col-lg-12" style="margin-top:10px;background-color:#eaeef1;border-radius:8px">
+               <div class="col-lg-12">
+               <div style="border: black solid 2px; padding: 0 15% 15% 15%; margin: 4.55% 14% 0 0; width:130%">    
                    <br />
                    
-                   <h4 style="color:#8c989e"> <b>Stay Updated</b></h4>
-                   <h5 style="color:#737C7F">Sign up for our newsletter to stay up to date with the latest happenings around the shop!</h5>
+                   <h4 style="font-family:'chiser'; font-size: 4em">stay updated</h4>
+                   <h5 style="font-family:'tex'; font-size: 1.2em; rgba(0,0,0,0.65)">Sign up for our newsletter to stay up to date with the latest happenings around the shop!</h5>
              
-                   <input class="form-control" placeholder="email" style="border-radius:50px"/>
+                   <input class="form-control" placeholder="email" style="border:2px solid rgba(0,0,0,0.65)"/>
                    <br />
-                   <a href="#" class="btn-block text-center" style="font-family:sans-serif;background-color:#b8bfc7;color:white;padding:10px;border-radius:8px;text-decoration:none;font-size:large">Subscribe</a>
+                   <a href="#" class="btn-news2">subscribe</a>
                    <br />
+               </div>
                 
                </div>
            </div>
        </div>
-       
+<!---SUBSCRIBE BLOCK ENDS-->      
 
         
        
@@ -135,11 +185,80 @@
 
     
 
+<!---FOOTER BEGINS-->
+    <section id="footer">
+
+        <div class="col-lg-12" id="footer_background">
+        <div id="footer_border">  
+            
+            <div id="footer_hours" class="hidden-sm hidden-xs">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+            <ul class="footer_ul">
+                <li class="footer_li"> Monday: 10am-8pm</li>
+                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                <li class="footer_li">Sunday: 12pm-6pm</li>
+            </ul>
+            </div>
+            <div id="footer_contact" class="hidden-sm hidden-xs">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
+            <ul class="footer_ul">
+                <li class="footer_li">13817 Village Place Drive</li>
+                <li class="footer_li">Midothian, VA 23114</li>
+                <li class="footer_li">(804)379-2985</li>
+            </div>           
+            
+            <div id="footer_images_top" class="hidden-sm hidden-xs" align="right">
+            <img src="images/IPCPR.png" width="5%" style="margin: 0 1% 0 0 "/>
+            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="4%" style="margin: 0 1% 0 0"/></a>
+            <img src="images/tobacconistu.png" width="4%" style="margin: 0 1% 0 0 "/>
+            <img src="images/JoinCRA.gif" width="4%"/>
+            </div>
+            <div id="footer_image_bottom" class="hidden-sm hidden-xs" align="right">
+            <img src="images/cigarforwarriors copy.png" width="20%"/>
+            </div>
+            
+            <div style="margin: 0 0 0 28%">
+            <div class="hidden-med hidden-lg hidden-xl">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+            <ul class="footer_ul">
+                <li class="footer_li"> Monday: 10am-8pm</li>
+                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                <li class="footer_li">Sunday: 12pm-6pm</li>
+            </ul>
+            </div>            
+            <div class="hidden-med hidden-lg hidden-xl">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
+            <ul class="footer_ul">
+                <li class="footer_li">13817 Village Place Drive</li>
+                <li class="footer_li">Midothian, VA 23114</li>
+                <li class="footer_li">(804)379-2985</li>
+            </ul>
+            </div> 
+            </div>            
+            
+            <div class="hidden-med hidden-lg hidden-xl" align="right" style="margin: 10% 40% 2% 0;">
+            <img src="images/IPCPR.png" width="8%" style="margin: 0 1% 0 0 "/>
+            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="7%" style="margin: 0 1% 0 0"/></a>
+            <img src="images/tobacconistu.png" width="7%" style="margin: 0 1% 0 0 "/>
+            <img src="images/JoinCRA.gif" width="7%"/>
+            </div>            
+            <div class="hidden-med hidden-lg hidden-xlalign="right">
+            <img src="images/cigarforwarriors copy.png" width="25%" style="margin: 0 0 0 37%"/>
+            </div>
+            </div>             
+   
+                
+            
+            
+        </div>  
+
+    </section>
+<!---FOOTER ENDS-->
  
  
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script>
         $(document).ready(function () {
