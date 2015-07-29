@@ -328,6 +328,7 @@ Public Class Engine
                 i.PostedBy = item("PostedBy")
                 i.HTML = item("HTML")
                 i.PlainText = item("PlainText")
+                i.NewsType = item("PostType")
                 NewsList.Add(i)
             Next
             Return NewsList
