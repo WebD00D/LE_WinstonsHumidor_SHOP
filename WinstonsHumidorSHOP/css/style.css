@@ -164,6 +164,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	border: solid 2px rgba(176, 165, 147, .8);
 	margin: 12% 0 4% 0;
 	padding: 2% 8% 5% 2%;
+	
 
 }
 
@@ -225,14 +226,100 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 .eventsnippet {
 	background-color: rgba(255, 255, 255, .5);
 	border: 2px solid #000000;
-	padding: 0% 2% 3% 2%;
+	padding: 0% 2% 2% 2%;
     margin-top:2%;
 }
 
-.datelocation {
-	margin: -19.5% 1% 0 0;
-	color: rgba(206, 70, 70, 0.8);
+.events_month {
+	background-color: rgba(206,70,70,0.9); 
+	font-family:'chiser';
+	color: rgba(255,255,255,0.8);
+	border-top-right-radius: 25px;
+	border-top-left-radius: 25px;
+	font-size: 2em;
+	text-align: center;
+	text-transform: lowercase;
+}
 
+.events_monthMOBILE {
+	background-color: rgba(206,70,70,0.9); 
+	font-family:'chiser';
+	color: rgba(255,255,255,0.8);
+	border-top-right-radius: 20%;
+	border-top-left-radius: 20%;
+	font-size: 1.5em;
+	text-align: center;
+	text-transform: lowercase;
+}
+
+.events_day {
+	font-family:'tex';
+	color: rgba(206,70,70,0.8);
+	border: solid 2px rgb(206,70,70);
+	border-bottom-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	text-align: center;
+	font-size: 7em;
+	margin: -8.5% 0 0 0;
+	padding: 0 10% 0 10%;
+}
+
+.events_dayMOBILE {
+	font-family:'tex';
+	color: rgba(206,70,70,0.8);
+	border: solid 2px rgb(206,70,70);
+	border-bottom-right-radius: 20%;
+	border-bottom-left-radius: 20%;
+	text-align: center;
+	font-size: 3em;
+	margin: -16% 0 0 0;
+	padding: 0 10% 0 10%;
+}
+
+.events_location{
+	font-family:'chiser';
+	font-size: 2em;
+	color: rgb(206,70,70);
+	text-align:center;
+	margin:0% 0 0 0;
+	text-transform: lowercase
+}
+
+.events_locationMOBILE{
+	font-family:'chiser';
+	font-size: 1em;
+	color: rgb(206,70,70);
+	text-align:center;
+	margin:0% 0 0 0;
+	text-transform: lowercase
+}
+
+.datelocation {
+	float: right;
+	margin: -18% 0 0 0;
+
+
+}
+
+.datelocationMOBILE {
+	float: left;
+	margin: -55% 0 0 0;
+
+
+}
+
+.newsevent_p {
+	color:rgba(0,0,0,0.6);
+	font-family:'tex';
+	margin: 1% 8% 1% 0;
+	padding: 0 12.9% 0 0;
+}
+
+.newsevent_pMOBILE {
+	color:rgba(0,0,0,0.6);
+	font-family:'tex';
+	margin: 2% 0 0 0;
+	padding: 0 12.9% 0 0;
 }
 
 #continuereading {
