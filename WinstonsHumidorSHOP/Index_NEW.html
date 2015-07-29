@@ -152,57 +152,6 @@
               <div class="col-lg-12">
                   <div id="NewsandEventsLoader" style="margin: 2% 0 10% 0">
 
-                      <div class="col-lg-10 col-lg-offset-1 eventsnippet">
-
-
-                          <h2 class="hidden-sm hidden-xs" style="font-family:'chiser'"> <b>Rocky Patel Cigar Event</b></h2>
-                          <h2 class="hidden-med hidden-lg hidden-xl" style="font-family:'chiser'; margin: 4% 0 0 20%"> <b>Rocky Patel Cigar Event</b></h2>
-                          <ul class="list-inline hidden-sm hidden-xs">
-                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
-                              <li style="color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">July 26th, 2015</li>
-                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
-                          </ul>
-                          <ul class="list-inline hidden-med hidden-lg hidden-xl" style="margin: 0 0 0 18%">
-                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
-                              <li style="color: rgba(0,0,0,0.5)">July 26th, 2015</li>
-                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
-                          </ul>                          
-                          <p class="newsevent_p hidden-sm hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>                          
-                          <a href="#" class="btn-news" style="background-color:none">Continue Reading...</a>
-                          
-                          <div class="datelocation hidden-sm hidden-xs">
-                          <h1 class="events_month">july</h1>
-                          <h2 class="events_day">26</h2>
-                          <h1 class="events_location">location, va</h1>
-                          </div>
-                          
-                          <div class="datelocationMOBILE hidden-med hidden-lg hidden-xl">
-                          <h1 class="events_monthMOBILE">july</h1>
-                          <h2 class="events_dayMOBILE">26</h2>
-                          <h1 class="events_locationMOBILE">location, va</h1>
-                          </div>
-                          </div>
-                     
-                      
-
-                      <div class="col-lg-10 col-lg-offset-1 eventsnippet"  >
-                          <img src="images/NEWSiconred.png" class="hidden-med hidden-lg hidden-xl" style="float:left; width: 20%; margin: 6% 2.5% 1% .25%"/>
-                          <h2 style="font-family:'chiser'"> <b>Herrerra Estelli Boxes Are In!</b></h2>
-                          <ul class="list-inline">
-                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
-                              <li style="color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">July 26th, 2015</li>
-                              <li style="color: rgba(255,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">News</li>
-                          </ul>
-
-                          <p class="newsevent_p hidden-sm hidden-xs">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>               
-                          <a href="#" class="btn-news" >Continue Reading...</a>
-                          
-                          <img src="images/NEWSiconred.png" class="hidden-sm hidden-xs" style="float:right; width: 16%; margin: -15% 0% 1% 0" />
-                      </div>
-                      
-                    
                   </div>  
                   </div>
               
@@ -286,7 +235,7 @@
 
         </div>
     </div>
-    </div>
+   
 
     <section id="footer">
 
@@ -308,6 +257,7 @@
                 <li class="footer_li">13817 Village Place Drive</li>
                 <li class="footer_li">Midothian, VA 23114</li>
                 <li class="footer_li">(804)379-2985</li>
+                </ul>
             </div>
             
             <div id="footer_images_top" align="right">
@@ -341,6 +291,58 @@
         $(document).ready(function () {
 
 
+            //Load New Arrivals
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetNewArrivals",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+
+                    if (result == 0) {
+                        $("#NewArrivalSection").empty();
+                        return;
+                    }
+
+                    $("#NewArrivalSection").empty();
+                 
+                    $.each(result, function (index, item) {
+
+
+                        
+
+                        
+
+
+                        var content = "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $(content).hide().appendTo("#NewArrivalSection").fadeIn(1000);
+
+
+                      "  <div class='col-lg-3'> " +
+                      "  <img src='images/IMG_9642.jpg' class='img img-responsive img-thumbnail'/> " +
+                      "  <div class='featuredProductTitle' style='margin-top:10px'> " +
+                      "  <a href='#'><b style='color: rgba(0,0,0,0.65)'>Wilson Adams | Toro <label class='label label-default pull-right' style='background-color:rgba(0,0,0,0.7)'>$100.50</label></b></a> " +
+                      "  </div> " +
+                      "  </div> "
+                    })
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax 
+
+
+
+
             $.ajax({
                 type: "POST",
                 url: "Engine.asmx/LoadNewsandEvents",
@@ -358,65 +360,63 @@
                     }
 
                     $("#NewsandEventsLoader").empty();
-
-
                     $.each(result, function (index, item) {
                        
-                        i.NewsPostID = item("PostID")
-                        i.PostTitle = item("PostTitle")
-                        i.PostDate = item("PostDate")
-                        i.PostedBy = item("PostedBy")
-                        i.HTML = item("HTML")
-                        i.PlainText = item("PlainText")
-                        i.NewsType = item("PostType")
-
                         var content;
-                        if (item.NewsType = 'News') {
-                            content = " <div class='col-lg-10 col-lg-offset-1 eventsnippet'> " +
-                       " <img src='images/eventicon.png' class='hidden-sm hidden-xs' style='float:left; width: 6%; margin: 3% 1.5% 1% 0' /> " +
-                       " <img src='images/eventicon.png' class='hidden-med hidden-lg hidden-xl' style='float:left; width: 8%; margin: 5% 2.5% 1% 0'/> " +
-                       " <h2 style='font-family:'chiser'> <b>Rocky Patel Cigar Event</b></h2> " +
-                       " <ul class='list-inline'> " +
-                           "  <li style='color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;'>Christian Bryant</li>" +
-                           "  <li style='color: rgba(0,0,0,0.5)' class='hidden-md hidden-lg hidden-xl'>July 26th, 2015</li>  " +
-                           "  <li style='color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em'>Event</li>            " +
-                       " </ul> " +
-                       " <p style='color:rgba(0,0,0,0.6); font-family:'tex'; margin-top:10px; padding: 0 12.9% 0 0'>Lorem ipsum dolor sit amet</p> " +
-                       "  <a href='#' class='btn-news' style='background-color:none'>Continue Reading...</a> " +
-                       " <div class='datelocation hidden-sm hidden-xs'> " +
-                       "     <h3 style='font-family:'chiser'; font-size: 2.2em; text-align: right; margin: 0 0 -1% 0;'>july</h3> " +
-                       "      <h4 style='font-family:'tex'; font-size: 7.2em; text-align: right; margin: 0 0 -3% 0;'>26</h4> " +
-                       "      <h3 style='font-family:'chiser'; font-size: 1.3em; text-align: right'>Location, VA</h3> " +
-                       "  </div> " +
-                       "  </div> "
+                        if (item.NewsType == 'News') {
+                            
+                            content =  "  <div class='col-lg-10 col-lg-offset-1 eventsnippet'  > " +
+                  
+                   "      <h2 style='font-family:'chiser';'> <b>"+ item.PostTitle +"</b></h2> " +
+                   "      <ul class='list-inline'> " +
+                   "          <li style='color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;'>"+ item.PostedBy +"</li> " +
+                   "          <li style='color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;'>" + item.PostDate + "</li> " +
+                   "          <li style='color: rgba(255,0,0,0.5); font-family: 'tex'; font-size: 1.2em;'>"+ item.NewsType +"</li> " +
+                   "      </ul> " +
+                   
+                   "      <p class='newsevent_p hidden-sm hidden-xs'>" + item.PlainText +"</p> " +
+                   "      <p class='newsevent_pMOBILE hidden-md hidden-lg hidden-xl'>" + item.PlainText + "</p>  " +
+                   "     <br /> " +
+                       
+                   "       <a href='ViewSinglePost.html?postid="+ item.NewsPostID +"' class='btn-news' >Continue Reading...</a> " +
+                        
+                   "      <img src='images/NEWSiconred.png' class='hidden-sm hidden-xs' style='float:right; width: 16%; margin: -15% 0% 1% 0' /> " +
+                   "  </div> " 
+
+
+
                         } else {
-                            content = '';
+                            content = "<div> <div class='col-lg-10 col-lg-offset-1 eventsnippet'><div class='col-lg-10'> " +
+                       "   <h2 class='hidden-sm hidden-xs' style='font-family:'chiser''> <b>" + item.PostTitle + "</b></h2> " +
+                       "   <h2 class='hidden-md hidden-lg hidden-xl text-left' style='font-family:'chiser';'> <b>" + item.PostTitle + "</b></h2> " +
+                       "   <ul class='list-inline hidden-sm hidden-xs'> " +
+                       "       <li style='color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;'>" + item.PostedBy + "</li> " +
+                       "       <li style='color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;'>" + item.PostDate + "</li> " +
+                       "       <li style='color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em'>" + item.NewsType + "</li> " +
+                       "   </ul> " +
+                       "   <ul class='list-inline hidden-md hidden-lg hidden-xl text-left' > " +
+                       "       <li style='color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;'>" + item.PostedBy + "</li> " +
+                       "       <li style='color: rgba(0,0,0,0.5)'>" + item.PostDate + "</li> " +
+                       "       <li style='color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em'>" + item.NewsType + "</li> " +
+                       "   </ul>    " +                      
+                       "   <p class='newsevent_p hidden-sm hidden-xs'>" + item.PlainText + "</p> " +
+                       "   <p class='newsevent_pMOBILE hidden-md hidden-lg hidden-xl'>" + item.PlainText + " </p> " +
+                       "   <br /> " +
+                       "   <a href='ViewSinglePost.html?postid=" + item.NewsPostID + "' class='btn-news' style='background-color:none'>Continue Reading...</a> </div>" +
+                            "   <div class='col-lg-2 hidden-sm hidden-xs'> " +
+                       "   <h1 class='events_month'>" + item.EventMonth + "</h1> " +
+                       "   <h2 class='events_day'>" + item.EventDay + "</h2> " +
+                       "   <h3 class='events_location'>" + item.EventLocation + "</h4> " +
+                       "   </div> " +
+
+                      "   </div> " 
+
+                  
+
                         }
 
 
-                      "  <div class='col-lg-10 col-lg-offset-1 eventsnippet'> " +
-                      "  <img src='images/eventicon.png' class='hidden-sm hidden-xs' style='float:left; width: 6%; margin: 3% 1.5% 1% 0' /> " +
-                      "  <img src='images/eventicon.png' class='hidden-med hidden-lg hidden-xl' style='float:left; width: 8%; margin: 5% 2.5% 1% 0'/> " +
-                      "  <h2 style='font-family:'chiser';'> <b>Rocky Patel Cigar Event</b></h2> " +
-                      "  <ul class='list-inline'>" +
-                        " <li style='color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;'>Christian Bryant</li>  " +
-                        " <li style='color: rgba(0,0,0,0.5)' class='hidden-md hidden-lg hidden-xl'>July 26th, 2015</li> " +
-                        " <li style='color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em'>Event</li>" +
-                      " </ul> " +
-                     " <p style='color:rgba(0,0,0,0.6); font-family:'tex'; margin-top:10px; padding: 0 12.9% 0 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                      <a href="#" class="btn-news" style="background-color:none">Continue Reading...</a>
-                      <div class="datelocation hidden-sm hidden-xs">
-                          <h3 style="font-family:'chiser'; font-size: 2.2em; text-align: right; margin: 0 0 -1% 0;">july</h3>
-                          <h4 style="font-family:'tex'; font-size: 7.2em; text-align: right; margin: 0 0 -3% 0;">26</h4>
-                          <h3 style="font-family:'chiser'; font-size: 1.3em; text-align: right">Location, VA</h3>
-                      </div>
-                      </div>
-
                         $(content).hide().appendTo("#NewsandEventsLoader").fadeIn(1000);
-
-                      
-                     
-
 
                     })
 

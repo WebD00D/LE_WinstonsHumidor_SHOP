@@ -122,12 +122,17 @@ Public Class Engine
         Public HTML As String
         Public PlainText As String
         Public NewsType As String
+        Public EventMonth As String
+        Public EventDay As String
+        Public EventLocation As String
     End Class
 
     Public Class BaseProducts
         Public ProductID As String
         Public SKU As String
         Public Category As String
+        Public Price As String
+        Public Name As String
     End Class
 
 
@@ -259,6 +264,9 @@ Public Class Engine
 #Region "Home Page"
 
 
+
+
+
     <WebMethod()> _
     Public Function LoadPost(ByVal PostID As Integer)
 
@@ -284,11 +292,16 @@ Public Class Engine
                 Dim i As New NewsPosts
                 i.NewsPostID = item("PostID")
                 i.PostTitle = item("PostTitle")
-                i.PostDate = item("PostDate")
+                i.PostDate = CDate(item("PostDate"))
                 i.PostedBy = item("PostedBy")
                 i.HTML = item("HTML")
                 i.PlainText = item("PlainText")
                 i.NewsType = item("PostType")
+
+            
+
+
+
                 NewsList.Add(i)
             Next
             Return NewsList
@@ -309,7 +322,7 @@ Public Class Engine
             cmd.Connection = con
             cmd.Connection.Open()
             cmd.CommandType = CommandType.Text
-            cmd.CommandText = "SELECT TOP 3 * FROM NewsPosts ORDER BY PostDate DESC"
+            cmd.CommandText = " SELECT TOP 3 PostID,PostDate,PostedBy,HTML,PostTitle,NewsType,LEFT(PlainText,250)PlainText,PostType,Hashtag,EventLocation,EventDate FROM NewsPosts ORDER BY PostDate DESC"
             Using da As New SqlDataAdapter
                 da.SelectCommand = cmd
                 da.Fill(dt)
@@ -324,11 +337,21 @@ Public Class Engine
                 Dim i As New NewsPosts
                 i.NewsPostID = item("PostID")
                 i.PostTitle = item("PostTitle")
-                i.PostDate = item("PostDate")
+                i.PostDate = CDate(item("PostDate"))
                 i.PostedBy = item("PostedBy")
                 i.HTML = item("HTML")
-                i.PlainText = item("PlainText")
+                i.PlainText = item("PlainText") + "..."
                 i.NewsType = item("PostType")
+                If i.NewsType = "Event" Then
+                    i.EventLocation = item("EventLocation")
+                    i.EventMonth = GetMonth(CDate(item("EventDate")).Month)
+                    i.EventDay = CDate(item("EventDate")).Day.ToString()
+
+                Else
+                    i.EventLocation = ""
+                    i.EventMonth = ""
+                    i.EventDay = ""
+                End If
                 NewsList.Add(i)
             Next
             Return NewsList
@@ -338,7 +361,38 @@ Public Class Engine
 
     End Function
 
+    <WebMethod()> _
+    Public Function GetMonth(ByVal MonthInt As Integer)
+        Select Case MonthInt
+            Case 1
+                Return "January"
+            Case 2
+                Return "February"
+            Case 3
+                Return "March"
+            Case 4
+                Return "April"
+            Case 5
+                Return "May"
+            Case 6
+                Return "June"
+            Case 7
+                Return "July"
+            Case 8
+                Return "August"
+            Case 9
+                Return "September"
+            Case 10
+                Return "October"
+            Case 11
+                Return "November"
+            Case 12
+                Return "December"
+            Case Else
+                Return ""
+        End Select
 
+    End Function
 
 
     <WebMethod()> _
@@ -367,7 +421,8 @@ Public Class Engine
                 i.ProductID = item("ProductId")
                 i.SKU = item("SKU")
                 i.Category = item("Category")
-       
+                i.Price = GetFeaturedProductDetails(i.ProductID, i.Category, "Price")
+                i.Name = GetFeaturedProductDetails(i.ProductID, i.Category, "Name") 
                 BaseProductList.Add(i)
             Next
             Return BaseProductList
@@ -378,6 +433,100 @@ Public Class Engine
         Return ""
     End Function
 
+    <WebMethod()> _
+    Public Function GetFeaturedProductDetails(ByVal ProductID As String, ByVal Category As String, ByVal oParam As String)
+
+        Dim dt As New DataTable
+        Select Case Category
+            Case "Accessory"
+                dt = FillFeaturedProductDetailsDT("SELECT Name,Price FROM Accessories WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Name")
+                    Case "Price"
+                        Return dt.Rows(0).Item("Price")
+                    Case Else
+                        Return " "
+                End Select
+            Case "Apparel"
+                dt = FillFeaturedProductDetailsDT("SELECT Name,Price FROM Accessories WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Name")
+                    Case "Price"
+                        Return dt.Rows(0).Item("Price")
+                    Case Else
+                        Return " "
+                End Select
+            Case "Cigars"
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Name, BoxPrice FROM Cigars WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
+                    Case "Price"
+                        Return dt.Rows(0).Item("BoxPrice")
+                    Case Else
+                        Return " "
+                End Select
+            Case "Coffee"
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Name, Price, FROM Coffee WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
+                    Case "Price"
+                        Return dt.Rows(0).Item("Price")
+                    Case Else
+                        Return " "
+                End Select
+            Case "Pipes"
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Name, Price, FROM Pipes WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
+                    Case "Price"
+                        Return dt.Rows(0).Item("Price")
+                    Case Else
+                        Return " "
+                End Select
+            Case "Pipe Tobacco"
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Tobacco, Price, FROM PipeTobacco WHERE ProductID =" & ProductID)
+                Select Case oParam
+                    Case "Name"
+                        Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Tobacco")
+                    Case "Price"
+                        Return dt.Rows(0).Item("Price")
+                    Case Else
+                        Return " "
+                End Select
+            Case Else
+                Return " "
+
+        End Select
+
+
+
+
+
+	
+
+    End Function
+
+    Public Function FillFeaturedProductDetailsDT(ByVal command As String)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("conne").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = command
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+        Return dt
+    End Function
 
     <WebMethod()> _
     Public Function SubscribeToMailingList(ByVal Email As String)
