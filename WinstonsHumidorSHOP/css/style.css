@@ -116,10 +116,6 @@ h1 {
 		margin: 1.25% 5% 0 0;
 }*/
 
-body {
-
-}
-
 #navbar {
 	margin: 0 5% 0 0;
 }
@@ -186,6 +182,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	font-size: 9em;
 	color: rgba(176, 165, 147, .6);
 	margin: 8% 0 0 0;
+	text-transform: uppercase;
 }
 
 #aboutHome {
@@ -207,7 +204,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 #content {
 	background-color: rgb(176, 165, 147);
-	padding: 0 0 5% 0;
+	padding: 5% 0 5% 0;
 }
 
 /*.background_color {
@@ -415,6 +412,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 .shop_intro {
 	color: rgba(176, 165, 147, .6);
+	font-family: 'Fancy' serif;
 }
 
 @media only screen and (max-width: 766px) {
@@ -435,6 +433,11 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	margin-top: -10px;
 	padding-top:20px;
 	text-align:center;
+	background-image:url(images/CigarTest2.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	padding-bottom:20px;
+	background-position-y:70%;
 
 
 	
