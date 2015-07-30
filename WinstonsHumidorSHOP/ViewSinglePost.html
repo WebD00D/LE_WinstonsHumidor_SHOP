@@ -165,7 +165,7 @@
                         $("#PostTitle").text(item.PostTitle);
 
 
-                        var img = "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        var img = "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "&category=NewsPost'>"
                         $(img).hide().appendTo("#PostImageHolder").fadeIn(1000);
 
                     })

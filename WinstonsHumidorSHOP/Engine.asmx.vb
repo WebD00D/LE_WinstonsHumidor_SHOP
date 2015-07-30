@@ -264,9 +264,6 @@ Public Class Engine
 #Region "Home Page"
 
 
-
-
-
     <WebMethod()> _
     Public Function LoadPost(ByVal PostID As Integer)
 
@@ -444,7 +441,7 @@ Public Class Engine
                     Case "Name"
                         Return dt.Rows(0).Item("Name")
                     Case "Price"
-                        Return dt.Rows(0).Item("Price")
+                        Return Math.Round(dt.Rows(0).Item("Price"), 2)
                     Case Else
                         Return " "
                 End Select
@@ -454,7 +451,7 @@ Public Class Engine
                     Case "Name"
                         Return dt.Rows(0).Item("Name")
                     Case "Price"
-                        Return dt.Rows(0).Item("Price")
+                        Return Math.Round(dt.Rows(0).Item("Price"), 2)
                     Case Else
                         Return " "
                 End Select
@@ -464,7 +461,7 @@ Public Class Engine
                     Case "Name"
                         Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
                     Case "Price"
-                        Return dt.Rows(0).Item("BoxPrice")
+                        Return Math.Round(dt.Rows(0).Item("BoxPrice"), 2)
                     Case Else
                         Return " "
                 End Select
@@ -474,27 +471,27 @@ Public Class Engine
                     Case "Name"
                         Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
                     Case "Price"
-                        Return dt.Rows(0).Item("Price")
+                        Return Math.Round(dt.Rows(0).Item("Price"), 2)
                     Case Else
                         Return " "
                 End Select
             Case "Pipes"
-                dt = FillFeaturedProductDetailsDT("SELECT Brand, Name, Price, FROM Pipes WHERE ProductID =" & ProductID)
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Name, Price FROM Pipes WHERE ProductID =" & ProductID)
                 Select Case oParam
                     Case "Name"
                         Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Name")
                     Case "Price"
-                        Return dt.Rows(0).Item("Price")
+                        Return Math.Round(dt.Rows(0).Item("Price"), 2)
                     Case Else
                         Return " "
                 End Select
             Case "Pipe Tobacco"
-                dt = FillFeaturedProductDetailsDT("SELECT Brand, Tobacco, Price, FROM PipeTobacco WHERE ProductID =" & ProductID)
+                dt = FillFeaturedProductDetailsDT("SELECT Brand, Tobacco, Price FROM PipeTobacco WHERE ProductID =" & ProductID)
                 Select Case oParam
                     Case "Name"
                         Return dt.Rows(0).Item("Brand") & " " & dt.Rows(0).Item("Tobacco")
                     Case "Price"
-                        Return dt.Rows(0).Item("Price")
+                        Return Math.Round(dt.Rows(0).Item("Price"), 2)
                     Case Else
                         Return " "
                 End Select
@@ -512,7 +509,7 @@ Public Class Engine
     End Function
 
     Public Function FillFeaturedProductDetailsDT(ByVal command As String)
-        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("conne").ConnectionString)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
         Dim dt As New DataTable
         Using cmd As SqlCommand = con.CreateCommand
             cmd.Connection = con
@@ -530,8 +527,6 @@ Public Class Engine
 
     <WebMethod()> _
     Public Function SubscribeToMailingList(ByVal Email As String)
-
-
 
         'This code should be working. 
         ' When I test, it seems to be going through. I get an email to confirm subscribtion via Mail Chimp.
