@@ -287,7 +287,8 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	color: rgb(206,70,70);
 	text-align:center;
 	margin:0% 0 0 0;
-	text-transform: lowercase
+	text-transform: lowercase;
+	font-size: 2em;
 }
 
 .events_locationMOBILE{
