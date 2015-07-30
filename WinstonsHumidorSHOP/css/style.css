@@ -367,6 +367,13 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	color: white;
 }
 
+.addToCart{
+    font-family:sans-serif;background-color:#b8bfc7;color:white;padding:10px;border-radius:8px;text-decoration:none;font-size:large;
+}
+.addToCart:hover{
+    font-family:sans-serif;background-color:#342A2A;color:white;padding:10px;border-radius:8px;text-decoration:none;font-size:large;
+}
+
 .btn-news2:hover {
     text-decoration:none;
     background-color: rgba(0, 0, 0, 0.65);
