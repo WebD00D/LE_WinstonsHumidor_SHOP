@@ -27,7 +27,8 @@
 
 
 
-    <nav class="navbar navbar-fixed-top">
+
+    <nav class="navbar navbar-fixed-top" >
         <div class="navbar-background container">
             <div class=" WHnavbar navbar-header">
                 <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -58,7 +59,7 @@
                     <li class="active"><a href="Events.html">News & Events</a></li>
                     <li class="active"><a href="#">Contact</a></li>
                     <li class="active"><a href="#">Directions</a></li>
-                    <li><a href="#contact">Cart <i class="badge" style="background-color:red">4</i></a></li>
+                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -66,13 +67,15 @@
 
 
 
+
+
     <!-----------------------------HEADER VIEWS START----------------------------------->
     <!-- DESKTOP VIEW -->
-    <div id="headerwrap" class="hidden-sm hidden-xs" style="background-image:url(images/CigarTest2.jpg);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
+    <div id="headerwrap" class="hidden-sm hidden-xs" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
         <div class="container text-center">
             <div class="homepage-border col-lg-12">
                 <div class="col-lg-12 text-center">
-                    <h1 class="text-center" style="color:white" id="WinstonsHumidorhome"><b>APPAREL</b></h1><br />
+                    <h1 class="text-center" id="shop_intro"><b>APPAREL</b></h1><br />
 
                 </div>
 
@@ -81,12 +84,12 @@
         </div><!-- /container -->
     </div><!-- /headerwrap -->
     <!-- MOBILE VIEW -->
-    <div id="headerwrap" class="hidden-md hidden-lg hidden-xl" style="background-image:url(images/CigarTest2.jpg);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
+    <div id="headerwrap" class="hidden-md hidden-lg hidden-xl" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
         <div class="container text-center">
             <div class="col-lg-12" id="homepage-border-mobile">
 
                 <div class="col-lg-12 text-center">
-                    <h1 class="text-center" style="color:white" id="WinstonsHumidorhome"><b>APPAREL</b></h1><br />
+                    <h1 class="text-center" id="ShopHomes_mobile"><b>APPAREL</b></h1><br />
                     <br />
 
 
@@ -99,13 +102,13 @@
 
 
 
-    <div id="content" style="background-color:white">
-        <div class="container" id="background" style="background-color:white">
+    <div id="content">
+        <div class="container" id="background">
 
 
             <section id="Apparel">
-                <div class="col-lg-12" style="border:4px double #808080;border-left:none;border-right:none;margin-top:20px">
-                    <h2 style="margin-top:10px;color:#808080;font-family:'chiser'"><b>Featured</b></h2>
+                <div class="col-lg-12">
+                    <h2 class="homeheadlines"><b>Featured</b></h2>
                 </div>
 
                 <div class="col-lg-12">
@@ -113,26 +116,26 @@
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Wilson Adams | Toro <label class="label label-default pull-right">$100.50</label></b></a>
+                                <a href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
                             </div>
 
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a class="meeee" href="#"><b style="color:#808080">Wilson Adams | Toro <label class="label label-default pull-right">$100.50</label></b></a>
+                                <a class="meeee" href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Wilson Adams | Toro <label class="label label-default pull-right">$100.50</label></b></a>
+                                <a href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Wilson Adams | Toro <label class="label label-default pull-right">$100.50</label></b></a>
+                                <a href="#"><b class="product_titles"">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
                             </div>
                         </div>
                     </div>
@@ -141,8 +144,8 @@
 
 
             <section id="ApparellMain">
-                <div class="col-lg-12" style="border:4px double #808080;border-left:none;border-right:none;margin-top:20px">
-                    <h2 style="margin-top:10px;color:#808080;font-family:'chiser'"><b>Apparel Inventory</b></h2>
+                <div class="col-lg-12">
+                    <h2  class="homeheadlines"><b>Apparel Inventory</b></h2>
                 </div>
 
                 <div class="col-lg-3">
@@ -167,49 +170,49 @@
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
                             <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b style="color:#808080">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
+                                <a href="#"><b class="product_titles"">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
                             </div>
                         </div>
 
@@ -225,8 +228,66 @@
 
     <section id="footer">
 
-        <div class="col-lg-12" style="background-color:#342A2A;padding:50px;margin:0px 0px 0px 0px;color:white">
-            Anita will build an awesome footer here :)
+        <div class="col-lg-12" id="footer_background">
+            <div id="footer_border">
+
+                <div id="footer_hours" class="hidden-sm hidden-xs">
+                    <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+                    <ul class="footer_ul">
+                        <li class="footer_li"> Monday: 10am-8pm</li>
+                        <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                        <li class="footer_li">Sunday: 12pm-6pm</li>
+                    </ul>
+                </div>
+                <div id="footer_contact" class="hidden-sm hidden-xs">
+                    <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>
+                    <ul class="footer_ul">
+                        <li class="footer_li">13817 Village Place Drive</li>
+                        <li class="footer_li">Midothian, VA 23114</li>
+                        <li class="footer_li">(804)379-2985</li>
+                </div>
+
+                <div id="footer_images_top" class="hidden-sm hidden-xs" align="right">
+                    <img src="images/IPCPR.png" width="5%" style="margin: 0 1% 0 0 " />
+                    <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="4%" style="margin: 0 1% 0 0" /></a>
+                    <img src="images/tobacconistu.png" width="4%" style="margin: 0 1% 0 0 " />
+                    <img src="images/JoinCRA.gif" width="4%" />
+                </div>
+                <div id="footer_image_bottom" class="hidden-sm hidden-xs" align="right">
+                    <img src="images/cigarforwarriors copy.png" width="20%" />
+                </div>
+
+                <div style="margin: 0 0 0 28%">
+                    <div class="hidden-med hidden-lg hidden-xl">
+                        <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+                        <ul class="footer_ul">
+                            <li class="footer_li"> Monday: 10am-8pm</li>
+                            <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                            <li class="footer_li">Sunday: 12pm-6pm</li>
+                        </ul>
+                    </div>
+                    <div class="hidden-med hidden-lg hidden-xl">
+                        <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>
+                        <ul class="footer_ul">
+                            <li class="footer_li">13817 Village Place Drive</li>
+                            <li class="footer_li">Midothian, VA 23114</li>
+                            <li class="footer_li">(804)379-2985</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="hidden-med hidden-lg hidden-xl" align="right" style="margin: 10% 40% 2% 0;">
+                    <img src="images/IPCPR.png" width="8%" style="margin: 0 1% 0 0 " />
+                    <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="7%" style="margin: 0 1% 0 0" /></a>
+                    <img src="images/tobacconistu.png" width="7%" style="margin: 0 1% 0 0 " />
+                    <img src="images/JoinCRA.gif" width="7%" />
+                </div>
+                <div class="hidden-med hidden-lg hidden-xlalign=" right">
+                    <img src="images/cigarforwarriors copy.png" width="25%" style="margin: 0 0 0 37%" />
+                </div>
+            </div>
+            <!---FOOTER ENDS-->
+
         </div>
 
     </section>
