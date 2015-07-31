@@ -376,6 +376,13 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	padding: 4% 0 0 0;
 }
 
+#shop_intro2 {
+	font-size:8em; 
+	font-family:'chiser'; 
+	padding:15% 0 12% 5%; 
+	letter-spacing:.2em;
+	color: rgb(176, 165, 147);
+}
 .product_titles {
 	color: rgba(176, 165, 147, .8);
 }
