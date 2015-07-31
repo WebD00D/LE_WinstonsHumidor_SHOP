@@ -54,68 +54,6 @@ h1 {
 	font-size: 38px;
 }
 
-/*body {
-	background-image: url(backgrounds/cigarback2.png);
-	background-size: contain;
-	background-repeat: no-repeat;
-	width: 100%;
-	
-}*/
-
-/*.navbar-default {
-	background-color: rgba(0, 0, 0, 0.0);
-	border: none;
-}
-
-#navbar {
-	margin: 5% 2% 2% 2%;
-	border: 1px solid rgba(176, 165, 147, .8);
-	padding: 0 0 0 0;
-}
-
-.navbar-nav {
-	width: 100%;
-}
-
-.active {
-	background-color: none;
-	color: rgba(176, 165, 147, .8);
-	font-family: 'chiser' sans-serif;
-	font-size: 1.2em;
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-}
-
-.list {
-	margin: 0 8% 0 8%;
-}
-
-.collapse {
-	background-color: rgba(0, 0, 0, 0.0);
-}
-
-#active:hover {
-	color: rgba(255, 255, 255, 0.8);
-	text-decoration: none;
-}
-
-#carticon {
-	margin: -1.4% -14.25% 0 0;
-	float: right;
-}
-
-.tippytop {
-	text-align: right;
-	float: right;
-	margin: .3% 2% 0 0;
-	color: #fff;
-	font-family: serif;
-}
-
-#tippytop {
-		margin: 1.25% 5% 0 0;
-}*/
-
 #navbar {
 	margin: 0 5% 0 0;
 }
@@ -486,13 +424,6 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 }
 
 #headerwrap {
-	/*background-image: url(../img/BannerMe2.png);*/
-    /*background-size:contain;
-    background-repeat:no-repeat;
-    background-position-y:5%;*/
-   
-     
-    /*background: none;*/
 	margin-top: -10px;
 	padding-top:20px;
 	text-align:center;
@@ -608,52 +539,3 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	margin: -3% 3% 0 1%;
 	
 }
-/*.homebody {
-	background-color: rgba(0, 0, 0, 0.65);
-	width: 100%;
-	padding: 5% 0 3% 0%;
-	margin: -5% 0 0 0;
-}
-
-.hometext {
-	border: rgba(176, 165, 147, .8) 1px solid;
-	margin: 5% 2% 0 2%;
-	padding: 0 5% 7.5% 5%;
-}
-
-#WinstonsHumidor {
-	font-family: 'Fancy' serif;
-	color: rgba(176, 165, 147, .7);
-	font-size: 10rem;
-	margin: 15% 0 0 3%;
-	width: 30%;
-}
-
-#logo {
-	float: right;
-	margin: -30% 7% 0 0;
-	width: 30%;
-}
-
-#homep {
-	font-family: 'chiser' sans-serif;
-	color: #fff;
-	font-size: 1.5em;
-	width: 68%;
-	margin: 0 0 0 2%;
-}
-
-#readmore {
-	color: #fff;
-}
-
-#readmore:hover {
-	color: rgba(255, 255, 255, 0.5);
-	text-decoration: none;
-}
-
-.homeheadlines {
-	font-family: 'chiser' sans-serif;
-	font-size: 3em;
-	/*border-top:*/ 
-/*}*/
