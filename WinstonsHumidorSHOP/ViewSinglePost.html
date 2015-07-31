@@ -27,8 +27,8 @@
 
 
 
-
-    <nav class="navbar navbar-fixed-top">
+<!---NAVIGATION-->
+     <nav class="navbar navbar-fixed-top" >
         <div class="navbar-background container">
             <div class=" WHnavbar navbar-header">
                 <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -39,9 +39,9 @@
                 </button>
                 <a class="navbar-brand" id="WHnavbar" href="#">WINSTON'S HUMIDOR</a>
             </div>
+            
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav navbar-right">
-
                     <li><a href="#about">About</a></li>
                     <li class="dropdown list">
                         <a href="#" class="active dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <span class="caret"></span></a>
@@ -52,41 +52,75 @@
                             <li><a href="Coffee.html">Coffee</a></li>
                             <li><a href="Apparel.html">Apparel</a></li>
                             <li><a href="Accessories.html">Accessories</a></li>
-
                         </ul>
                     </li>
 
                     <li class="active"><a href="Events.html">News & Events</a></li>
-                    <li class="active"><a href="#">Contact</a></li>
+                    <li class="active"><a href="#">Contact</a></li>                
                     <li class="active"><a href="#">Directions</a></li>
-                    <li><a href="#contact">Cart <i class="badge" style="background-color:red">4</i></a></li>
+                    <li class="active"><a href="#">Log in</a></li>
+                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
     </nav>
+<!---END NAVIGATION--->
 
-
-    <div id="headerwrap" style="background-color:#EEEEEE;padding-bottom:20px">
+<!--HEADER-->
+    <!--desktop-->
+    <div id="singlepost_headerwrap" class="hidden-sm hidden-xs">
         <div class="container text-center">
             <div class="col-lg-6 col-lg-offset-3">
-                <h1 style="color:#332e2e;margin-top:100px;"><b id="PostTitle"></b></h1>
-                <ul class="list-inline">
-                    <li style="color:#0094ff"><b id="PostedBy"></b></li>
-                    <li style="color:#625959"><b id="PostDate"></b></li>
-                    <li style="color:green"><b id="PostType"></b></li>
+                <h1 align="left" id="singlepost_posttitle">Post Title<b id="PostTitle"></b></h1>
+                <ul class="list-inline" align="left">
+                    <li id="singlepost_posted_by"><b id="PostedBy">Posted By</b></li>
+                    <li id="singlepost_post_date"><b id="PostDate">Post Date</b></li>
+                    <li id="singlepost_post_type"><b id="PostType">Post Type</b></li>
                 </ul>
         
             </div>
         </div><!-- /container -->
     </div><!-- /headerwrap -->
+    
+    <!--mobile-->
+    <div id="singlepost_headerwrap" style="padding:10% 0 0 0;" class="hidden-med hidden-lg hidden-xl">
+        <div class="container text-center">
+            <div class="col-lg-6 col-lg-offset-3">
+                <h1 align="left" id="singlepost_posttitle">Post Title<b id="PostTitle"></b></h1>
+                <ul class="list-inline" align="left">
+                    <li id="singlepost_posted_by"><b id="PostedBy">Posted By</b></li>
+                    <li id="singlepost_post_date"><b id="PostDate">Post Date</b></li>
+                    <li id="singlepost_post_type"><b id="PostType">Post Type</b></li>
+                </ul>
+        
+            </div>
+        </div><!-- /container -->
+    </div><!-- /headerwrap -->    
+    
+<!---END HEADER-->
 
-    <div id="content" style="margin-top:25px;background-color:white;margin-bottom:30px">
+
+<!---PAGE-->
+    <div id="content" id="background">
         <div class="container">
             <div class="col-lg-8">
 
                 <!--NEWS BLOCK START-->
                 <div class="col-lg-12" id="PostImageHolder">
-
+                    <div id="singlepost_textbody">
+                          <div id="singlepost_datelocation" class="hidden-sm hidden-xs">
+                          <h1 id="singlepost_month">july</h1>
+                          <h2 id="singlepost_day">26</h2>
+                          <h1 id="singlepost_location" style="font-size:1.5em;">location, va</h1>
+                          </div>
+                          
+                          <div class="hidden-med hidden-lg hidden-xl" id="singlepost_datelocationMOBILE">
+                          <h1 class="events_monthMOBILE">july</h1>
+                          <h2 class="events_dayMOBILE">26</h2>
+                          <h1 class="events_locationMOBILE">location, va</h1>
+                          </div>
+                          <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet doming id quod mazim placerat facer possim assum.</p>
+                    </div>
                 </div>
                 <div id="PostToLoad" class="col-lg-12" style="margin-top:15px">
                    
@@ -97,27 +131,103 @@
             
 
             </div>
-            <div class="col-lg-4">
-                <div class="col-lg-12" style="margin-top:10px;background-color:#eaeef1;border-radius:8px">
-                    <br />
-
-                    <h4 style="color:#8c989e"> <b>Stay Updated</b></h4>
-                    <h5 style="color:#737C7F">Sign up for our newsletter to stay up to date with the latest happenings around the shop!</h5>
-
-                    <input class="form-control" placeholder="email" style="border-radius:50px" />
-                    <br />
-                    <a href="#" class="btn-block text-center" style="font-family:sans-serif;background-color:#b8bfc7;color:white;padding:10px;border-radius:8px;text-decoration:none;font-size:large">Subscribe</a>
-                    <br />
-
-                </div>
-            </div>
-        </div>
+        
+<!---STAY UPDATED BOX-->        
+        <div class="col-lg-4">
+               <div class="col-lg-12">
+               
+                   <br />
+                   <div id="stayupdated_background">
+                   <h4 id="stay_updated">stay updated</h4>
+                   <h5 id="signup_">Sign up for our newsletter to stay up to date with the latest happenings around the shop!</h5>
+             
+                   <input class="form-control" placeholder="email" id="subsribe_email"/>
+                   <br />
+                   <a href="#" class="btn-news2">subscribe</a>
+                   <br />
+                   </div>
+                
+               </div>
+           </div>
+       </div>
+<!---STAY UPDATED BOX-->
 
 
 
 
 
     </div>
+<!---END PAGE-->
+    
+<!---FOOTER-->
+    <section id="footer">
+
+        <div class="col-lg-12" id="footer_background">
+        <div id="footer_border">  
+            
+            <div id="footer_hours" class="hidden-sm hidden-xs">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+            <ul class="footer_ul">
+                <li class="footer_li"> Monday: 10am-8pm</li>
+                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                <li class="footer_li">Sunday: 12pm-6pm</li>
+            </ul>
+            </div>
+            <div id="footer_contact" class="hidden-sm hidden-xs">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
+            <ul class="footer_ul">
+                <li class="footer_li">13817 Village Place Drive</li>
+                <li class="footer_li">Midothian, VA 23114</li>
+                <li class="footer_li">(804)379-2985</li>
+            </div>           
+            
+            <div id="footer_images_top" class="hidden-sm hidden-xs" align="right">
+            <img src="images/IPCPR.png" width="5%" style="margin: 0 1% 0 0 "/>
+            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="4%" style="margin: 0 1% 0 0"/></a>
+            <img src="images/tobacconistu.png" width="4%" style="margin: 0 1% 0 0 "/>
+            <img src="images/JoinCRA.gif" width="4%"/>
+            </div>
+            <div id="footer_image_bottom" class="hidden-sm hidden-xs" align="right">
+            <img src="images/cigarforwarriors copy.png" width="20%"/>
+            </div>
+            
+            <div style="margin: 0 0 0 28%">
+            <div class="hidden-med hidden-lg hidden-xl">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
+            <ul class="footer_ul">
+                <li class="footer_li"> Monday: 10am-8pm</li>
+                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
+                <li class="footer_li">Sunday: 12pm-6pm</li>
+            </ul>
+            </div>            
+            <div class="hidden-med hidden-lg hidden-xl">
+            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
+            <ul class="footer_ul">
+                <li class="footer_li">13817 Village Place Drive</li>
+                <li class="footer_li">Midothian, VA 23114</li>
+                <li class="footer_li">(804)379-2985</li>
+            </ul>
+            </div> 
+            </div>            
+            
+            <div class="hidden-med hidden-lg hidden-xl" align="right" style="margin: 10% 40% 2% 0;">
+            <img src="images/IPCPR.png" width="8%" style="margin: 0 1% 0 0 "/>
+            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="7%" style="margin: 0 1% 0 0"/></a>
+            <img src="images/tobacconistu.png" width="7%" style="margin: 0 1% 0 0 "/>
+            <img src="images/JoinCRA.gif" width="7%"/>
+            </div>            
+            <div class="hidden-med hidden-lg hidden-xlalign="right">
+            <img src="images/cigarforwarriors copy.png" width="25%" style="margin: 0 0 0 37%"/>
+            </div>
+            </div>             
+   
+                
+            
+            
+        </div>  
+
+    </section>
+<!----END FOOTER-->
 
 
 
@@ -125,6 +235,7 @@
 
 
     <!-- Placed at the end of the document so the pages load faster -->
+    <!-----script
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/url.js" type="text/javascript"></script>
@@ -185,6 +296,6 @@
 
         })
     </script>
-
+-------->
 </body>
 </html>

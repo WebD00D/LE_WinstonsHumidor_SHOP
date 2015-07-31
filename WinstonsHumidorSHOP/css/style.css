@@ -452,6 +452,32 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 }
 
 
+#stayupdated_background {
+	background-color:rgba(0,0,0,0.7); 
+	padding: 1% 4% 10.5% 6%; 
+	margin: -6% 0 0 0; 
+	border: 1px solid black
+}
+
+#stay_updated {
+	font-family:'chiser'; 
+	font-size: 3em; 
+	color:white;
+}
+
+#signup_ {
+	font-family:'tex'; 
+	font-size: 1.2em; 
+	rgba(0,0,0,0.65); 
+	color:rgba(255,255,255,0.7);
+}
+
+#subscrive_email {
+	border:2px solid rgba(206,70,70,0.8);
+	margin: 2% 0 1% 0; 
+	width:95%;
+}
+
 @media only screen and (max-width: 766px) {
 .collapsing, .in {background-color: #342A2A;}
 .collapsing ul li a, .in ul li a {color: #555!important;}
@@ -491,6 +517,95 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
     background-size: cover;
 }
 
+#singlepost_headerwrap {
+	background-color: rgba(176, 165, 147,0.75);
+	font-family: 'chiser';
+	border-bottom: double rgba(206, 70, 70, 0.8);
+	text-align: left;
+}
+
+#singlepost_posttitle {
+	margin: 20% 0 0 0;
+	color: rgba(206, 70, 70, 0.9);
+	font-size: 5em;
+	font-family: 'fancy';
+	text-transform: uppercase;
+}
+
+#singlepost_textbody {
+	background-color: rgba(255, 255, 255, .7);
+	border: 1px black solid;
+	padding: 2% 2% 2% 2%;
+	font-family: 'tex';
+}
+
+#singlepost_datelocation {
+	float: left;
+	margin: -3% 3% 0 0;
+}
+
+#singlepost_month {
+	background-color: rgba(206,70,70,0.9); 
+	font-family:'chiser';
+	color: rgba(255,255,255,0.8);
+	border-top-right-radius: 25px;
+	border-top-left-radius: 25px;
+	font-size: 2em;
+	text-align: center;
+	text-transform: lowercase;
+	
+}
+
+#singlepost_day {
+	font-family:'tex';
+	color: rgba(206,70,70,0.8);
+	border: solid 2px rgb(206,70,70);
+	border-bottom-right-radius: 25px;
+	border-bottom-left-radius: 25px;
+	text-align: center;
+	font-size: 5em;
+	margin: -9.5% 0 0 0;
+	padding: 0 10% 0 10%;
+	
+}
+
+#singlepost_location{
+	font-family:'chiser';
+	font-size: .5em;
+	color: rgb(206,70,70);
+	text-align:center;
+	margin:0% 0 0 0;
+	text-transform: lowercase;
+	font-size: 2em;
+	
+}
+
+#singlepost_posted_by {
+	color: rgba(0,0,0,0.7); 
+	font-family: 'chiser'; 
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+#singlepost_post_date {
+	color: rgba(0,0,0,0.4); 
+	font-family: 'chiser'; 
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+#singlepost_post_type {
+	color: rgba(255, 255,255,0.75); 
+	font-family: 'chiser'; 
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+#singlepost_datelocationMOBILE {
+	float: left;
+	margin: -3% 3% 0 1%;
+	
+}
 /*.homebody {
 	background-color: rgba(0, 0, 0, 0.65);
 	width: 100%;
