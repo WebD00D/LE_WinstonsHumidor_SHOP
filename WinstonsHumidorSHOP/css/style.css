@@ -451,6 +451,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	margin: 15% 0 1% 0;
 }
 
+
 @media only screen and (max-width: 766px) {
 .collapsing, .in {background-color: #342A2A;}
 .collapsing ul li a, .in ul li a {color: #555!important;}
