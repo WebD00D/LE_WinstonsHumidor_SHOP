@@ -28,7 +28,7 @@ Public Class ImageHandler
             Case "NewsPost"
                 CommandText = "SELECT PostImage FROM NewsPosts WHERE PostID =" & ProductID
             Case Else
-                CommandText = ""
+                CommandText = " "
                 Exit Sub
         End Select
 
