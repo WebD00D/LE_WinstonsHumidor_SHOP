@@ -103,8 +103,17 @@
     <Content Include="Events.html" />
     <Content Include="images\CARTiconred.png" />
     <Content Include="images\CigarBackgroundTEST.jpg" />
+    <Content Include="images\cigarforwarriors copy.png" />
     <Content Include="images\CigarTest2.jpg" />
+    <Content Include="images\CigarTest2.png" />
+    <Content Include="images\facebook-icon-brown.png" />
     <Content Include="images\IMG_9642.jpg" />
+    <Content Include="images\IPCPR.png" />
+    <Content Include="images\JoinCRA.gif" />
+    <Content Include="images\NEWSiconred.png" />
+    <Content Include="images\skullandbones.png" />
+    <Content Include="images\tobacconistu.png" />
+    <Content Include="images\WinstonHumidor_Cigar_Brown%282%29.png" />
     <Content Include="images\WinstonHumidor_Cigar_Brown.png" />
     <Content Include="index.html" />
     <Content Include="Index_NEW.html" />
@@ -116,6 +125,10 @@
     <Content Include="PipeTobacco.html" />
     <Content Include="ProductDetails.html" />
     <Content Include="TestPage.html" />
+    <Content Include="css\Type\chiseb.svg" />
+    <Content Include="css\Type\chiser.svg" />
+    <Content Include="css\Type\SundayBestFancyShadow-Simple-webfont.svg" />
+    <Content Include="css\Type\texgyrebonum-regular.svg" />
     <Content Include="ViewSinglePost.html" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -164,6 +177,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
+    <None Include="My Project\PublishProfiles\beta.rvawebdood.com - Web Deploy.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>
@@ -171,6 +185,18 @@
     </None>
     <Content Include="packages.config" />
     <Content Include="NewArrivalImageHandler.ashx" />
+    <Content Include="css\Type\chiseb.eot" />
+    <Content Include="css\Type\chiseb.woff" />
+    <Content Include="css\Type\chiseb__.ttf" />
+    <Content Include="css\Type\chiser.eot" />
+    <Content Include="css\Type\chiser.woff" />
+    <Content Include="css\Type\chiser__.ttf" />
+    <Content Include="css\Type\SundayBestFancyShadow-Simple-webfont.eot" />
+    <Content Include="css\Type\SundayBestFancyShadow-Simple-webfont.ttf" />
+    <Content Include="css\Type\SundayBestFancyShadow-Simple-webfont.woff" />
+    <Content Include="css\Type\texgyrebonum-regular.eot.otf" />
+    <Content Include="css\Type\texgyrebonum-regular.otf" />
+    <Content Include="css\Type\texgyrebonum-regular.woff.otf" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
