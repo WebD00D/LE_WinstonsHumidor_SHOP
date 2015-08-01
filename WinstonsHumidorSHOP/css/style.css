@@ -178,6 +178,17 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	font-size: 3em;
 }
 
+.shopheadlines {
+	margin-top:5%;
+	font-family:'chiser';
+	color: rgb(176, 165, 147);
+	border-top: double  rgb(176, 165, 147);
+	border-bottom: double rgb(176, 165, 147);
+	padding: .5%;
+	font-size: 3em;
+	
+}
+
 
 .eventsnippet {
 	background-color: rgba(255, 255, 255, .5);
