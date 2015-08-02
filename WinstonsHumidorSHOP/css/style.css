@@ -582,3 +582,7 @@ color:#342A2A;border:2px solid white;font-size:x-large;font-weight:600;padding-t
 .homepagelinks2:hover {
 color:white;font-size:x-large;border:2px solid white;
 }
+
+#nofocus:focus{
+    outline:0;
+}
