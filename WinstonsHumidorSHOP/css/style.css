@@ -123,9 +123,9 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 
 #WinstonsHumidorhome {
 	font-family: 'Fancy' serif;
-	font-size: 9em;
-	color: rgba(176, 165, 147, .6);
-	margin: 8% 0 0 0;
+	font-size: 7em;
+	color: gray;
+
 	text-transform: uppercase;
 }
 
@@ -446,14 +446,7 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 }
 
 #headerwrap {
-	margin-top: -10px;
-	padding-top:20px;
-	text-align:center;
-	background-image:url(images/CigarTest2.png);
-	background-size:cover;
-	background-repeat:no-repeat;
-	padding-bottom:20px;
-	background-position-y:70%;
+	
 
 
 	
@@ -566,4 +559,26 @@ ul.nav a:hover { background-color: rgba(01,01,01,0.5) !important;color:white;
 	float: left;
 	margin: -3% 3% 0 1%;
 	
+}
+
+.homepagelinks {
+color:white;border:2px solid white;font-size:x-large;font-weight:600;padding-top:6px;padding-bottom:6px;padding-left:40px;padding-right:40px;background-color:rgba(191,74,34,0.8);
+}
+.homepagelinks:hover {
+color:#342A2A;font-size:x-large;border:2px solid white;background-color:white
+}
+
+.btnSubscribe {
+background-color:#BF4A22;border:none;color:white;font-size:large
+}
+
+.orangetowhite:hover {
+    color:white;
+}
+
+.homepagelinks2 {
+color:#342A2A;border:2px solid white;font-size:x-large;font-weight:600;padding-top:6px;padding-bottom:6px;padding-left:40px;padding-right:40px;background-color:rgba(191,74,34,0.8)
+}
+.homepagelinks2:hover {
+color:white;font-size:x-large;border:2px solid white;
 }

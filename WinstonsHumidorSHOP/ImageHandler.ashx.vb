@@ -6,6 +6,9 @@ Public Class ImageHandler
     Implements System.Web.IHttpHandler
 
     Sub ProcessRequest(ByVal context As HttpContext) Implements IHttpHandler.ProcessRequest
+        context.Response.Cache.SetCacheability(HttpCacheability.Public)
+        context.Response.Cache.SetExpires(DateTime.Now.AddMinutes(120))
+        context.Response.Cache.SetMaxAge(New TimeSpan(0, 120, 0))
 
         Dim ProductID As String = context.Request.QueryString("id")
         Dim Category As String = context.Request.QueryString("Category")
@@ -23,7 +26,7 @@ Public Class ImageHandler
                 CommandText = "SELECT Image FROM Pipes WHERE ProductID=" & ProductID
             Case "Cigars"
                 CommandText = "SELECT Image FROM Cigars WHERE ProductID=" & ProductID
-            Case "Pipe Tobacco"
+            Case "PipeTobacco"
                 CommandText = "SELECT Image FROM PipeTobacco WHERE ProductID=" & ProductID
             Case "NewsPost"
                 CommandText = "SELECT PostImage FROM NewsPosts WHERE PostID =" & ProductID
