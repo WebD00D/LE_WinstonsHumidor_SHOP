@@ -177,6 +177,9 @@
     <div class="col-lg-12 text-center" style="padding:50px;background-color:white">
         <h3 style="font-family:'chiser'">"I smoke in moderation. Only one cigar at a time." <br /> - Mark Twain</h3>
     </div>
+    <div id="pinme">
+
+    </div>
 
     <div id="c">
 
@@ -186,7 +189,7 @@
     </div>
 
 
-
+   
 
 
 
@@ -209,6 +212,40 @@
         $(document).ready(function () {
 
 
+          
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GoToCart",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var result = data.d;
+
+                    if (result == 0) {
+                        
+                        return;
+                    }
+
+                    $("#pinme").empty();
+                    // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                    $.each(result, function (index, item) {
+                     
+                       
+                        var img = " <img src='ImageHandler.ashx?id=" + item.ProductID + "&category=" + item.Category + "' class='img-responsive img-thumbnail'/> " 
+                        $(img).appendTo("#pinme");
+
+                    })
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+        })
 
 
             // Load New Arrivals
@@ -418,7 +455,7 @@
 
             })
 
-        })
+
     </script>
 
 

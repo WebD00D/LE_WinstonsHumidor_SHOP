@@ -40,7 +40,7 @@
             <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
             <a href="Apparel.html" class="smoothScroll">Apparel</a>
             <a href="Accessories.html" class="smoothScroll">Accessories</a>
-            <a href="Cart.html" class="smoothScroll">Cart</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll">Cart</a>
             <a href="#"><i class="icon-facebook"></i></a>
             <a href="#"><i class="icon-twitter"></i></a>
             <a href="#"><i class="icon-instagram"></i></a>
@@ -138,6 +138,62 @@
 
         </div>
 
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center">
+                        <br />
+                        <h2 class="text-center" style="font-family:'chiser'"><b>My Cart</b></h2>
+                        <label style="font-family:'chiser'" class="text-center" id="cartmsg"></label>
+                      
+                      
+                        <div id="CartLoader">
+
+
+                            <!--<div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <img src="images/IMG_9927.jpg" class="img-responsive img-thumbnail"/>
+                                </div>
+                                <div class="col-lg-6 text-left" style="padding-top:5%">
+                                    <ul class="list-unstyled">
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>Rocky Patel Decade Toro</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>1 Box</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>$250.50</b></label></li>
+                                        <li><a href="#" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>-->
+
+                            
+                            
+
+                       
+
+                           
+
+
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total: $501.00</b></h3>
+                            <a href="#" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                        </div>
+                      
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                   
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Modal -->
@@ -513,12 +569,14 @@
             var _BoxOnly;
             var _SingleOnly;
             var _Option; //for box or single
+            var _DisplayName;
 
             $("#CigarLoader").delegate(".cigarz", "click", function (e) {
                 _ProductViewing = $(this).attr('data-prodid');
                 var ProductID = $(this).attr('data-prodid');
                 var Brand = $(this).attr('data-brand');
                 var Name = $(this).attr('data-name');
+                _DisplayName = Brand + ' ' + Name;
                 var Length = $(this).attr('data-length');
                 var Ring = $(this).attr('data-ring');
                 var Body = $(this).attr('data-body');
@@ -599,10 +657,10 @@
                 _Option = " "
                 //check to make sure that a checkbox is checked.
                 if ($('#ckSingles').is(':checked')) {
-                    _Option = "Single"
+                    _Option = "Single(s)"
                 }
                 if ($('#ckBoxes').is(':checked')) {
-                    _Option = "Box"
+                    _Option = "Box(s)"
                 }
                 if (_Option == " ") {
                     $("#QtyMsg").show();
@@ -611,7 +669,7 @@
                     return;
                 }
 
-                if (_Option == "Single") {
+                if (_Option == "Single(s)") {
                     //Update Total
                     if ($("#Qty").val() % 1 != 0) {
                         $("#QtyMsg").show();
@@ -634,7 +692,7 @@
                     }
                     $("#Total").text('$' + ttl.toFixed(2));
                 }
-                if (_Option == "Box") {
+                if (_Option == "Box(s)") {
                     if ($("#Qty").val() % 1 != 0) {
                         $("#QtyMsg").show();
                         $("#QtyMsg").text("Quantity must be a whole number");
@@ -673,7 +731,7 @@
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/AddToCart",
-                    data: "{ProductID:'"+ _ProductViewing +"',Qty:'"+ qty +"',Notes:'"+ _Option +"',Price:'"+ ttl +"'}",
+                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Cigars',ItemName:'"+ _DisplayName +"'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
@@ -687,11 +745,6 @@
                     }
                 }) //end ajax
             })
-
-          
-           
-           
-         
 
 
             //Write checkchange events for single or box. We will validate and assume a qty has been entered.
@@ -715,6 +768,64 @@
                 }
 
             });
+
+
+            //My Cart Code
+
+
+            $("#myCart").click(function () {
+                $("#cartmsg").text("");
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GoToCart",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#cartmsg").text("(No items in cart to show)");
+                            return;
+                        }
+
+                        $("#CartLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                        
+                         
+                            var content = "<div class='col-lg-12'> " +
+                        "     <div class='col-lg-6'> " +
+                        "         <img src='ImageHandler.ashx?id="+ item.ProductID +"&Category="+ item.Category +"' class='img-responsive img-thumbnail'/> " +
+                        "     </div> " +
+                        "     <div class='col-lg-6 text-left' style='padding-top:5%'> " +
+                        "         <ul class='list-unstyled'> " +
+                        "             <li><label class='text-center' style='font-family:'chiser';'><b>"+ item.ItemName +"</b></label></li> " +
+                        "             <li><label class='text-center' style='font-family:'chiser';'><b>"+ item.Qty + ' ' + item.Notes +"</b></label></li> " +
+                        "             <li><label class='text-center' style='font-family:'chiser';'><b>$"+ item.Price +"</b></label></li> " +
+                        "             <li><a href='#' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "         </ul> " +
+                        "     </div> " +
+                        " </div> " 
+
+                            $(content).appendTo("#CartLoader");
+
+                        })
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+            // End My Cart Code
+
 
 
 

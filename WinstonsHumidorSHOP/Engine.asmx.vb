@@ -20,6 +20,8 @@ Public Class Engine
         Public Qty As Integer
         Public Notes As String 'Use this property to store values like Apparel Size selected,
         Public Price As Decimal
+        Public Category As String
+        Public ItemName As String
     End Class
 
     Public Class Accessory
@@ -204,7 +206,7 @@ Public Class Engine
         Return "hey dude"
     End Function
     <WebMethod(True)> _
-    Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String) As String
+    Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String, ByVal Category As String, ByVal ItemName As String) As String
 
         If Session("Cart") Is Nothing Then
             Dim i As New ShoppingCart
@@ -214,6 +216,8 @@ Public Class Engine
             i.Notes = Notes
             Dim dPrice As Decimal = CDec(Price)
             i.Price = Math.Round(dPrice, 2)
+            i.Category = Category
+            i.ItemName = ItemName
             itemList.Add(i)
             Session("Cart") = itemList
         Else
@@ -221,8 +225,11 @@ Public Class Engine
             Dim i As New ShoppingCart
             i.ProductID = ProductID
             i.Qty = Qty
+            i.ItemName = ItemName
             i.Notes = Notes
-            i.Price = Price
+            Dim dPrice As Decimal = CDec(Price)
+            i.Price = Math.Round(dPrice, 2)
+            i.Category = Category
             itemlist.Add(i)
         End If
 
@@ -234,6 +241,12 @@ Public Class Engine
     Public Function GoToCart()
 
         Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+
+        If InMyCart Is Nothing Then
+            Return 0
+        End If
+
+
         Dim ReturnList As New List(Of ShoppingCart)
 
         For i As Integer = 0 To InMyCart.Count - 1
@@ -242,11 +255,15 @@ Public Class Engine
             Dim Qty As Integer = InMyCart(i).Qty
             Dim Notes As String = InMyCart(i).Notes
             Dim Price As Decimal = InMyCart(i).Price
+            Dim DisplayName As String = InMyCart(i).ItemName
+            Dim Category As String = InMyCart(i).Category
             '  Dim Item As String = GetItemDetails(ProductID)
             sc.ProductID = ProductID
             sc.Qty = Qty
+            sc.ItemName = DisplayName
+            sc.Category = Category
             sc.Notes = Notes
-            sc.Price = Price
+            sc.Price = Math.Round(Price, 2)
             ReturnList.Add(sc)
         Next
         Return ReturnList
