@@ -17,7 +17,9 @@ Public Class Engine
 
     Public Class ShoppingCart
         Public ProductID As Integer
-        Public Item As String
+        Public Qty As Integer
+        Public Notes As String 'Use this property to store values like Apparel Size selected,
+        Public Price As Decimal
     End Class
 
     Public Class Accessory
@@ -80,6 +82,7 @@ Public Class Engine
         Public IsSingleSaleOnly As String
         Public IsBoxSaleOnly As String
         Public IsFeatured As String
+        Public Body As String
     End Class
 
     Public Class Pipe
@@ -201,18 +204,25 @@ Public Class Engine
         Return "hey dude"
     End Function
     <WebMethod(True)> _
-    Public Function AddToCart(ByVal ProductID As Integer) As String
+    Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String) As String
 
         If Session("Cart") Is Nothing Then
             Dim i As New ShoppingCart
             Dim itemList As New List(Of ShoppingCart)
-            i.ProductID = ProductID
+            i.ProductID = CInt(ProductID)
+            i.Qty = CInt(Qty)
+            i.Notes = Notes
+            Dim dPrice As Decimal = CDec(Price)
+            i.Price = Math.Round(dPrice, 2)
             itemList.Add(i)
             Session("Cart") = itemList
         Else
             Dim itemlist As List(Of ShoppingCart) = Session("Cart")
             Dim i As New ShoppingCart
             i.ProductID = ProductID
+            i.Qty = Qty
+            i.Notes = Notes
+            i.Price = Price
             itemlist.Add(i)
         End If
 
@@ -229,9 +239,14 @@ Public Class Engine
         For i As Integer = 0 To InMyCart.Count - 1
             Dim sc As New ShoppingCart
             Dim ProductID As Integer = InMyCart(i).ProductID
-            Dim Item As String = GetItemDetails(ProductID)
+            Dim Qty As Integer = InMyCart(i).Qty
+            Dim Notes As String = InMyCart(i).Notes
+            Dim Price As Decimal = InMyCart(i).Price
+            '  Dim Item As String = GetItemDetails(ProductID)
             sc.ProductID = ProductID
-            sc.Item = Item
+            sc.Qty = Qty
+            sc.Notes = Notes
+            sc.Price = Price
             ReturnList.Add(sc)
         Next
         Return ReturnList
@@ -527,7 +542,9 @@ Public Class Engine
 
     <WebMethod()> _
     Public Function SubscribeToMailingList(ByVal Email As String)
-
+        If Trim(Email) = String.Empty Then
+            Return ""
+        End If
         'This code should be working. 
         ' When I test, it seems to be going through. I get an email to confirm subscribtion via Mail Chimp.
         ' However, Within 5 min of subscribing I Don't see any subscribers in my list. 
@@ -658,6 +675,353 @@ Public Class Engine
 
 #Region "Product Pages"
 
+    ' Use GetProducts to pull in all products for any category page.
+    <WebMethod()> _
+    Public Function GetFeaturedProductInfo(ByVal ProductCategory As String)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Select Case ProductCategory
+
+            Case "Accessory"
+                dt = FillDataTable("SELECT * FROM Accessories")
+                If dt.Rows.Count > 0 Then
+                    AccessoryList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim A As New Accessory()
+                        A.AccessoryID = CStr(item("AccessoryID"))
+                        A.Brand = item("Brand")
+                        A.Description = item("Description")
+                        A.Name = item("Name")
+                        A.Qty = CStr(item("Qty"))
+                        A.SKU = item("SKU")
+                        A.ProductID = CStr(item("ProductID"))
+                        Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
+                        A.Price = CStr(DecPrice)
+                        A.IsFeatured = item("IsFeatured")
+                        AccessoryList.Add(A)
+                    Next
+                    Return AccessoryList
+                Else
+                    Return "0"
+                End If
+
+            Case "Apparel"
+                dt = FillDataTable("SELECT * FROM Apparel")
+                If dt.Rows.Count > 0 Then
+
+                    ApparelList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim A As New Apparel
+                        A.ApparelID = item("ApparelID")
+                        A.SKU = item("SKU")
+                        A.Name = item("Name")
+                        A.ProductID = item("ProductID")
+                        A.Description = item("Description")
+                        A.Price = Math.Round(item("Price"), 2)
+                        A.XS = item("XS_Qty")
+                        A.SM = item("SM_Qty")
+                        A.MD = item("MD_Qty")
+                        A.LG = item("LG_Qty")
+                        A.XL = item("XL_Qty")
+                        A.XXL = item("XXL_Qty")
+                        A.XXXL = item("XXXL_Qty")
+                        A.IsFeatured = item("IsFeatured")
+                        ApparelList.Add(A)
+                    Next
+                    Return ApparelList
+                Else
+                    Return 0
+                End If
+
+            Case "Cigars"
+                dt = FillDataTable("SELECT TOP 4 * FROM Cigars WHERE IsFeatured = 1")
+
+                If dt.Rows.Count > 0 Then
+
+                    CigarList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim C As New Cigar
+                        C.CigarID = item("CigarID")
+                        C.ProductID = item("ProductID")
+                        C.Brand = item("Brand")
+                        C.SKU = item("SKU")
+                        C.Name = item("Name")
+                        C.Description = item("Description")
+                        C.SinglePrice = Math.Round(item("SinglePrice"), 2)
+                        C.BoxPrice = Math.Round(item("BoxPrice"), 2)
+                        C.Length = item("Length")
+                        C.Ring = item("Ring")
+                        C.BoxCount = item("BoxCount")
+                        C.BoxQty = item("BoxQty")
+                        C.SingleQty = item("SingleQty")
+                        C.IsBoxSaleOnly = item("IsBoxSaleOnly")
+                        C.IsSingleSaleOnly = item("IsSingleSaleOnly")
+                        C.IsFeatured = item("IsFeatured")
+                        C.Body = item("Body")
+                        CigarList.Add(C)
+                    Next
+                    Return CigarList
+                Else
+                    Return 0
+                End If
+            Case "Coffee"
+                dt = FillDataTable("SELECT * FROM Coffee")
+                If dt.Rows.Count > 0 Then
+
+                    CoffeeList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim C As New Coffee
+                        C.CoffeeID = item("CoffeeID")
+                        C.SKU = item("SKU")
+                        C.Name = item("Name")
+                        C.ProductID = item("ProductID")
+                        C.Description = item("Description")
+                        C.Price = Math.Round(item("Price"), 2)
+                        C.Brand = item("Brand")
+                        C.Qty = CStr(item("Qty"))
+                        C.Roast = item("Roast")
+                        C.Body = item("Body")
+                        C.IsFeatured = item("IsFeatured")
+                        CoffeeList.Add(C)
+                    Next
+                    Return CoffeeList
+                Else
+                    Return 0
+                End If
+
+            Case "Pipes"
+                dt = FillDataTable("SELECT * FROM Pipes ")
+                If dt.Rows.Count > 0 Then
+
+                    PipeList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim P As New Pipe
+                        P.PipeID = item("PipeID")
+                        P.ProductID = item("ProductID")
+                        P.Brand = item("Brand")
+                        P.SKU = item("SKU")
+                        P.Name = item("Name")
+                        P.Description = item("Description")
+                        P.Price = Math.Round(item("Price"), 2)
+                        P.Qty = item("Qty")
+                        P.StemShape = item("StemShape")
+                        P.BowlFinish = item("BowlFinish")
+                        P.BodyShape = item("BodyShape")
+                        P.Material = item("Material")
+                        P.IsFeatured = item("IsFeatured")
+                        PipeList.Add(P)
+                    Next
+                    Return PipeList
+                Else
+                    Return 0
+                End If
+            Case "PipeTobacco"
+                dt = FillDataTable("SELECT * FROM PipeTobacco ")
+                If dt.Rows.Count > 0 Then
+
+                    PipeTobaccoList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim PT As New PipeTobacco
+                        PT.PipeTobaccoID = item("PipeTobaccoID")
+                        PT.ProductID = item("ProductID")
+                        PT.Brand = item("Brand")
+                        PT.SKU = item("SKU")
+                        PT.Tobacco = item("Tobacco")
+                        PT.Description = item("Description")
+                        PT.Price = Math.Round(item("Price"), 2)
+                        PT.Qty = item("Qty")
+                        PT.Style = item("Style")
+                        PT.Cut = item("Cut")
+                        PT.Strength = item("Strength")
+                        PT.IsFeatured = item("IsFeatured")
+                        PipeTobaccoList.Add(PT)
+                    Next
+                    Return PipeTobaccoList
+                Else
+                    Return 0
+                End If
+            Case Else
+                Return "0"
+        End Select
+    End Function
+
+    ' Use GetProducts to pull in all products for any category page.
+    <WebMethod()> _
+    Public Function SearchProducts(ByVal ProductCategory As String, ByVal SearchText As String)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Select Case ProductCategory
+
+            Case "Accessory"
+                dt = FillDataTable("SELECT * FROM Accessories")
+                If dt.Rows.Count > 0 Then
+                    AccessoryList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim A As New Accessory()
+                        A.AccessoryID = CStr(item("AccessoryID"))
+                        A.Brand = item("Brand")
+                        A.Description = item("Description")
+                        A.Name = item("Name")
+                        A.Qty = CStr(item("Qty"))
+                        A.SKU = item("SKU")
+                        A.ProductID = CStr(item("ProductID"))
+                        Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
+                        A.Price = CStr(DecPrice)
+                        A.IsFeatured = item("IsFeatured")
+                        AccessoryList.Add(A)
+                    Next
+                    Return AccessoryList
+                Else
+                    Return "0"
+                End If
+
+            Case "Apparel"
+                dt = FillDataTable("SELECT * FROM Apparel")
+                If dt.Rows.Count > 0 Then
+
+                    ApparelList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim A As New Apparel
+                        A.ApparelID = item("ApparelID")
+                        A.SKU = item("SKU")
+                        A.Name = item("Name")
+                        A.ProductID = item("ProductID")
+                        A.Description = item("Description")
+                        A.Price = Math.Round(item("Price"), 2)
+                        A.XS = item("XS_Qty")
+                        A.SM = item("SM_Qty")
+                        A.MD = item("MD_Qty")
+                        A.LG = item("LG_Qty")
+                        A.XL = item("XL_Qty")
+                        A.XXL = item("XXL_Qty")
+                        A.XXXL = item("XXXL_Qty")
+                        A.IsFeatured = item("IsFeatured")
+                        ApparelList.Add(A)
+                    Next
+                    Return ApparelList
+                Else
+                    Return 0
+                End If
+
+            Case "Cigars"
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM Cigars")
+                Else
+                    dt = FillDataTable("SELECT * FROM Cigars WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
+                End If
+
+
+                If dt.Rows.Count > 0 Then
+
+                    CigarList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim C As New Cigar
+                        C.CigarID = item("CigarID")
+                        C.ProductID = item("ProductID")
+                        C.Brand = item("Brand")
+                        C.SKU = item("SKU")
+                        C.Name = item("Name")
+                        C.Description = item("Description")
+                        C.SinglePrice = Math.Round(item("SinglePrice"), 2)
+                        C.BoxPrice = Math.Round(item("BoxPrice"), 2)
+                        C.Length = item("Length")
+                        C.Ring = item("Ring")
+                        C.BoxCount = item("BoxCount")
+                        C.BoxQty = item("BoxQty")
+                        C.SingleQty = item("SingleQty")
+                        C.IsBoxSaleOnly = item("IsBoxSaleOnly")
+                        C.IsSingleSaleOnly = item("IsSingleSaleOnly")
+                        C.IsFeatured = item("IsFeatured")
+                        C.Body = item("Body")
+                        CigarList.Add(C)
+                    Next
+                    Return CigarList
+                Else
+                    Return 0
+                End If
+            Case "Coffee"
+                dt = FillDataTable("SELECT * FROM Coffee")
+                If dt.Rows.Count > 0 Then
+
+                    CoffeeList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim C As New Coffee
+                        C.CoffeeID = item("CoffeeID")
+                        C.SKU = item("SKU")
+                        C.Name = item("Name")
+                        C.ProductID = item("ProductID")
+                        C.Description = item("Description")
+                        C.Price = Math.Round(item("Price"), 2)
+                        C.Brand = item("Brand")
+                        C.Qty = CStr(item("Qty"))
+                        C.Roast = item("Roast")
+                        C.Body = item("Body")
+                        C.IsFeatured = item("IsFeatured")
+                        CoffeeList.Add(C)
+                    Next
+                    Return CoffeeList
+                Else
+                    Return 0
+                End If
+
+            Case "Pipes"
+                dt = FillDataTable("SELECT * FROM Pipes ")
+                If dt.Rows.Count > 0 Then
+
+                    PipeList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim P As New Pipe
+                        P.PipeID = item("PipeID")
+                        P.ProductID = item("ProductID")
+                        P.Brand = item("Brand")
+                        P.SKU = item("SKU")
+                        P.Name = item("Name")
+                        P.Description = item("Description")
+                        P.Price = Math.Round(item("Price"), 2)
+                        P.Qty = item("Qty")
+                        P.StemShape = item("StemShape")
+                        P.BowlFinish = item("BowlFinish")
+                        P.BodyShape = item("BodyShape")
+                        P.Material = item("Material")
+                        P.IsFeatured = item("IsFeatured")
+                        PipeList.Add(P)
+                    Next
+                    Return PipeList
+                Else
+                    Return 0
+                End If
+            Case "PipeTobacco"
+                dt = FillDataTable("SELECT * FROM PipeTobacco ")
+                If dt.Rows.Count > 0 Then
+
+                    PipeTobaccoList.Clear()
+                    For Each item As DataRow In dt.Rows()
+                        Dim PT As New PipeTobacco
+                        PT.PipeTobaccoID = item("PipeTobaccoID")
+                        PT.ProductID = item("ProductID")
+                        PT.Brand = item("Brand")
+                        PT.SKU = item("SKU")
+                        PT.Tobacco = item("Tobacco")
+                        PT.Description = item("Description")
+                        PT.Price = Math.Round(item("Price"), 2)
+                        PT.Qty = item("Qty")
+                        PT.Style = item("Style")
+                        PT.Cut = item("Cut")
+                        PT.Strength = item("Strength")
+                        PT.IsFeatured = item("IsFeatured")
+                        PipeTobaccoList.Add(PT)
+                    Next
+                    Return PipeTobaccoList
+                Else
+                    Return 0
+                End If
+            Case Else
+                Return "0"
+        End Select
+    End Function
+
 
     ' Use GetProducts to pull in all products for any category page.
     <WebMethod()> _
@@ -742,6 +1106,7 @@ Public Class Engine
                         C.IsBoxSaleOnly = item("IsBoxSaleOnly")
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
+                        C.Body = item("Body")
                         CigarList.Add(C)
                     Next
                     Return CigarList
@@ -913,6 +1278,7 @@ Public Class Engine
                         C.IsBoxSaleOnly = item("IsBoxSaleOnly")
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
+                        C.Body = item("Body")
                         CigarList.Add(C)
                     Next
                     Return CigarList
