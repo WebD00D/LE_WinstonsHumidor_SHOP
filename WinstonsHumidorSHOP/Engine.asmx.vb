@@ -22,6 +22,7 @@ Public Class Engine
         Public Price As Decimal
         Public Category As String
         Public ItemName As String
+        Public scCount As Integer
     End Class
 
     Public Class Accessory
@@ -156,55 +157,58 @@ Public Class Engine
     <WebMethod(True)> _
     Public Function Checkout()
 
-        'LIVE: https://secure.authorize.net/gateway/transact.dll
-        Dim post_url = "https://test.authorize.net/gateway/transact.dll"
-        Dim post_values As New Dictionary(Of String, String)
-
-        'the API Login ID and Transaction Key must be replaced with valid values
-        post_values.Add("x_login", "2hBf5VN3S")
-        post_values.Add("x_tran_key", "88tkv2t2D29z5NQT")
-
-        post_values.Add("x_delim_data", "TRUE")
-        post_values.Add("x_delim_char", "|")
-        post_values.Add("x_relay_response", "FALSE")
-
-        post_values.Add("x_type", "AUTH_CAPTURE")
-        post_values.Add("x_method", "CC")
-        post_values.Add("x_card_num", "4111111111111111")
-        post_values.Add("x_exp_date", "0115")
-
-        post_values.Add("x_amount", "19.99")
-        post_values.Add("x_description", "Sample Transaction")
-
-        post_values.Add("x_first_name", "John")
-        post_values.Add("x_last_name", "Doe")
-        post_values.Add("x_address", "1234 Street")
-        post_values.Add("x_state", "WA")
-        post_values.Add("x_zip", "98004")
-
-
-        'or 
-
         'Step 1 - Create the request
-        'C#  var request = new AuthorizationRequest("4111111111111111", "1216", 10.00M, "Test Transaction ");"
         Dim Request = New AuthorizationRequest("CARDNBR", "1216", 10.0, "Description")
 
         'Step 2 - Create the gateway, sending in your credentials
-        'C#  var gate = new Gateway("YOUR_API_LOGIN_ID", "YOUR_TRANSACTION_KEY");
-
         Dim gate = New Gateway("APILOGIN", "TRANSKEY")
-
         ' Step 3 - Send the request to the gateway
-        'C#  var response = gate.Send(request);
-
         Dim response = gate.Send(Request)
 
         'Use for codes to showing to customer, and storing transaction id's in db
         Dim ResponseCode As String = response.ResponseCode
         Dim ResponseMsg As String = response.Message
-          
-        Return "hey dude"
+
+        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
+        Dim Custy = Target.CreateCustomer("email", "description")
+
+        Dim CustyID As String = Custy.ProfileID
+
+        Target.AddCreditCard(CustyID, "CARDNBR", 12, 2015, "123")
+        Dim Customer = Target.GetCustomer(CustyID)
+
+        Dim Card = Customer.PaymentProfiles(0)
+        Dim Request2 = New AuthorizationRequest(Card.CardNumber, Card.CardExpiration, 10.0, "Description")
+
+        Return ""
     End Function
+
+
+    <WebMethod()> _
+    Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String)
+
+        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
+        Dim Custy = Target.CreateCustomer(email, "Winston's Humidor Customer Profile")
+        Dim CustyID As String = Custy.ProfileID
+
+        'TODO --> Save customer profileid in the database
+
+        Return ""
+    End Function
+
+
+    <WebMethod()> _
+    Public Function RetrieveCustomer(ByVal Email As String, ByVal Password As String)
+        'TODO --> Pull customer profileid from the database
+        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
+        Target.GetCustomer("ProfileID")
+        Return Target
+    End Function
+
+
+
+
+
     <WebMethod(True)> _
     Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String, ByVal Category As String, ByVal ItemName As String) As String
 
@@ -218,6 +222,7 @@ Public Class Engine
             i.Price = Math.Round(dPrice, 2)
             i.Category = Category
             i.ItemName = ItemName
+            i.scCount = 1
             itemList.Add(i)
             Session("Cart") = itemList
         Else
@@ -230,11 +235,42 @@ Public Class Engine
             Dim dPrice As Decimal = CDec(Price)
             i.Price = Math.Round(dPrice, 2)
             i.Category = Category
+            i.scCount = itemlist.Count + 1
             itemlist.Add(i)
         End If
 
         Return ""
     End Function
+
+
+    <WebMethod(True)> _
+    Public Function GetCartTotal()
+        Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+
+        If InMyCart Is Nothing Then
+            Return 0
+        End If
+        Dim ReturnList As New List(Of ShoppingCart)
+        Dim Total As Decimal = 0.0
+        For i As Integer = 0 To InMyCart.Count - 1
+            Dim sc As New ShoppingCart
+
+            Dim Price As Decimal = InMyCart(i).Price
+
+            Total = Total + Price
+        Next
+        Return Math.Round(Total, 2)
+    End Function
+
+    <WebMethod(True)> _
+    Public Function GetCartCount()
+        Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+        If InMyCart Is Nothing Then
+            Return 0
+        End If
+        Return InMyCart.Count
+    End Function
+
 
 
     <WebMethod(True)> _
