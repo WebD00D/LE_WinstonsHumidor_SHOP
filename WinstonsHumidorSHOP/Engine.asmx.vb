@@ -205,7 +205,31 @@ Public Class Engine
         Return Target
     End Function
 
+    <WebMethod(True)> _
+    Public Function RemoveItemFromCart(ByVal ProdID As Integer, ByVal Notes As String, ByVal Qty As String, ByVal Price As String)
+        Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
 
+        If InMyCart Is Nothing Then
+            Return 0
+        End If
+
+
+        Dim Total As Decimal = 0.0
+        For i As Integer = 0 To InMyCart.Count - 1
+
+            If InMyCart(i).ProductID = ProdID AndAlso InMyCart(i).Notes = Notes Then
+                InMyCart.RemoveAt(i)
+                Session("Cart") = InMyCart
+                Return ""
+            End If
+
+        Next
+
+
+
+
+        Return ""
+    End Function
 
 
 
@@ -227,16 +251,37 @@ Public Class Engine
             Session("Cart") = itemList
         Else
             Dim itemlist As List(Of ShoppingCart) = Session("Cart")
-            Dim i As New ShoppingCart
-            i.ProductID = ProductID
-            i.Qty = Qty
-            i.ItemName = ItemName
-            i.Notes = Notes
-            Dim dPrice As Decimal = CDec(Price)
-            i.Price = Math.Round(dPrice, 2)
-            i.Category = Category
-            i.scCount = itemlist.Count + 1
-            itemlist.Add(i)
+            Dim IsDuplicate As Boolean = False
+
+            For c As Integer = 0 To itemlist.Count - 1
+
+                If itemlist(c).ProductID = ProductID AndAlso itemlist(c).Notes = Notes Then
+                    IsDuplicate = True
+                    Return 2
+                Else
+                    IsDuplicate = False
+                End If
+
+            Next
+
+            If IsDuplicate = False Then
+                Dim i As New ShoppingCart
+                i.ProductID = ProductID
+                i.Qty = Qty
+                i.ItemName = ItemName
+                i.Notes = Notes
+                Dim dPrice As Decimal = CDec(Price)
+                i.Price = Math.Round(dPrice, 2)
+                i.Category = Category
+                i.scCount = itemlist.Count + 1
+                itemlist.Add(i)
+            Else
+                Return 2
+            End If
+
+           
+          
+
         End If
 
         Return ""
@@ -281,7 +326,9 @@ Public Class Engine
         If InMyCart Is Nothing Then
             Return 0
         End If
-
+        If InMyCart.Count = 0 Then
+            Return 0
+        End If
 
         Dim ReturnList As New List(Of ShoppingCart)
 

@@ -68,10 +68,10 @@
         <div class="col-lg-12" style="padding:19.20%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9927.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
             <h1 id="nofocus" style="color:white;font-family:'fancy';font-size:40px;">STAY IN THE LOOP</h1>
             <h3 style="color:white;font-family:'chiser'">Get notified when we add new cigars</h3>
-            <input placeholder="email address" class="form-control" style="font-size:30px;height:50px;font-family:'Chiser';background-color:rgba(01,01,01,0.1);border:1px solid white;border-top:none;border-left:none;border-right:none;color:#ffffff"/>
+            <input id="MailChimpEmail" placeholder="email address" class="form-control" style="font-size:30px;height:50px;font-family:'Chiser';background-color:rgba(01,01,01,0.1);border:1px solid white;border-top:none;border-left:none;border-right:none;color:#ffffff"/>
             <br />
             <br />
-            <a class="homepagelinks" href="Cigars.html">Subscribe</a>
+            <a id="btnMailChimp" class="homepagelinks" href="#">Subscribe</a>
         </div>
         <div class="col-lg-12" style="background-color:white">
             <br />
@@ -180,7 +180,7 @@
                         </div>
                         <div class="col-lg-12 text-center">
                             <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total:$<span id="CartTtl"></span></b></h3>
-                            <a href="#" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                            <a href="Checkout.html" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
                         </div>
                       
                     </div>
@@ -249,6 +249,8 @@
                     <br />
                     <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
                     <button id="btnAddToCart" type="button" class="btn btn-news2">Add To Cart</button>
+                    <br />
+                    <label id="lbladdtocartmsg" style="color:red"></label>
                 </div>
             </div>
         </div>
@@ -507,7 +509,17 @@
 
 
         
-         
+
+            var _ProductViewing;
+            var _TotalBoxQty;
+            var _TotalSingleQty;
+            var _BoxCount;
+            var _BoxPrice;
+            var _SinglePrice;
+            var _BoxOnly;
+            var _SingleOnly;
+            var _Option; //for box or single
+            var _DisplayName;
             
             //C. = item("IsBoxSaleOnly")
             //C.IsSingleSaleOnly = item("IsSingleSaleOnly")
@@ -518,22 +530,33 @@
             
       
             $("#FeaturedProductsLoader").delegate(".cigarz", "click", function (e) {
+                $("#lbladdtocartmsg").text("");
+                _ProductViewing = $(this).attr('data-prodid');
                 var ProductID = $(this).attr('data-prodid');
                 var Brand = $(this).attr('data-brand');
                 var Name = $(this).attr('data-name');
+                _DisplayName = Brand + ' ' + Name;
                 var Length = $(this).attr('data-length');
                 var Ring = $(this).attr('data-ring');
                 var Body = $(this).attr('data-body');
                 var Description = $(this).attr('data-description');
                 var SKU = $(this).attr('data-SKU');
                 var SinglePrice = $(this).attr('data-SinglePrice');
+                _SinglePrice = $(this).attr('data-SinglePrice');
                 var BoxPrice = $(this).attr('data-boxPrice');
+                _BoxPrice = $(this).attr('data-boxPrice');
                 var BoxCount = $(this).attr('data-boxCount');
+                _BoxCount = $(this).attr('data-boxCount');
                 var BoxQty = $(this).attr('data-boxQty');
+                _TotalBoxQty = $(this).attr('data-boxQty');
                 var SingleQty = $(this).attr('data-SingleQty');
+                _TotalSingleQty = $(this).attr('data-SingleQty');
                 var IsBoxSaleOnly = $(this).attr('data-boxonly');
+                _BoxOnly = $(this).attr('data-boxonly');
                 var IsSingleSaleOnly = $(this).attr('data-singleonly');
+                _SingleOnly = $(this).attr('data-singleonly');
                
+
                 $("#cBrand").text(Brand);
                 $("#cName").text(Name);
                 $("#cLength").text(Length);
@@ -541,6 +564,7 @@
                 $("#cBody").text(Body);
                 $("#cDescription").text(Description);
               
+
 
 
                 $("#prodimgholder").empty();
@@ -588,18 +612,10 @@
              
             })
 
-            var _ProductViewing;
-            var _TotalBoxQty;
-            var _TotalSingleQty;
-            var _BoxCount;
-            var _BoxPrice;
-            var _SinglePrice;
-            var _BoxOnly;
-            var _SingleOnly;
-            var _Option; //for box or single
-            var _DisplayName;
 
             $("#CigarLoader").delegate(".cigarz", "click", function (e) {
+
+                $("#lbladdtocartmsg").text("");
                 _ProductViewing = $(this).attr('data-prodid');
                 var ProductID = $(this).attr('data-prodid');
                 var Brand = $(this).attr('data-brand');
@@ -764,8 +780,17 @@
                     dataType: "json",
                     success: function (data) {
                         var result = data.d;
+
+                        if (result == 2) {
+                            $("#lbladdtocartmsg").text("Item already exists!");
+                            $("#Qty").val("");
+                            getCartCount();
+                            return;
+                        }
+
                         getCartCount();
-                      
+                        $("#Qty").val("");
+                        $('#viewCigarModal').modal('hide');
                     },
                     failure: function (msg) {
                         alert(msg);
@@ -774,8 +799,7 @@
                         alert(err);
                     }
                 }) //end ajax
-                $("#Qty").val("");
-                $('#viewCigarModal').modal('hide');
+                
             })
 
 
@@ -807,6 +831,7 @@
 
             $("#myCart").click(function () {
                 $("#cartmsg").text("");
+                $("#CartLoader").empty();
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/GoToCart",
@@ -818,6 +843,7 @@
 
                         if (result == 0) {
                             $("#cartmsg").text("(No items in cart to show)");
+                            $("#CartTtl").text("0.00");
                             return;
                         }
                      
@@ -834,7 +860,7 @@
                         "             <li><label class='text-center' style='font-family:'chiser';'><b>"+ item.ItemName +"</b></label></li> " +
                         "             <li><label class='text-center' style='font-family:'chiser';'><b>"+ item.Qty + ' ' + item.Notes +"</b></label></li> " +
                         "             <li><label class='text-center' style='font-family:'chiser';'><b>$"+ item.Price +"</b></label></li> " +
-                        "             <li><a href='#' class='btn btn-sm btn-danger'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "             <li><a data-notes='"+ item.Notes +"' data-qty='"+ item.Qty +"' data-price='"+ item.Price +"' id="+ item.ProductID +" href='#' class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-remove'></i></a></li> " +
                         "         </ul> " +
                         "     </div> " +
                         " </div> " 
@@ -851,12 +877,43 @@
                     error: function (err) {
                         alert(err);
                     }
-                    
-                  
                 }) //end ajax
-
-               
             })
+
+            
+            $("#CartLoader").delegate(".removeitem", "click", function (e) {
+                var removeitemnbr = $(this).attr('id');
+                var notes = $(this).attr('data-notes');
+                var qty = $(this).attr('data-qty');
+                var price = $(this).attr('data-price');
+
+                
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/RemoveItemFromCart",
+                    data: "{ProdID:"+ removeitemnbr +",Notes:'"+ notes +"',Qty:'"+ qty +"',Price:'"+ price +"'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        getCartCount();
+                        $('#viewCartModal').modal('hide');
+                     
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
 
 
 
@@ -916,6 +973,39 @@
                 }) //end ajax
 
             }
+
+
+
+            //Subscribe To Mailing List
+            $("#btnMailChimp").click(function (e) {
+                e.preventDefault();
+                var EmailAddy = $("#MailChimpEmail").val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SubscribeToMailingList",
+                    data: "{Email:'" + EmailAddy + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+                        $("#MailChimpEmail").val("Thanks!");
+                        $("#MailChimpEmail").css("color", "#BF4A22");
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            })
 
 
         })
