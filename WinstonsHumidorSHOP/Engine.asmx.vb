@@ -1067,7 +1067,7 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes ")
+                dt = FillDataTable("SELECT * FROM Pipes WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR StemShape LIKE '%" & SearchText & "%' OR BowlFinish LIKE '%" & SearchText & "%'  OR BodyShape LIKE '%" & SearchText & "%'  OR Material LIKE '%" & SearchText & "%'")
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
