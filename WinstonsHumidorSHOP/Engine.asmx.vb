@@ -891,7 +891,7 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes ")
+                dt = FillDataTable("SELECT TOP 4 * FROM Pipes WHERE IsFeatured = 1 ")
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
