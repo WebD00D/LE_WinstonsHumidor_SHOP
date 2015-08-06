@@ -586,3 +586,50 @@ color:white;font-size:x-large;border:2px solid white;
 #nofocus:focus{
     outline:0;
 }
+
+.navbar-brand
+{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 10px;
+    text-align: center;
+    margin: auto;
+    padding:0;
+}
+
+/*===NEWS CAROUSEL====*/
+.partner-list{
+}
+.single-partner{
+margin:0 5px;
+}
+.single-partner img{
+border:1px solid #57BDDB;
+width:100%;
+}
+.owl-buttons{
+margin-top:10px;
+margin-left:5px;
+}
+.owl-buttons div{
+border:1px solid #57BDDB;
+color:#57BDDB;
+display:inline-block;
+font-size:20px;
+height:30px;
+line-height:25px;
+margin-right:10px;
+text-align:center;
+width:30px;
+}
+.owl-buttons div.owl-prev{
+    
+    
+}
+.owl-buttons div.owl-next{
+}
+.owl-buttons div:hover{
+opacity:.6;
+}
+/*===END NEWS CAROUSEL====*/

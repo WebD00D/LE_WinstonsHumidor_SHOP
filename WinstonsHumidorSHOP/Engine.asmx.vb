@@ -434,7 +434,7 @@ Public Class Engine
             cmd.Connection = con
             cmd.Connection.Open()
             cmd.CommandType = CommandType.Text
-            cmd.CommandText = " SELECT TOP 1 PostID,PostDate,PostedBy,HTML,PostTitle,NewsType,LEFT(PlainText,250)PlainText,PostType,Hashtag,EventLocation,EventDate FROM NewsPosts ORDER BY PostDate DESC"
+            cmd.CommandText = " SELECT PostID,PostDate,PostedBy,HTML,PostTitle,NewsType,LEFT(PlainText,250)PlainText,PostType,Hashtag,EventLocation,EventDate FROM NewsPosts ORDER BY PostDate DESC"
             Using da As New SqlDataAdapter
                 da.SelectCommand = cmd
                 da.Fill(dt)
