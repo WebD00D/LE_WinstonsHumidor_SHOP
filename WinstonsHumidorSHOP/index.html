@@ -37,7 +37,7 @@
             <a href="Apparel.html" class="smoothScroll">Apparel</a>
             <a href="Accessories.html" class="smoothScroll">Accessories</a>
             <a href="Co.html" class="smoothScroll">Coffee</a>
-            <a href="Cart.html" class="smoothScroll">Cart</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
             <a href="#"><i class="icon-facebook"></i></a>
             <a href="#"><i class="icon-twitter"></i></a>
             <a href="#"><i class="icon-instagram"></i></a>
@@ -46,7 +46,7 @@
         <div id="menuToggle"><i class="icon-reorder"></i></div>
     </nav>
 
-    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px">
+    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px;padding:15px">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
@@ -57,7 +57,7 @@
             </button>
 
         </div>
-        <a id="brandlogo" class="navbar-brand" href="#" ><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:100px;" /></a>
+        <a id="brandlogo" class="navbar-brand" href="index.html" ><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:125px;" /></a>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
 
@@ -66,11 +66,13 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
+                        <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
+                        <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
+                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
+                        <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
+
                     </ul>
                 </li>
                 <li><a href="#">About</a></li>
@@ -78,7 +80,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li><a href="#">News</a></li>
                 <li><a href="#">Login</a></li>
-                <li><a href="#">Cart (0)</a></li>
+                <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
                 <li><a href="#"></a></li>
               
             </ul>
@@ -168,6 +170,158 @@
 
 
 
+
+        <div id="FeaturedProductsLoader" class="hidden-xs hidden-sm">
+            <a href="Cigars.html">
+                <div class='col-lg-4 text-center featuredprod cigarrr' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/CigarTest2.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="Cigars.html" class='btn btn-default cigarA' style="border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600">CIGARS</div>
+                </div>
+            </a>
+            <a href="Coffee.html">
+                <div class='col-lg-4 text-center featuredprod coffeee' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/coffee-beans.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="Coffee.html" class='btn btn-default coffeeea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>COFFEE</div>
+                </div>
+            </a>
+            <a href="Pipes.html">
+                <div class='col-lg-4 text-center featuredprod piiipe' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/pipes.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="Pipes.html" class='btn btn-default pipea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>PIPES</div>
+                </div>
+            </a>
+            <a href="Accessories.html">
+                <div class='col-lg-4 text-center featuredprod accessorrree' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/accessories.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="Accessories.html" class='btn btn-default accessoreeea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>ACCESSORIES</div>
+                </div>
+            </a>
+            <a href="Apparel.html">
+                <div class='col-lg-4 text-center featuredprod apparell' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url("images/Apperal Coming Soon.jpg");padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="Apparel.html" class='btn btn-default aparella' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>COMING SOON</div>
+                </div>
+            </a>
+            <a href="PipeTobacco.html">
+                <div class='col-lg-4 text-center featuredprod ptobacco' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url("images/skullandbones.png");padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                    <div href="PipeTobacco.html" class='btn btn-default ptobaccoa' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>PIPE TOBACCO</div>
+                </div>
+            </a>
+
+        </div>
+    
+
+    <div id="FeaturedProductsLoader2" class="hidden-md hidden-lg">
+        <a href="Cigars.html">
+            <div class='col-lg-4 text-center featuredprod cigarrr2' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/CigarTest2.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="Cigars.html" class='btn btn-default cigarA2' style="border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600">CIGARS</div>
+            </div>
+        </a>
+        <a href="Coffee.html">
+            <div class='col-lg-4 text-center featuredprod coffeee2' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/coffee-beans.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="Coffee.html" class='btn btn-default coffeeea2' style='border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>COFFEE</div>
+            </div>
+        </a>
+        <a href="Pipes.html">
+            <div class='col-lg-4 text-center featuredprod piiipe2' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/pipes.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="Pipes.html" class='btn btn-default pipea2' style='border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>PIPES</div>
+            </div>
+        </a>
+        <a href="Accessories.html">
+            <div class='col-lg-4 text-center featuredprod accessorrree2' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/accessories.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="Accessories.html" class='btn btn-default accessoreeea2' style='border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>ACCESSORIES</div>
+            </div>
+        </a>
+        <a href="Apparel.html">
+            <div class='col-lg-4 text-center featuredprod apparell2' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url("images/Apperal Coming Soon.jpg");padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="Apparel.html" class='btn btn-default aparella2' style='border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>COMING SOON</div>
+            </div>
+        </a>
+        <a href="PipeTobacco.html">
+            <div class='col-lg-4 text-center featuredprod ptobacco2' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url("images/skullandbones.png");padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
+                <div href="PipeTobacco.html" class='btn btn-default ptobaccoa2' style='border:2px solid rgba(255,255,255,1.0);color:white;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>PIPE TOBACCO</div>
+            </div>
+        </a>
+
+    </div>
+
+
+
+
+    <section id="featuredproductsect"></section>
+    <div class="col-lg-6" style="padding:0px;">
+        <!--<div class="col-lg-12 text-center" style="background-color:white;padding:3%">
+            <label style="font-family:'chiser';font-size:40px">NEW ARRIVALS</label>
+        </div>-->
+        <div class="col-lg-12 text-center" style="background-color:white;">
+            <br />
+            <label id="NewsEventsTitle" style="font-family:'chiser';font-size:40px;" class="text-center"> ABOUT US </label>
+            <ul class="list-inline">
+
+                <li style="font-family:Arial"><span id="NewsEventsDate"></span></li>
+            </ul>
+            <hr style="margin-top:5px;margin-left:20%;margin-right:20%" />
+            <p id="NewsEventsText" class="text-left" style="font-family:'chiser';color:#808080;font-size:large">
+
+                At Winston's Humidor our Tobacconists appreciate the artistry,
+                history and tradition which go into the making of cigars. Our passion for cigars is evident,
+                as is our commitment to the cigar smoking community. Winston's Humidor isn't "About Us" – it's all "About You"
+                and providing you with the best cigar smoking environment.
+                <br />
+                <br /> As the number of cigar friendly establishments dwindles,
+                Winston's Humidor welcomes cigar enthusiasts with a variety of services and events. From weekly card games and dominoes to coffee,
+                we offer unique opportunities for cigar camaraderie. With three flat screen HDTV's you can be assured that if the game is broadcast
+                locally then we will have it for you to enjoy with a cigar. For those seeking a place to read and relax with a cigar we have local and
+                national newspapers along with current magazines. Winston's Humidor is the place to escape with a cigar.﻿
+                <div class="hidden-xs">
+                    <a href="#">
+                        <div class="col-lg-2" style="padding:50px;background-image:url(images/certs/CRA08-colorNEW.png);background-size:contain;background-repeat:no-repeat;background-position:center">
+
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div class="col-lg-2 " style="padding:50px;background-image:url(images/certs/Tobacconist-University-logo.jpg);background-size:contain;background-repeat:no-repeat;background-position:center">
+
+                        </div>
+                    </a>
+
+                    <a href="#">
+                        <div class="col-lg-2" style="padding:50px;background-image:url(images/certs/IPCPR_1024.png);background-size:contain;background-repeat:no-repeat;background-position:center">
+
+                        </div>
+                    </a>
+
+
+                    <a href="#">
+                        <div class="col-lg-6  " style="padding:50px;background-image:url(images/certs/OP-CFW-LOGO_v7.png);background-size:contain;background-repeat:no-repeat;background-position: center;background-position-x:90%">
+
+                        </div>
+                    </a>
+                </div>
+                
+
+               
+
+            </p>
+
+            <br />
+
+
+        </div>
+        
+    </div>
+    
+    <div class="col-lg-6 text-center" style="padding:0px">
+        
+        <div class="col-lg-12" style="padding:23.50%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9918.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
+            <h1 style="color:white;font-family:'fancy';font-size:40px;">STAY IN THE LOOP</h1>
+            
+          <br />
+            <input id="MailChimpEmail" placeholder="email address" class="form-control" style="font-size:30px;height:50px;font-family:'Chiser';background-color:rgba(01,01,01,0.1);border:1px solid white;border-top:none;border-left:none;border-right:none;color:#ffffff" />
+       <br />
+            <br />
+            <a class="homepagelinks" href="Cigars.html">SUBMIT</a>
+         </div>
+    
+       
+    </div>
+
     <section>
 
         <!---->
@@ -180,92 +334,86 @@
                 <a href="#" class="btn btn-sm btn-default"><b>Read More...</b></a>
             </div>-->
 
-           
+
 
         </div>
 
 
     </section>
-
-
-
-    <section id="featuredproductsect"></section>
-    <div class="col-lg-6" style="padding:0px">
-        <!--<div class="col-lg-12 text-center" style="background-color:white;padding:3%">
-            <label style="font-family:'chiser';font-size:40px">NEW ARRIVALS</label>
-        </div>-->
-        
-        <div id="FeaturedProductsLoader">
-            <a href="Cigars.html">
-                <div class='col-lg-6 text-center featuredprod cigarrr' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/CigarTest2.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
-                    <div href="Cigars.html" class='btn btn-default cigarA' style="border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600">CIGARS</div>
-                </div>
-            </a>
-            <a href="Coffee.html">
-                <div class='col-lg-6 text-center featuredprod coffeee' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/coffee-beans.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
-                    <div href="Coffee.html" class='btn btn-default coffeeea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>COFFEE</div>
-                </div> 
-            </a>
-             <a href="Pipes.html">
-                 <div class='col-lg-6 text-center featuredprod piiipe' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/pipes.png);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
-                     <div href="Pipes.html" class='btn btn-default pipea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>PIPES</div>
-                 </div>
-             </a>
-            <a href="Accessories.html">
-                <div class='col-lg-6 text-center featuredprod accessorrree' style='background:linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/accessories.jpg);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center'>
-                    <div href="Accessories.html" class='btn btn-default accessoreeea' style='border:2px solid rgba(255,255,255,0.0);color:transparent;background-color:transparent;font-size:x-large;padding-top:5px;padding-bottom:5px;padding-left:20%;padding-right:20%;font-weight:600'>ACCESSORIES</div>
-                </div>
-            </a>
-            
-            
-        </div>
-    </div>
-
-    <div class="col-lg-6 text-center" style="padding:0px">
-        
-        <div class="col-lg-12" style="padding:19.20%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9918.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
-            <h1 style="color:white;font-family:'fancy';font-size:40px;">A PLACE TO ESCAPE..<br />WITH A CIGAR</h1>
-            <a class="homepagelinks" href="Cigars.html">FIND YOURS</a>
-        </div>
-        <div class="col-lg-12" style="background-color:white">
-            <br />
-            <label id="NewsEventsTitle" style="font-family:'chiser';font-size:40px">Winston's Reserva Maduro Coffee </label>
-            <ul class="list-inline">
-
-                <li style="font-family:Arial"><span id="NewsEventsDate"></span></li>
-            </ul>
-            <hr style="margin-top:5px;margin-left:20%;margin-right:20%"/>
-            <p id="NewsEventsText" class="text-left" style="font-family:Arial;color:#808080;padding-left:5%;padding-right:5%;">
-                Lorem ipsum dolar set blah blah random text here. Lorem ipsum dolar set blah blah random text here.
-                Lorem ipsum dolar set blah blah random text here. Lorem ipsum dolar set blah blah random text here.
-                Lorem ipsum dolar set blah blah random text here...
-                
-                
-            </p>
-            <p id="AddContinueReadigSection" class="text-left" style="padding-left:5%;padding-right:5%;padding-top:26px">
-                
-           
-            </p>
-            <br />
-            
-           
-        </div>
-       
-    </div>
-
     
-        <div class="col-lg-12 text-center" style="padding:50px;background-color:white">
-           <h3 style="font-family:'chiser'">"I smoke in moderation. Only one cigar at a time." <br /> - Mark Twain</h3> 
-        </div>
+        
     
     <div id="c">
 
         <div class="col-lg-12 text-center" style="padding:20px;background-color:#171616">
-            <h5><a href="http://www.laboremedge.com" style="color:white">Made with <i style="color:rgba(206,70,70,0.7)" class="icon-heart"></i> by Laborem Edge</a></h5>
+            <div class="col-lg-4">
+               
+                <h5><a href="index.html" style="color:white">"I smoke in moderation. Only one cigar at a time" - Mark Twain</a></h5>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+                <h5><a href="http://www.laboremedge.com" style="color:white">Made with <i style="color:rgba(206,70,70,0.7)" class="icon-heart"></i> by Laborem Edge</a></h5>
+            </div>
+            
         </div>
     </div>
 
+    <div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
+                <div>
+                    <div class="col-lg-12 text-center">
+                        <br />
+                        <h2 class="text-center" style="font-family:'chiser'"><b>My Cart</b></h2>
+                        <label style="font-family:'chiser'" class="text-center" id="cartmsg"></label>
+
+
+                        <div id="CartLoader">
+
+
+                            <!--<div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <img src="images/IMG_9927.jpg" class="img-responsive img-thumbnail"/>
+                                </div>
+                                <div class="col-lg-6 text-left" style="padding-top:5%">
+                                    <ul class="list-unstyled">
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>Rocky Patel Decade Toro</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>1 Box</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>$250.50</b></label></li>
+                                        <li><a href="#" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>-->
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total:$<span id="CartTtl"></span></b></h3>
+                            <a href="Checkout.html" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
   
    
 
@@ -289,7 +437,27 @@
 
         $(document).ready(function () {
 
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetCartCount",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var result = data.d;
 
+
+                    $("#cartcount").text(result);
+                    $("#cartcount2").text(result);
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
 
      
 
@@ -304,7 +472,7 @@
 
                 } else {
                     $("#brandlogo").removeClass('hidden');
-                    $("#topnav").css("background-color", "rgba(01,01,01,0.8)");
+                    $("#topnav").css("background-color", "rgba(01,01,01,1.0)");
                   
                   
                 }
@@ -421,7 +589,7 @@
             
             $("#FeaturedProductsLoader").delegate(".piiipe", "mouseover", function (e) {
 
-                $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/pipes.png)")
+                $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.3)),url(images/pipes.png)")
                 $(this).css("background-size", "cover");
                 $(this).css("background-repeat", "no-repeat");
                 $(this).css("background-position", "center");
@@ -435,7 +603,7 @@
             $("#FeaturedProductsLoader").delegate(".piiipe", "mouseout", function (e) {
 
                 //for mouse out cigar
-                $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/pipes.png)")
+                $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/pipes.png)")
                 $(this).css("background-size", "cover");
                 $(this).css("background-repeat", "no-repeat");
                 $(this).css("background-position", "center");
@@ -474,14 +642,186 @@
             })
             
             
-            
+             
 
-          
-           
-           
-           
-     
+             $("#FeaturedProductsLoader").delegate(".apparell", "mouseover", function (e) {
 
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/Apperal Coming Soon.jpg)")
+                $(this).css("background-size", "cover");
+                $(this).css("background-repeat", "no-repeat");
+                $(this).css("background-position", "center");
+
+
+                $(this).find(".aparella").css("color", "white");
+                $(this).find(".aparella").css("border-color", "white");
+                $(this).find(".aparella").css("background-color", "transparent");
+
+            })
+             $("#FeaturedProductsLoader").delegate(".apparell", "mouseout", function (e) {
+
+                //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/Apperal Coming Soon.jpg)")
+                $(this).css("background-size", "cover");
+                $(this).css("background-repeat", "no-repeat");
+                $(this).css("background-position", "center");
+
+
+                $(this).find(".aparella").css("color", "transparent");
+                $(this).find(".aparella").css("border-color", "transparent");
+                $(this).find(".aparella").css("background-color", "rgba(01,01,01,0.0)");
+            })
+           
+             $("#FeaturedProductsLoader").delegate(".ptobacco", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/skullandbones.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+                 $(this).find(".ptobaccoa").css("color", "white");
+                 $(this).find(".ptobaccoa").css("border-color", "white");
+                 $(this).find(".ptobaccoa").css("background-color", "transparent");
+
+             })
+             $("#FeaturedProductsLoader").delegate(".ptobacco", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/skullandbones.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+                 $(this).find(".ptobaccoa").css("color", "transparent");
+                 $(this).find(".ptobaccoa").css("border-color", "transparent");
+                 $(this).find(".ptobaccoa").css("background-color", "rgba(01,01,01,0.0)");
+             })
+             
+              
+            /////mobile
+             $("#FeaturedProductsLoader2").delegate(".cigarrr2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.3)),url(images/CigarTest2.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+                 
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".cigarrr2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/CigarTest2.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+             })
+
+             $("#FeaturedProductsLoader2").delegate(".coffeee2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.3)),url(images/coffee-beans.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".coffeee2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/coffee-beans.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+             })
+
+             $("#FeaturedProductsLoader2").delegate(".piiipe2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.3)),url(images/pipes.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".piiipe2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/pipes.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+             })
+
+             $("#FeaturedProductsLoader2").delegate(".accessorrree2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/accessories.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".accessorrree2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/accessories.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+             })
+
+
+
+
+             $("#FeaturedProductsLoader2").delegate(".apparell2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/Apperal Coming Soon.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".apparell2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/Apperal Coming Soon.jpg)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+             })
+
+             $("#FeaturedProductsLoader2").delegate(".ptobacco2", "mouseover", function (e) {
+
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.3),rgba(160,82,45,0.3)),url(images/skullandbones.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+             })
+             $("#FeaturedProductsLoader2").delegate(".ptobacco2", "mouseout", function (e) {
+
+                 //for mouse out cigar
+                 $(this).css("background", "linear-gradient(rgba(160,82,45,0.55),rgba(160,82,45,0.62)),url(images/skullandbones.png)")
+                 $(this).css("background-size", "cover");
+                 $(this).css("background-repeat", "no-repeat");
+                 $(this).css("background-position", "center");
+
+
+             })
+
+            ///end mobile
 
 
             $(".homepagelinks").click(function (e) {
@@ -518,9 +858,9 @@
 
  
      
-                        var content = "<div class='single-partner text-center' style='background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(ImageHandler.ashx?id=" + item.NewsPostID + "&category=NewsPost);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center;margin:0px'> " +
-                                      "<h3 style='color:white;font-family:chiser'><b>"+ item.PostTitle +"</b></h3> " +
-                                      "<a href='Events.html?postid=" + item.NewsPostID + "' class='btn btn-sm btn-default'><b>Read More...</b></a> " +
+                        var content = "<div class='single-partner text-center' style='background:linear-gradient(rgba(01,01,01,0.4),rgba(160,82,45,0.5)),url(ImageHandler.ashx?id=" + item.NewsPostID + "&category=NewsPost);padding-top:176px;padding-bottom:176px;background-size:cover;background-repeat:no-repeat;background-position:center;margin:0px'> " +
+                                      "<h3 class='posttitle' style='color:white;font-family:chiser'><b>"+ item.PostTitle +"</b></h3> " +
+                                      "<a href='Events.html?postid=" + item.NewsPostID + "' class='readme btn btn-sm btn-default'><b>Read More...</b></a> " +
                                       "</div> " 
 
                         $(content).appendTo("#NewsandEventsLoadr");
@@ -540,7 +880,6 @@
 
 
             function setupSlider() {
-              
                 
               
                 $("#NewsandEventsLoadr").addClass('partner-list');
@@ -601,7 +940,164 @@
             })
 
 
-         
+            $("#NewsandEventsLoadr").delegate(".single-partner", "mouseover", function () {
+                $(this).find(".readme").addClass("btn-danger");
+            })
+            $("#NewsandEventsLoadr").delegate(".single-partner", "mouseout", function () {
+                $(this).find(".readme").removeClass("btn-danger");
+            })
+
+            $(".cartme").click(function () {
+                $("#cartmsg").text("");
+                $("#CartLoader").empty();
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GoToCart",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#cartmsg").text("(No items in cart to show)");
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                            var content = "<div class='col-lg-12'> " +
+                        "     <div class='col-lg-6'> " +
+                        "         <img src='ImageHandler.ashx?id=" + item.ProductID + "&Category=" + item.Category + "' class='img-responsive img-thumbnail center-block'/> " +
+                        "     </div> " +
+                        "     <div class='col-lg-6 text-left' style='padding-top:5%'> " +
+                        "         <ul class='list-unstyled'> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>" + item.ItemName + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>(" + item.Qty + ') ' + item.Notes + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>$" + item.Price + "</b></label></li> " +
+                        "             <li><a data-notes='" + item.Notes + "' data-qty='" + item.Qty + "' data-price='" + item.Price + "' id=" + item.ProductID + " href='#' class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "         </ul> " +
+                        "     </div> " +
+                        " </div> "
+
+                            $(content).appendTo("#CartLoader");
+
+                        })
+                        getCartTotal();
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+            $("#CartLoader").delegate(".removeitem", "click", function (e) {
+                var removeitemnbr = $(this).attr('id');
+                var notes = $(this).attr('data-notes');
+                var qty = $(this).attr('data-qty');
+                var price = $(this).attr('data-price');
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/RemoveItemFromCart",
+                    data: "{ProdID:" + removeitemnbr + ",Notes:'" + notes + "',Qty:'" + qty + "',Price:'" + price + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        getCartCount();
+                        $('#viewCartModal').modal('hide');
+
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+
+
+
+            function getCartCount() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartCount",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+
+                        $("#cartcount").text(result);
+                        $("#cartcount2").text(result);
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+            // End My Cart Code
+
+            function getCartTotal() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartTotal",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartTtl").text(result);
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            }
+
+
+            $("a").click(function () {
+                $(this).css("background-color", "transparent");
+            })
+
+
 
 
         })
