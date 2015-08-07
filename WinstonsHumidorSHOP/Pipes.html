@@ -133,7 +133,7 @@
         <br />
         <br />
 
-        <input id="txtSearchCigars" class="text-center form-control" style="font-family:'chiser';font-size:30px;border:none;height:50px" placeholder="Search by brand, name or body." />
+        <input id="txtSearchCigars" class="text-center form-control" style="font-family:'chiser';font-size:30px;border:none;height:50px" placeholder="Search by brand, name, stem shape, material, or bowl finish." />
 
 
 
@@ -210,24 +210,24 @@
                         </div>
                         <!--<img src="images/IMG_9642.jpg" class="img-thumbnail img-thumbnail center-block" style="margin:0px" />-->
                         <br />
-
+                       
                         <div class="col-lg-6 text-left">
                             <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
                                 <li><b>Brand: </b> <span id="cBrand"></span></li>
                                 <li><b>Name: </b> <span id="cName"></span></li>
-                                <li><b>Length: </b><span id="cLength"></span></li>
-                                <li><b>Ring: </b><span id="cRing"></span> </li>
-                                <li><b>Body: </b> <span id="cBody"></span></li>
-                                <li><b>Description:</b> <span id="cDescription"></span></li>
-                                <li><b>Box Count:</b> <span id="cBoxCount"></span></li>
-                                <li><b>Box Price:</b> $<span id="cBoxPrice"></span></li>
-                                <li><b>Single Price:</b> $<span id="cSinglePrice"></span></li>
+                                <li><b>Material: </b><span id="cMaterial"></span></li>
+                                <li><b>Body Shape: </b><span id="cBodyShape"></span> </li>
+                                <li><b>Stem Shape: </b> <span id="cStemShape"></span></li>
+                                <li><b>Bowl Finish:</b> <span id="cBowlFinish"></span></li>
+                                <li><b>Description:</b> $<span id="cDescription"></span></li>
+                                <li><b>Qty:</b> <span id="cQty"></span></li>
+                                <li><b>Price:</b> $<span id="cPrice"></span></li>
+                                
                             </ul>
                         </div>
                         <div class="col-lg-6">
                             <ul class="list-inline" style="font-size:large;font-family:'chiser'">
-                                <li><input id="ckSingles" type="checkbox" /> Singles</li>
-                                <li><input id="ckBoxes" type="checkbox" /> Boxes</li>
+                              
                                 <li>
                                     <b>Quantity: </b>
                                     <input id="Qty" class="form-control" />
@@ -326,13 +326,13 @@
 
                     $.each(result, function (index, item) {
 
+                       
 
-
-                        var content = "  <div class='text-center featuredprod cigar single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+                        var content = "  <div class='text-center featuredprod pipe single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
                    "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
       "  <ul class='list-inline'> " +
-      "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+      "  <li><a class='pipez' data-material='"+ item.Material +"'  data-bodyshape='"+ item.BodyShape +"' data-bowlfinish='"+ item.BowlFinish +"' data-stemshape='"+ item.StemShape +"' data-qty="+ item.Qty +" data-price='"+ item.Price +"' data-description='"+ item.Description +"' data-name='"+ item.Name +"' data-brand='"+ item.Brand +"' data-productid="+ item.ProductID +" data-pipeid="+ item.PipeID +"  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -408,11 +408,11 @@
 
 
 
-                            var content = "  <div class='col-lg-3 text-center featuredprod cigar' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Cigars);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
+                            var content = "  <div class='col-lg-3 text-center featuredprod pipe' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
                  "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
                  "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
                  "  <ul class='list-inline'> " +
-                 "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
+                 "  <li><a class='pipez' data-material='" + item.Material + "'  data-bodyshape='" + item.BodyShape + "' data-bowlfinish='" + item.BowlFinish + "' data-stemshape='" + item.StemShape + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "' data-name='" + item.Name + "' data-brand='" + item.Brand + "' data-productid=" + item.ProductID + " data-pipeid=" + item.PipeID + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
                  "  </ul>     " +
                  "  </div>    " +
                  "  </div>    "
@@ -441,8 +441,6 @@
 
             var Total = 0.0;
         
-
-
             $("#NewsandEventsLoadr").delegate(".featuredprod", "mouseover", function (e) {
 
                 $(this).find(".viewme").css("background-color", "rgba(0,0,0,0.80)");
@@ -454,7 +452,7 @@
                 $(this).find(".viewme").css("color", "rgba(01,01,01,0)");
             })
 
-            var Category = 'Cigars'
+            var Category = 'Pipes'
 
             $.ajax({
                 type: "POST",
@@ -477,12 +475,11 @@
                     $.each(result, function (index, item) {
 
 
-
-                        var content = "  <div class='col-lg-3 text-center featuredprod cigar' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Cigars);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
+                        var content = "  <div class='col-lg-3 text-center featuredprod pipe' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
              "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
              "  <ul class='list-inline'> " +
-             "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
+             "  <li><a class='pipez' data-material='" + item.Material + "'  data-bodyshape='" + item.BodyShape + "' data-bowlfinish='" + item.BowlFinish + "' data-stemshape='" + item.StemShape + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "' data-name='" + item.Name + "' data-brand='" + item.Brand + "' data-productid=" + item.ProductID + " data-pipeid=" + item.PipeID + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -490,10 +487,6 @@
                         $(content).appendTo("#CigarLoader");
 
                     })
-
-
-
-
                 },
                 failure: function (msg) {
                     alert(msg);
@@ -504,235 +497,113 @@
             }) //end ajax
 
 
-
-
             var _ProductViewing;
-            var _TotalBoxQty;
-            var _TotalSingleQty;
-            var _BoxCount;
-            var _BoxPrice;
-            var _SinglePrice;
-            var _BoxOnly;
-            var _SingleOnly;
-            var _Option; //for box or single
+            var _Brand;
+            var _Name;
             var _DisplayName;
+            var _Material;
+            var _BodyShape;
+            var _StemShape;
+            var _BowlFinish;
+            var _Qty;
+            var _Price;
+            var _Description;
+            var _Option;
 
-            //C. = item("IsBoxSaleOnly")
-            //C.IsSingleSaleOnly = item("IsSingleSaleOnly")
-            //C.IsFeatured = item("IsFeatured")
-            //C.Body = item("Body")
+            //P.PipeID = item("PipeID")
+            //P.ProductID = item("ProductID")
+            //P.Brand = item("Brand")
+            //P.SKU = item("SKU")
+            //P.Name = item("Name")
+            //P.Description = item("Description")
+            //P.Price = Math.Round(item("Price"), 2)
+            //P.Qty = item("Qty")
+            //P.StemShape = item("StemShape")
+            //P.BowlFinish = item("BowlFinish")
+            //P.BodyShape = item("BodyShape")
+            //P.Material = item("Material")
+            //P.IsFeatured = item("IsFeatured")
 
+            $("#NewsandEventsLoadr").delegate(".pipez", "click", function (e) {
 
-
-
-            $("#NewsandEventsLoadr").delegate(".cigarz", "click", function (e) {
                 $("#lbladdtocartmsg").text("");
-                _ProductViewing = $(this).attr('data-prodid');
-                var ProductID = $(this).attr('data-prodid');
-                var Brand = $(this).attr('data-brand');
-                var Name = $(this).attr('data-name');
-                _DisplayName = Brand + ' ' + Name;
-                var Length = $(this).attr('data-length');
-                var Ring = $(this).attr('data-ring');
-                var Body = $(this).attr('data-body');
-                var Description = $(this).attr('data-description');
-                var SKU = $(this).attr('data-SKU');
-                var SinglePrice = $(this).attr('data-SinglePrice');
-                _SinglePrice = $(this).attr('data-SinglePrice');
-                var BoxPrice = $(this).attr('data-boxPrice');
-                _BoxPrice = $(this).attr('data-boxPrice');
-                var BoxCount = $(this).attr('data-boxCount');
-                _BoxCount = $(this).attr('data-boxCount');
-                var BoxQty = $(this).attr('data-boxQty');
-                _TotalBoxQty = $(this).attr('data-boxQty');
-                var SingleQty = $(this).attr('data-SingleQty');
-                _TotalSingleQty = $(this).attr('data-SingleQty');
-                var IsBoxSaleOnly = $(this).attr('data-boxonly');
-                _BoxOnly = $(this).attr('data-boxonly');
-                var IsSingleSaleOnly = $(this).attr('data-singleonly');
-                _SingleOnly = $(this).attr('data-singleonly');
+                _ProductViewing = $(this).attr('data-productid');
+                _Brand = $(this).attr('data-brand');
+                _Name = $(this).attr('data-name');
+                _DisplayName = _Brand + ' ' + _Name;
+                _Material = $(this).attr('data-material');
+                _BodyShape = $(this).attr('data-bodyshape');
+                _StemShape = $(this).attr('data-stemshape');
+                _BowlFinish = $(this).attr('data-bowlfinish');
+                _Qty = $(this).attr('data-qty');
+                _Price = $(this).attr('data-price');
+                _Description = $(this).attr('data-description');
 
-
-                $("#cBrand").text(Brand);
-                $("#cName").text(Name);
-                $("#cLength").text(Length);
-                $("#cRing").text(Ring);
-                $("#cBody").text(Body);
-                $("#cDescription").text(Description);
-
-
-
+                $("#cBrand").text(_Brand);
+                $("#cName").text(_Name);
+                $("#cMaterial").text(_Material);
+                $("#cBodyShape").text(_BodyShape);
+                $("#cStemShape").text(_StemShape);
+                $("#cBowlFinish").text(_BowlFinish);
+                $("#cDescription").text(_Description);
+                $("#cQty").text(_Qty);
+                $("#cPrice").text(_Price);
+             
 
                 $("#prodimgholder").empty();
-                var img = "<img  src='ImageHandler.ashx?id=" + ProductID + "&category=Cigars' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Pipes' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
                 $(img).appendTo("#prodimgholder");
 
 
                 $("#QtyMsg").hide();
                 $("#Total").text('$' + Total);
-
-
-                if (IsSingleSaleOnly == 'False' && IsBoxSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', false);
-                    $("#ckSingles").attr('disabled', false);
-                    $("#ckBoxes").prop('checked', false);
-                    $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text(BoxPrice);
-                    $("#cBoxCount").text(BoxCount);
-                }
-
-                if (IsSingleSaleOnly == 'True' && IsBoxSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', true);
-                    $("#ckSingles").attr('disabled', false);
-                    $("#ckBoxes").prop('checked', false);
-                    $("#ckBoxes").attr('disabled', true);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text("N/A");
-                    $("#cBoxCount").text("N/A");
-
-                }
-
-                if (IsBoxSaleOnly == 'True' && IsSingleSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', false);
-                    $("#ckSingles").attr('disabled', true);
-                    $("#ckBoxes").prop('checked', true);
-                    $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text("N/A");
-                    $("#cBoxPrice").text(BoxPrice);
-                    $("#cBoxCount").text(BoxCount);
-                }
 
             })
 
 
-            $("#CigarLoader").delegate(".cigarz", "click", function (e) {
+            $("#CigarLoader").delegate(".pipez", "click", function (e) {
 
                 $("#lbladdtocartmsg").text("");
-                _ProductViewing = $(this).attr('data-prodid');
-                var ProductID = $(this).attr('data-prodid');
-                var Brand = $(this).attr('data-brand');
-                var Name = $(this).attr('data-name');
-                _DisplayName = Brand + ' ' + Name;
-                var Length = $(this).attr('data-length');
-                var Ring = $(this).attr('data-ring');
-                var Body = $(this).attr('data-body');
-                var Description = $(this).attr('data-description');
-                var SKU = $(this).attr('data-SKU');
-                var SinglePrice = $(this).attr('data-SinglePrice');
-                _SinglePrice = $(this).attr('data-SinglePrice');
-                var BoxPrice = $(this).attr('data-boxPrice');
-                _BoxPrice = $(this).attr('data-boxPrice');
-                var BoxCount = $(this).attr('data-boxCount');
-                _BoxCount = $(this).attr('data-boxCount');
-                var BoxQty = $(this).attr('data-boxQty');
-                _TotalBoxQty = $(this).attr('data-boxQty');
-                var SingleQty = $(this).attr('data-SingleQty');
-                _TotalSingleQty = $(this).attr('data-SingleQty');
-                var IsBoxSaleOnly = $(this).attr('data-boxonly');
-                _BoxOnly = $(this).attr('data-boxonly');
-                var IsSingleSaleOnly = $(this).attr('data-singleonly');
-                _SingleOnly = $(this).attr('data-singleonly');
+                _ProductViewing = $(this).attr('data-productid');
+                _Brand = $(this).attr('data-brand');
+                _Name = $(this).attr('data-name');
+                _DisplayName = _Brand + ' ' + _Name;
+                _Material = $(this).attr('data-material');
+                _BodyShape = $(this).attr('data-bodyshape');
+                _StemShape = $(this).attr('data-stemshape');
+                _BowlFinish = $(this).attr('data-bowlfinish');
+                _Qty = $(this).attr('data-qty');
+                _Price = $(this).attr('data-price');
+                _Description = $(this).attr('data-description');
 
-                $("#cBrand").text(Brand);
-                $("#cName").text(Name);
-                $("#cLength").text(Length);
-                $("#cRing").text(Ring);
-                $("#cBody").text(Body);
-                $("#cDescription").text(Description);
+                $("#cBrand").text(_Brand);
+                $("#cName").text(_Name);
+                $("#cMaterial").text(_Material);
+                $("#cBodyShape").text(_BodyShape);
+                $("#cStemShape").text(_StemShape);
+                $("#cBowlFinish").text(_BowlFinish);
+                $("#cDescription").text(_Description);
+                $("#cQty").text(_Qty);
+                $("#cPrice").text(_Price);
 
-
-
+      
                 $("#prodimgholder").empty();
-                var img = "<img  src='ImageHandler.ashx?id=" + ProductID + "&category=Cigars' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Pipes' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
                 $(img).appendTo("#prodimgholder");
 
 
                 $("#QtyMsg").hide();
                 $("#Total").text('$' + Total);
-
-
-                if (IsSingleSaleOnly == 'False' && IsBoxSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', false);
-                    $("#ckSingles").attr('disabled', false);
-                    $("#ckBoxes").prop('checked', false);
-                    $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text(BoxPrice);
-                    $("#cBoxCount").text(BoxCount);
-                }
-
-                if (IsSingleSaleOnly == 'True' && IsBoxSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', true);
-                    $("#ckSingles").attr('disabled', false);
-                    $("#ckBoxes").prop('checked', false);
-                    $("#ckBoxes").attr('disabled', true);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text("N/A");
-                    $("#cBoxCount").text("N/A");
-
-                }
-
-                if (IsBoxSaleOnly == 'True' && IsSingleSaleOnly == 'False') {
-
-                    $("#ckSingles").prop('checked', false);
-                    $("#ckSingles").attr('disabled', true);
-                    $("#ckBoxes").prop('checked', true);
-                    $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text("N/A");
-                    $("#cBoxPrice").text(BoxPrice);
-                    $("#cBoxCount").text(BoxCount);
-                }
 
             })
 
 
             $("#Qty").keyup(function () {
+             
                 $("#QtyMsg").text("");
-                _Option = " "
+                _Option = ""
                 //check to make sure that a checkbox is checked.
-                if ($('#ckSingles').is(':checked')) {
-                    _Option = "Single(s)"
-                }
-                if ($('#ckBoxes').is(':checked')) {
-                    _Option = "Box(s)"
-                }
-                if (_Option == " ") {
-                    $("#QtyMsg").show();
-                    $("#QtyMsg").text("Please select an available option first.");
-                    $("#Qty").val("");
-                    return;
-                }
-
-                if (_Option == "Single(s)") {
-                    //Update Total
-                    if ($("#Qty").val() % 1 != 0) {
-                        $("#QtyMsg").show();
-                        $("#QtyMsg").text("Quantity must be a whole number");
-                        $("#Qty").val("");
-                        $("#Total").text('$' + 0.00);
-                        return;
-                    }
-                    var qty = parseInt($("#Qty").val())
-                    if (qty > _TotalSingleQty) {
-                        $("#QtyMsg").show();
-                        $("#QtyMsg").text("Max single quantity is " + _TotalSingleQty);
-                        $("#Qty").val("");
-                        $("#Total").text('$' + 0.00);
-                        return;
-                    }
-                    var ttl = _SinglePrice * qty;
-                    if (isNaN(ttl)) {
-                        ttl = 0.00;
-                    }
-                    $("#Total").text('$' + ttl.toFixed(2));
-                }
-                if (_Option == "Box(s)") {
+                
                     if ($("#Qty").val() % 1 != 0) {
                         $("#QtyMsg").show();
                         $("#QtyMsg").text("Quantity must be a whole number");
@@ -743,21 +614,20 @@
                     //Update Total
                     var qty = parseInt($("#Qty").val())
 
-                    if (qty > _TotalBoxQty) {
+                    if (qty > _Qty) {
                         $("#QtyMsg").show();
-                        $("#QtyMsg").text("Max box quantity is " + _TotalBoxQty);
+                        $("#QtyMsg").text("Max quantity is " + _Qty);
                         $("#Qty").val("");
                         $("#Total").text('$' + 0.00);
                         return;
                     }
-                    var ttl = _BoxPrice * qty;
+                    var ttl = _Price * qty;
                     if (isNaN(ttl)) {
                         ttl = 0.00;
                     }
                     $("#Total").text('$' + ttl.toFixed(2));
-                }
+               
             }) //end qty key up function
-
 
 
             $("#btnAddToCart").click(function () {
@@ -771,7 +641,7 @@
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/AddToCart",
-                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Cigars',ItemName:'" + _DisplayName + "'}",
+                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Pipes',ItemName:'" + _DisplayName + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {
@@ -799,27 +669,7 @@
             })
 
 
-            //Write checkchange events for single or box. We will validate and assume a qty has been entered.
-            $("#ckSingles").change(function () {
-                $("#Qty").val("");
-                $("#Total").text('$' + 0.00);
-                if ($('#ckSingles').is(':checked')) {
-                    $("#ckBoxes").prop('checked', false);
-                    $("#Qty").val("");
-                    $("#Total").text('$' + 0.00);
-                }
-
-            });
-            $("#ckBoxes").change(function () {
-                $("#Qty").val("");
-                $("#Total").text('$' + 0.00);
-                if ($('#ckBoxes').is(':checked')) {
-                    $("#ckSingles").prop('checked', false);
-                    $("#Qty").val("");
-                    $("#Total").text('$' + 0.00);
-                }
-
-            });
+        
 
 
             //My Cart Code
