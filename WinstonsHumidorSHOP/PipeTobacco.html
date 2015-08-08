@@ -94,17 +94,17 @@
 
 
     <section id="featuredproductsect"></section>
-    <div class="col-lg-6" style="padding:0px">
-        <div class="col-lg-12 text-center" style="padding-top:26%;padding-bottom:26.1%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/skullandbones.png);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
+    <div class="col-lg-12" style="padding:0px">
+        <div class="col-lg-12 text-center" style="padding-top:10%;padding-bottom:10%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/prince-albert-tobacco.jpg);background-size:cover;background-repeat:no-repeat;background-position:center;background-position-y:55%">
             <h1 style="color:white;font-family:'chiser';font-size:100px;font-weight:600" class="text-center">PIPE TOBACCO</h1>
         </div>
 
 
     </div>
 
-    <div class="col-lg-6 text-center" style="padding:0px">
+    <!--<div class="col-lg-6 text-center" style="padding:0px">
 
-        <div class="col-lg-12" style="padding:19.20%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9918.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
+        <div class="col-lg-12" style="padding:10%%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9918.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
             <h1 id="nofocus" style="color:white;font-family:'fancy';font-size:40px;">STAY IN THE LOOP</h1>
             <h3 style="color:white;font-family:'chiser'">Get notified when we add new pipes</h3>
             <input id="MailChimpEmail" placeholder="email address" class="form-control" style="font-size:30px;height:50px;font-family:'Chiser';background-color:rgba(01,01,01,0.1);border:1px solid white;border-top:none;border-left:none;border-right:none;color:#ffffff" />
@@ -116,7 +116,7 @@
         </div>
 
 
-    </div>
+    </div>-->
 
     <div id="NewsandEventsLoadr" class="col-lg-12" style="padding:0px;background-color:#171616">
 
@@ -135,7 +135,7 @@
         <br />
         <br />
 
-        <input id="txtSearchCigars" class="text-center form-control" style="font-family:'chiser';font-size:30px;border:none;height:50px" placeholder="Search by brand, name, stem shape, material, or bowl finish." />
+        <input id="txtSearchCigars" class="text-center form-control" style="font-family:'chiser';font-size:30px;border:none;height:50px" placeholder="Search by brand, tobacco, style, cut, or strength." />
 
     
 
@@ -338,7 +338,7 @@
                        
                         var content = "  <div class='text-center featuredprod tobacco single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=PipeTobacco);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                   "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
+                   "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Tobacco + "</a></h4>" +
       "  <ul class='list-inline'> " +
       "  <li><a class='tbz'  data-strength='"+ item.Strength +"' data-cut='"+ item.Cut +"'  data-style='"+ item.Style +"'  data-qty="+ item.Qty +"  data-price='"+ item.Price +"'  data-description='"+ item.Description +"'  data-tobacco='"+ item.Tobacco +"'   data-SKU='"+ item.SKU +"'  data-brand='"+ item.Brand +"'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
       "  </ul>     " +
@@ -392,7 +392,7 @@
                 var texttosearch = $(this).val()
 
 
-                var Category = 'Pipes'
+                var Category = 'PipeTobacco'
 
                 $.ajax({
                     type: "POST",
@@ -416,14 +416,14 @@
 
 
 
-                            var content = "  <div class='col-lg-3 text-center featuredprod pipe' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
-                 "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                 "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
-                 "  <ul class='list-inline'> " +
-                 "  <li><a class='pipez' data-material='" + item.Material + "'  data-bodyshape='" + item.BodyShape + "' data-bowlfinish='" + item.BowlFinish + "' data-stemshape='" + item.StemShape + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "' data-name='" + item.Name + "' data-brand='" + item.Brand + "' data-productid=" + item.ProductID + " data-pipeid=" + item.PipeID + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
-                 "  </ul>     " +
-                 "  </div>    " +
-                 "  </div>    "
+                            var content = "  <div class='text-center featuredprod tobacco col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=PipeTobacco);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+"  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
+     "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Tobacco + "</a></h4>" +
+"  <ul class='list-inline'> " +
+"  <li><a class='tbz'  data-strength='" + item.Strength + "' data-cut='" + item.Cut + "'  data-style='" + item.Style + "'  data-qty=" + item.Qty + "  data-price='" + item.Price + "'  data-description='" + item.Description + "'  data-tobacco='" + item.Tobacco + "'   data-SKU='" + item.SKU + "'  data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+"  </ul>     " +
+"  </div>    " +
+"  </div>    "
 
                             $(content).hide().appendTo("#CigarLoader").fadeIn(1000);
 
@@ -460,7 +460,7 @@
                 $(this).find(".viewme").css("color", "rgba(01,01,01,0)");
             })
 
-            var Category = 'Pipes'
+            var Category = 'PipeTobacco'
 
             $.ajax({
                 type: "POST",
@@ -483,14 +483,14 @@
                     $.each(result, function (index, item) {
 
 
-                        var content = "  <div class='col-lg-3 text-center featuredprod pipe' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Pipes);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
-             "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-             "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
-             "  <ul class='list-inline'> " +
-             "  <li><a class='pipez' data-material='" + item.Material + "'  data-bodyshape='" + item.BodyShape + "' data-bowlfinish='" + item.BowlFinish + "' data-stemshape='" + item.StemShape + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "' data-name='" + item.Name + "' data-brand='" + item.Brand + "' data-productid=" + item.ProductID + " data-pipeid=" + item.PipeID + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='icon-search'></i> View</a> </li> " +
-             "  </ul>     " +
-             "  </div>    " +
-             "  </div>    "
+                        var content = "  <div class='text-center featuredprod tobacco col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=PipeTobacco);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+"  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
+           "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Tobacco + "</a></h4>" +
+"  <ul class='list-inline'> " +
+"  <li><a class='tbz'  data-strength='" + item.Strength + "' data-cut='" + item.Cut + "'  data-style='" + item.Style + "'  data-qty=" + item.Qty + "  data-price='" + item.Price + "'  data-description='" + item.Description + "'  data-tobacco='" + item.Tobacco + "'   data-SKU='" + item.SKU + "'  data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+"  </ul>     " +
+"  </div>    " +
+"  </div>    "
 
                         $(content).appendTo("#CigarLoader");
 
@@ -539,19 +539,20 @@
                 _ProductViewing = $(this).attr('data-productid');
                 _Brand = $(this).attr('data-brand');
                 _Tobacco = $(this).attr('data-tobacco');
-                _DisplayName = _Brand + ' ' + _Name;
+                _DisplayName = _Brand + ' ' + _Tobacco;
                 _Style = $(this).attr('data-style');
                 _Cut = $(this).attr('data-cut');
                 _Strength = $(this).attr('data-strength');
                 _Qty = $(this).attr('data-qty');
                 _Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
+                _Option = _Style + ' ' + _Cut + ' ' + _Strength;
 
                 $("#cBrand").text(_Brand);
-                $("#cTobacco").text(_Name);
-                $("#cStyle").text(_Material);
-                $("#cCut").text(_BodyShape);
-                $("#cStrength").text(_StemShape);
+                $("#cTobacco").text(_Tobacco);
+                $("#cStyle").text(_Style);
+                $("#cCut").text(_Cut);
+                $("#cStrength").text(_Strength);
                
                 $("#cDescription").text(_Description);
                 $("#cQty").text(_Qty);
@@ -559,7 +560,7 @@
 
 
                 $("#prodimgholder").empty();
-                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Pipes' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=PipeTobacco' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
                 $(img).appendTo("#prodimgholder");
 
 
@@ -569,34 +570,34 @@
             })
 
 
-            $("#CigarLoader").delegate(".pipez", "click", function (e) {
+            $("#CigarLoader").delegate(".tbz", "click", function (e) {
+
 
                 $("#lbladdtocartmsg").text("");
                 _ProductViewing = $(this).attr('data-productid');
                 _Brand = $(this).attr('data-brand');
-                _Name = $(this).attr('data-name');
-                _DisplayName = _Brand + ' ' + _Name;
-                _Material = $(this).attr('data-material');
-                _BodyShape = $(this).attr('data-bodyshape');
-                _StemShape = $(this).attr('data-stemshape');
-                _BowlFinish = $(this).attr('data-bowlfinish');
+                _Tobacco = $(this).attr('data-tobacco');
+                _DisplayName = _Brand + ' ' + _Tobacco;
+                _Style = $(this).attr('data-style');
+                _Cut = $(this).attr('data-cut');
+                _Strength = $(this).attr('data-strength');
                 _Qty = $(this).attr('data-qty');
                 _Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
-
+                _Option = _Style + ' ' + _Cut + ' ' + _Strength;
                 $("#cBrand").text(_Brand);
-                $("#cName").text(_Name);
-                $("#cMaterial").text(_Material);
-                $("#cBodyShape").text(_BodyShape);
-                $("#cStemShape").text(_StemShape);
-                $("#cBowlFinish").text(_BowlFinish);
+                $("#cTobacco").text(_Tobacco);
+                $("#cStyle").text(_Style);
+                $("#cCut").text(_Cut);
+                $("#cStrength").text(_Strength);
+
                 $("#cDescription").text(_Description);
                 $("#cQty").text(_Qty);
                 $("#cPrice").text(_Price);
 
 
                 $("#prodimgholder").empty();
-                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Pipes' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=PipeTobacco' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
                 $(img).appendTo("#prodimgholder");
 
 
@@ -649,7 +650,7 @@
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/AddToCart",
-                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Pipes',ItemName:'" + _DisplayName + "'}",
+                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'PipeTobacco',ItemName:'" + _DisplayName + "'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {

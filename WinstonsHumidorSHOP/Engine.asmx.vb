@@ -1042,7 +1042,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "Coffee"
-                dt = FillDataTable("SELECT * FROM Coffee")
+                dt = FillDataTable("SELECT * FROM Coffee WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Roast LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
                 If dt.Rows.Count > 0 Then
 
                     CoffeeList.Clear()
@@ -1093,7 +1093,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "PipeTobacco"
-                dt = FillDataTable("SELECT * FROM PipeTobacco ")
+                dt = FillDataTable("SELECT * FROM PipeTobacco WHERE Brand LIKE '%" & SearchText & "%' OR Tobacco LIKE '%" & SearchText & "%' OR Style LIKE '%" & SearchText & "%' OR Cut LIKE '%" & SearchText & "%' OR Strength LIKE '%" & SearchText & "%'")
                 If dt.Rows.Count > 0 Then
 
                     PipeTobaccoList.Clear()
