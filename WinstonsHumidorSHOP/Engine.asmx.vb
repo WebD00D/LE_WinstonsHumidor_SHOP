@@ -955,7 +955,12 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%'")
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM Accessories")
+                Else
+                    dt = FillDataTable("SELECT * FROM Accessories WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%'")
+                End If
+
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()
@@ -978,7 +983,12 @@ Public Class Engine
                 End If
 
             Case "Apparel"
-                dt = FillDataTable("SELECT * FROM Apparel")
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM Apparel")
+                Else
+                    dt = FillDataTable("SELECT * FROM Apparel WHERE Name LIKE '%" & SearchText & "%'")
+                End If
+
                 If dt.Rows.Count > 0 Then
 
                     ApparelList.Clear()
@@ -1042,7 +1052,12 @@ Public Class Engine
                     Return 0
                 End If
             Case "Coffee"
-                dt = FillDataTable("SELECT * FROM Coffee WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Roast LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM Coffee")
+                Else
+                    dt = FillDataTable("SELECT * FROM Coffee WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Roast LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
+                End If
+
                 If dt.Rows.Count > 0 Then
 
                     CoffeeList.Clear()
@@ -1067,7 +1082,12 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR StemShape LIKE '%" & SearchText & "%' OR BowlFinish LIKE '%" & SearchText & "%'  OR BodyShape LIKE '%" & SearchText & "%'  OR Material LIKE '%" & SearchText & "%'")
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM Pipes")
+                Else
+                    dt = FillDataTable("SELECT * FROM Pipes WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR StemShape LIKE '%" & SearchText & "%' OR BowlFinish LIKE '%" & SearchText & "%'  OR BodyShape LIKE '%" & SearchText & "%'  OR Material LIKE '%" & SearchText & "%'")
+                End If
+
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
@@ -1093,7 +1113,12 @@ Public Class Engine
                     Return 0
                 End If
             Case "PipeTobacco"
-                dt = FillDataTable("SELECT * FROM PipeTobacco WHERE Brand LIKE '%" & SearchText & "%' OR Tobacco LIKE '%" & SearchText & "%' OR Style LIKE '%" & SearchText & "%' OR Cut LIKE '%" & SearchText & "%' OR Strength LIKE '%" & SearchText & "%'")
+                If Trim(SearchText) = String.Empty Then
+                    dt = FillDataTable("SELECT * FROM PipeTobacco")
+                Else
+                    dt = FillDataTable("SELECT * FROM PipeTobacco WHERE Brand LIKE '%" & SearchText & "%' OR Tobacco LIKE '%" & SearchText & "%' OR Style LIKE '%" & SearchText & "%' OR Cut LIKE '%" & SearchText & "%' OR Strength LIKE '%" & SearchText & "%'")
+                End If
+
                 If dt.Rows.Count > 0 Then
 
                     PipeTobaccoList.Clear()

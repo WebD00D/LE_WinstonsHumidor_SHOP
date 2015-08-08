@@ -461,7 +461,7 @@
 
             })
 
-            var Total = 0.0;
+            var Total = 0.00;
 
             $("#NewsandEventsLoadr").delegate(".featuredprod", "mouseover", function (e) {
 
@@ -537,7 +537,7 @@
 
             $("#NewsandEventsLoadr").delegate(".accessoriez", "click", function (e) {
 
-                $("#SizeSelect option:selected").text("--");
+                $("#SizeSelect option:selected").val("-1");
                 $("#Qty").val("");
                 $("#lbladdtocartmsg").text("");
                 _ProductViewing = $(this).attr('data-productid');
@@ -557,7 +557,7 @@
                 _XXXL = $(this).attr('data-xxxl');
 
                 alert(_XS);
-                alert(_SM);
+                alert('Small:' + _SM);
                 alert(_MD);
                 alert(_LG);
                 alert(_XL);
@@ -584,7 +584,7 @@
 
             $("#CigarLoader").delegate(".accessoriez", "click", function (e) {
 
-                $("#SizeSelect option:selected").text("--");
+                $("#SizeSelect option:selected").val("-1");
                 $("#Qty").val("");
 
                 $("#lbladdtocartmsg").text("");
@@ -605,7 +605,7 @@
                 _XXXL = $(this).attr('data-xxxl');
 
                 alert(_XS);
-                alert(_SM);
+                alert('Small:' + _SM);
                 alert(_MD);
                 alert(_LG);
                 alert(_XL);
@@ -639,34 +639,53 @@
                     case 'XS':
                         _Qty = _XS;
                         _Option = "Size: XS";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                         break;
                     case 'SM':
                         _Qty = _SM;
                         _Option = "Size: SM";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
+                        break;
                     case 'MD':
                         _Qty = _MD;
                         _Option = "Size: MD";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
+                        break;
                     case 'LG':
                         _Qty = _LG;
                         _Option = "Size: LG";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                         break;
                     case 'XL':
                         _Qty = _XL;
                         _Option = "Size: XL";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                         break;
                     case 'XXL':
                         _Qty = _XXL;
                         _Option = "Size: XXL";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                         break;
                     case 'XXXL':
                         _Qty = _XXXL;
                         _Option = "Size: XXXL";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                         break;
                     default:
                         _Qty = 0;
+                        _Option = " ";
+                        $("#QtyMsg").text("");
+                        $("#Qty").val("");
                 }
 
-                alert(_Qty);
+                alert(_Option + ' ' + _Qty);
 
 
 
@@ -699,11 +718,8 @@
                 var qty = parseInt($("#Qty").val())
      
 
-                alert('Qty is set to: ' +_Qty);
-            
-
                 if (qty > _Qty) {
-                    alert(_Qty)
+                   
                     $("#QtyMsg").show();
                     $("#QtyMsg").text("Max quantity is " + _Qty);
                     $("#Qty").val("");
@@ -721,11 +737,20 @@
 
 
             $("#btnAddToCart").click(function () {
-
+                $("#QtyMsg").text("");
 
                 var qty = parseInt($("#Qty").val());
                 var ttl = $("#Total").text();
                 // var itemdesc = $("#cBrand").text() + ' ' + $("#cName").text() + ' ' + $("#cLength").text() + 'x' + $("#cRing").text();
+
+                if (isNaN(qty)) {
+                    $("#QtyMsg").show();
+                    $("#QtyMsg").text("Please select a quantity.");
+                  
+                    return;
+                }
+
+
 
                 $.ajax({
                     type: "POST",
