@@ -955,7 +955,7 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories")
+                dt = FillDataTable("SELECT * FROM Accessories WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%'")
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()

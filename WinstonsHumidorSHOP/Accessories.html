@@ -14,287 +14,874 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+
     <!-- Bootstrap core CSS -->
     <link href="css/style.css" rel="stylesheet">
-
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
 
 </head>
 
-<body>
+<body style="background-color:white">
 
 
 
 
 
 
-    <nav class="navbar navbar-fixed-top" >
-        <div class="navbar-background container">
-            <div class=" WHnavbar navbar-header">
-                <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" id="WHnavbar" href="#">WINSTON'S HUMIDOR</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-
-                    <li><a href="#about">About</a></li>
-                    <li class="dropdown list">
-                        <a href="#" class="active dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="Cigars.html">Cigars</a></li>
-                            <li><a href="Pipes.html">Pipes</a></li>
-                            <li><a href="PipeTobacco.html">Pipe Tobacco</a></li>
-                            <li><a href="Coffee.html">Coffee</a></li>
-                            <li><a href="Apparel.html">Apparel</a></li>
-                            <li><a href="Accessories.html">Accessories</a></li>
-
-                        </ul>
-                    </li>
-
-                    <li class="active"><a href="Events.html">News & Events</a></li>
-                    <li class="active"><a href="#">Contact</a></li>
-                    <li class="active"><a href="#">Directions</a></li>
-                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+    <!-- We hide the side nav bar only on full desktop view and will show the top navbar instead. -->
+    <nav class="menu hidden-lg hidden-xl" id="theMenu">
+        <div class="menu-wrap">
+            <h1 class="logo"><img src="images/WinstonHumidor_Cigar_Brown(2).png" class="img-responsive center-block" style="max-width:100px" /></h1>
+            <i class="icon-remove menu-close"></i>
+            <a href="#HomeMaster" class="smoothScroll">Home</a>
+            <a href="Cigars.html" class="smoothScroll">Cigars</a>
+            <a href="Pipes.html" class="smoothScroll">Pipes</a>
+            <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
+            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="Accessories.html" class="smoothScroll">Accessories</a>
+            <a href="Co.html" class="smoothScroll">Coffee</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
+            <a href="#"><i class="icon-facebook"></i></a>
+            <a href="#"><i class="icon-twitter"></i></a>
+            <a href="#"><i class="icon-instagram"></i></a>
         </div>
+        <!-- Menu button -->
+        <div id="menuToggle"><i class="icon-reorder"></i></div>
+    </nav>
+
+    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px;padding:15px;background-color:rgba(01,01,01,1)">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <a id="brandlogo" class="navbar-brand" href="index.html"><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:125px;" /></a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
+                        <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
+                        <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
+                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
+                        <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
+
+                    </ul>
+                </li>
+                <li><a href="#">About</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#">News</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
+                <li><a href="#"></a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
     </nav>
 
 
-    <!-----------------------------HEADER VIEWS START----------------------------------->
-    <!-- DESKTOP VIEW -->
-    <div id="headerwrap" class="hidden-sm hidden-xs" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
-        <div class="container text-center">
-            <div class="homepage-border col-lg-12">
-                <div class="col-lg-12 text-center">
-                    <h1 class="text-center" id="shop_intro"><b>ACCESSORIES</b></h1><br />
+    <section id="featuredproductsect"></section>
+    <div class="col-lg-12" style="padding:0px">
+        <div class="col-lg-12 text-center" style="padding-top:10%;padding-bottom:10%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/accessories.jpg);background-size:cover;background-repeat:no-repeat;background-position:center;background-position-y:55%">
+            <h1 style="color:white;font-family:'chiser';font-size:100px;font-weight:600" class="text-center hidden-xs hidden-sm hidden-md ">Accessories</h1>
+            <h1 style="color:white;font-family:'chiser';font-size:50px;font-weight:600" class="text-center hidden-lg">Accessories</h1>
+        </div>
+
+
+    </div>
+
+    <!--<div class="col-lg-6 text-center" style="padding:0px">
+
+        <div class="col-lg-12" style="padding:10%%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/IMG_9918.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
+            <h1 id="nofocus" style="color:white;font-family:'fancy';font-size:40px;">STAY IN THE LOOP</h1>
+            <h3 style="color:white;font-family:'chiser'">Get notified when we add new pipes</h3>
+            <input id="MailChimpEmail" placeholder="email address" class="form-control" style="font-size:30px;height:50px;font-family:'Chiser';background-color:rgba(01,01,01,0.1);border:1px solid white;border-top:none;border-left:none;border-right:none;color:#ffffff" />
+            <br />
+
+            <br />
+            <a id="btnMailChimp" class="homepagelinks" href="#">Subscribe</a>
+
+        </div>
+
+
+    </div>-->
+
+    <div id="NewsandEventsLoadr" class="col-lg-12" style="padding:0px;background-color:#171616">
+
+
+
+    </div>
+
+
+
+
+    <div class="col-lg-12 text-center" style="background-color:white">
+        <br />
+        <br />
+        <label id="NewsEventsTitle" class="text-center" style="font-family:'chiser';font-size:50px"><i class="icon-search"></i> SEARCH INVENTORY </label>
+        <br />
+        <br />
+        <br />
+
+        <input id="txtSearchCigars" class="text-center form-control" style="font-family:'chiser';font-size:30px;border:none;height:50px" placeholder="Search by brand or name." />
+
+
+
+        <hr style="margin-top:13px;margin-left:0%;margin-right:0%;margin-bottom:5.5%" />
+
+
+    </div>
+    <!-- Modal -->
+    <div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center">
+                        <br />
+                        <h2 class="text-center" style="font-family:'chiser'"><b>My Cart</b></h2>
+                        <label style="font-family:'chiser'" class="text-center" id="cartmsg"></label>
+
+
+                        <div id="CartLoader">
+
+
+                            <!--<div class="col-lg-12">
+                                <div class="col-lg-6">
+                                    <img src="images/IMG_9927.jpg" class="img-responsive img-thumbnail"/>
+                                </div>
+                                <div class="col-lg-6 text-left" style="padding-top:5%">
+                                    <ul class="list-unstyled">
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>Rocky Patel Decade Toro</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>1 Box</b></label></li>
+                                        <li><label class="text-center" style="font-family:'chiser'"><b>$250.50</b></label></li>
+                                        <li><a href="#" class="btn btn-sm btn-danger"><i class="glyphicon glyphicon-remove"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>-->
+
+
+
+
+
+
+
+
+
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total:$<span id="CartTtl"></span></b></h3>
+                            <a href="Checkout.html" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                        </div>
+
+                    </div>
 
                 </div>
-
-            </div>
-
-        </div><!-- /container -->
-    </div><!-- /headerwrap -->
-    <!-- MOBILE VIEW -->
-    <div id="headerwrap" class="hidden-md hidden-lg hidden-xl" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
-        <div class="container text-center">
-            <div class="col-lg-12" id="shop-border-mobile" style="padding: 2% 4% 0 4%;">
-
-                <div class="col-lg-12 text-center">
-                    <h1 class="text-center shop_intros" style="font-size: 4em;" id="ShopHomes_mobile"><b>ACCESSORIES</b></h1><br />
+                <div class="modal-footer">
                     <br />
-
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
 
                 </div>
             </div>
-
-        </div><!-- /container -->
-    </div><!-- /headerwrap -->
-    <!-----------------------------HEADER VIEWS END----------------------------------->
-
-
-
-    <div id="content" class="background_color">
-        <div class="container" id="background">
-
-
-            <section id="Accessories">
-                <div class="col-lg-12">
-                    <h2 class="homeheadlines"><b>Featured</b></h2>
-                </div>
-
-                <div class="col-lg-12">
-                    <div id="FeaturedProductsLoader" style="margin-top:10px">
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a class="meeee" href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Wilson Adams | Toro <label class="label label-default pull-right product_title_prices">$100.50</label></b></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>    <!-- END NEW ARRIVAL SECTION -->
-
-
-            <section id="AccessoriesMain">
-                <div class="col-lg-12">
-                    <h2 class="homeheadlines"><b>Accessory Inventory</b></h2>
-                </div>
-
-                <div class="col-lg-3">
-                    <h5 style="font-family:'tex'">Sort By</h5>
-                    <select class="form-control">
-                        <option>Brand (A-Z)</option>
-                        <option>Brand (Z-A)</option>
-                        <option>Price (Low to High)</option>
-                        <option>Price (High to Low)</option>
-                        <option>New Arrivals</option>
-                    </select>
-                    <h5 style="font-family:'tex'">Brand</h5>
-                    <select class="form-control">
-                        <option>Any</option>
-                    </select>
-
-
-                </div>
-                <div class="col-lg-9" style="padding-top:30px">
-                    <div id="AccessoriesInventoryLoader">
-
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-                        <div class="col-lg-3">
-                            <img src="images/IMG_9642.jpg" class="img img-responsive img-thumbnail" />
-                            <div class="featuredProductTitle" style="margin-top:10px">
-                                <a href="#"><b class="product_titles">Rocky Patel <br /> Sun Grown Toro <br />20 ct  6 x 52 <br /> Box $100.50 <br />Single $7.55</b></a>
-                            </div>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </section> <!-- END NEWS AND EVENTS SECTION -->
-
-
         </div>
     </div>
 
-    <section id="footer">
-    <!---FOOTER BEGINS-->
-    <section id="footer">
+    <!-- Modal -->
+    <div class="modal fade" id="viewCigarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
-        <div class="col-lg-12" id="footer_background">
-            <div id="footer_border">
+                <div>
+                    <div class="col-lg-12">
+                        <br />
+                        <div id="prodimgholder">
 
-                <div id="footer_hours" class="hidden-sm hidden-xs">
-                    <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
-                    <ul class="footer_ul">
-                        <li class="footer_li"> Monday: 10am-8pm</li>
-                        <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
-                        <li class="footer_li">Sunday: 12pm-6pm</li>
-                    </ul>
-                </div>
-                <div id="footer_contact" class="hidden-sm hidden-xs">
-                    <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>
-                    <ul class="footer_ul">
-                        <li class="footer_li">13817 Village Place Drive</li>
-                        <li class="footer_li">Midothian, VA 23114</li>
-                        <li class="footer_li">(804)379-2985</li>
-                </div>
+                        </div>
+                        <!--<img src="images/IMG_9642.jpg" class="img-thumbnail img-thumbnail center-block" style="margin:0px" />-->
+                        <br />
+                        <!--PT.PipeTobaccoID = item("PipeTobaccoID")
+                        PT.ProductID = item("ProductID")
+                        PT.Brand = item("Brand")
+                        PT.SKU = item("SKU")
+                        PT.Tobacco = item("Tobacco")
+                        PT.Description = item("Description")
+                        PT.Price = Math.Round(item("Price"), 2)
+                        PT.Qty = item("Qty")
+                        PT.Style = item("Style")
+                        PT.Cut = item("Cut")
+                        PT.Strength = item("Strength")-->
 
-                <div id="footer_images_top" class="hidden-sm hidden-xs" align="right">
-                    <img src="images/IPCPR.png" width="5%" style="margin: 0 1% 0 0 " />
-                    <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="4%" style="margin: 0 1% 0 0" /></a>
-                    <img src="images/tobacconistu.png" width="4%" style="margin: 0 1% 0 0 " />
-                    <img src="images/JoinCRA.gif" width="4%" />
-                </div>
-                <div id="footer_image_bottom" class="hidden-sm hidden-xs" align="right">
-                    <img src="images/cigarforwarriors copy.png" width="20%" />
-                </div>
+                        <div class="col-lg-6 text-left">
+                            <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
+                                <li><b>Brand: </b> <span id="cBrand"></span></li>
+                                <li><b>Name: </b> <span id="cName"></span></li>
+                              
+                                <li><b>Description:</b><span id="cDescription"></span></li>
+                                <li><b>Price :</b> $<span id="cPrice"></span></li>
 
-                <div style="margin: 0 0 0 28%">
-                    <div class="hidden-med hidden-lg hidden-xl">
-                        <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
-                        <ul class="footer_ul">
-                            <li class="footer_li"> Monday: 10am-8pm</li>
-                            <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
-                            <li class="footer_li">Sunday: 12pm-6pm</li>
-                        </ul>
+                            </ul>
+                        </div>
+                        <div class="col-lg-6">
+                            <ul class="list-inline" style="font-size:large;font-family:'chiser'">
+
+                                <li>
+                                    <b>Quantity: </b>
+                                    <input id="Qty" class="form-control" />
+                                </li>
+
+                            </ul>
+                            <label id="QtyMsg" style="color:red"></label>
+                            <br />
+                            <b style="font-family:'chiser'">
+                                Total:<span id="Total">$100.56</span>
+                            </b>
+                            <br />
+                            <br />
+                        </div>
                     </div>
-                    <div class="hidden-med hidden-lg hidden-xl">
-                        <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>
-                        <ul class="footer_ul">
-                            <li class="footer_li">13817 Village Place Drive</li>
-                            <li class="footer_li">Midothian, VA 23114</li>
-                            <li class="footer_li">(804)379-2985</li>
-                        </ul>
-                    </div>
-                </div>
 
-                <div class="hidden-med hidden-lg hidden-xl" align="right" style="margin: 10% 40% 2% 0;">
-                    <img src="images/IPCPR.png" width="8%" style="margin: 0 1% 0 0 " />
-                    <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="7%" style="margin: 0 1% 0 0" /></a>
-                    <img src="images/tobacconistu.png" width="7%" style="margin: 0 1% 0 0 " />
-                    <img src="images/JoinCRA.gif" width="7%" />
                 </div>
-                <div class="hidden-med hidden-lg hidden-xlalign=" right">
-                    <img src="images/cigarforwarriors copy.png" width="25%" style="margin: 0 0 0 37%" />
+                <div class="modal-footer">
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                    <button id="btnAddToCart" type="button" class="btn btn-news2">Add To Cart</button>
+                    <br />
+                    <label id="lbladdtocartmsg" style="color:red"></label>
                 </div>
             </div>
-            <!---FOOTER ENDS-->
+        </div>
+    </div>
 
-    </section>
+    <div class="col-lg-12" style="padding:0px;background-color:white" id="CigarLoader">
+        <!--<div class='col-lg-3 text-center featuredprod' style='background-image:url(images/IMG_9868.jpg);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>
+            <div class="col-lg-12" style="padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)">
+                <h4 class="text-center" style="color:white;font-family:'chiser'">Rocky Patel Toro</h4>
+                <ul class="list-inline">
+
+                    <li><a href="#" data-toggle="modal" data-target="#viewCigarModal" style="background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px"><i class="glyphicon glyphicon-shopping-cart"></i> Add</a> </li>
+                </ul>
+            </div>
+        </div>-->
+    </div>
+
+
+
+
+
+
+
+    <div id="c">
+
+        <div class="col-lg-12 text-center" style="padding:20px;background-color:#171616">
+            <div class="col-lg-4">
+
+                <h5><a href="index.html" style="color:white">"I smoke in moderation. Only one cigar at a time" - Mark Twain</a></h5>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+                <h5><a href="http://www.laboremedge.com" style="color:white">Made with <i style="color:rgba(206,70,70,0.7)" class="icon-heart"></i> by Laborem Edge</a></h5>
+            </div>
+
+        </div>
+    </div>
 
 
 
 
     <!-- Placed at the end of the document so the pages load faster -->
-    <script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/smoothscroll.js" type="text/javascript"></script>
+    <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            var cigars = 'Accessory'
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetFeaturedProductInfo",
+                data: "{ProductCategory:'" + cigars + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+
+                    if (result == 0) {
+                        $("#NewsandEventsLoadr").empty();
+                        return;
+                    }
+
+                    $("#NewsandEventsLoadr").empty();
+
+                    $.each(result, function (index, item) {
+
+                        var content = "  <div class='text-center featuredprod accessory single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Accessory);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+      "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
+                   "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
+      "  <ul class='list-inline'> " +
+      "  <li><a class='accessoriez'  data-productid=" + item.ProductID + " data-qty=" + item.Qty + " data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' data-brand='" + item.Brand + "' data-accessoryid=" + item.AccessoryID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+      "  </ul>     " +
+      "  </div>    " +
+      "  </div>    "
+
+
+                        $(content).appendTo("#NewsandEventsLoadr");
+
+                    })
+
+                    setupSlider();
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetCartCount",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var result = data.d;
+
+
+                    $("#cartcount").text(result);
+                    $("#cartcount2").text(result);
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+
+
+            $("#txtSearchCigars").keyup(function () {
+
+                var texttosearch = $(this).val()
+
+
+                var Category = 'Accessory'
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SearchProducts",
+                    data: "{ProductCategory:'" + Category + "',SearchText:'" + texttosearch + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#CigarLoader").empty();
+                            return;
+                        }
+
+                        $("#CigarLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+
+
+                            var content = "  <div class='text-center featuredprod accessory col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Accessory);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+      "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
+                   "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
+      "  <ul class='list-inline'> " +
+      "  <li><a class='accessoriez'  data-productid=" + item.ProductID + " data-qty=" + item.Qty + " data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' data-brand='" + item.Brand + "' data-accessoryid=" + item.AccessoryID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+      "  </ul>     " +
+      "  </div>    " +
+      "  </div>    "
+
+                            $(content).hide().appendTo("#CigarLoader").fadeIn(1000);
+
+                        })
+
+
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+
+
+
+
+            })
+
+            var Total = 0.0;
+
+            $("#NewsandEventsLoadr").delegate(".featuredprod", "mouseover", function (e) {
+
+                $(this).find(".viewme").css("background-color", "rgba(0,0,0,0.80)");
+                $(this).find(".viewme").css("color", "white");
+            })
+            $("#NewsandEventsLoadr").delegate(".featuredprod", "mouseout", function (e) {
+
+                $(this).find(".viewme").css("background-color", "rgba(01,01,01,0)");
+                $(this).find(".viewme").css("color", "rgba(01,01,01,0)");
+            })
+
+            var Category = 'Accessory'
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetProducts",
+                data: "{ProductCategory:'" + Category + "'}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    //take data and append as list item parameters to be selected by user
+                    var result = data.d;
+
+                    if (result == 0) {
+                        $("#CigarLoader").empty();
+                        return;
+                    }
+
+                    $("#CigarLoader").empty();
+                    // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                    $.each(result, function (index, item) {
+
+
+                        var content = "  <div class='text-center featuredprod accessory col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Accessory);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
+"  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
+             "  <h4 class='text-center' style='color:white;font-family:'chiser'><a href='#' style='color:white'>" + item.Brand + ' ' + item.Name + "</a></h4>" +
+"  <ul class='list-inline'> " +
+"  <li><a class='accessoriez' data-productid=" + item.ProductID + " data-qty=" + item.Qty + " data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' data-brand='" + item.Brand + "' data-accessoryid=" + item.AccessoryID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(01,01,01,0.8);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-star'></i> View</a> </li> " +
+"  </ul>     " +
+"  </div>    " +
+"  </div>    "
+
+                        $(content).appendTo("#CigarLoader");
+
+                    })
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+            var _ProductViewing;
+            var _Brand;
+            var _Name;
+            var _DisplayName;
+            var _Qty;
+            var _Price;
+            var _Description;
+            var _Option;
+
+           
+
+            $("#NewsandEventsLoadr").delegate(".accessoriez", "click", function (e) {
+
+
+
+                $("#lbladdtocartmsg").text("");
+                _ProductViewing = $(this).attr('data-productid');
+                _Brand = $(this).attr('data-brand');
+                _Name = $(this).attr('data-name');
+                _DisplayName = _Brand + ' ' + _Name;
+ 
+                _Qty = $(this).attr('data-qty');
+                _Price = $(this).attr('data-price');
+                _Description = $(this).attr('data-description');
+                _Option = " "
+
+                $("#cBrand").text(_Brand);
+                $("#cName").text(_Name);
+            
+                $("#cDescription").text(_Description);
+                $("#cQty").text(_Qty);
+                $("#cPrice").text(_Price);
+
+
+                $("#prodimgholder").empty();
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Accessory' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                $(img).appendTo("#prodimgholder");
+
+
+                $("#QtyMsg").hide();
+                $("#Total").text('$' + Total);
+
+            })
+
+
+            $("#CigarLoader").delegate(".accessoriez", "click", function (e) {
+
+
+                $("#lbladdtocartmsg").text("");
+                _ProductViewing = $(this).attr('data-productid');
+                _Brand = $(this).attr('data-brand');
+                _Name = $(this).attr('data-name');
+                _DisplayName = _Brand + ' ' + _Name;
+
+                _Qty = $(this).attr('data-qty');
+                _Price = $(this).attr('data-price');
+                _Description = $(this).attr('data-description');
+                _Option = " "
+
+                $("#cBrand").text(_Brand);
+                $("#cName").text(_Name);
+
+                $("#cDescription").text(_Description);
+                $("#cQty").text(_Qty);
+                $("#cPrice").text(_Price);
+
+
+                $("#prodimgholder").empty();
+                var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=Accessory' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                $(img).appendTo("#prodimgholder");
+
+
+                $("#QtyMsg").hide();
+                $("#Total").text('$' + Total);
+
+            })
+
+
+            $("#Qty").keyup(function () {
+
+                $("#QtyMsg").text("");
+                _Option = ""
+                //check to make sure that a checkbox is checked.
+
+                if ($("#Qty").val() % 1 != 0) {
+                    $("#QtyMsg").show();
+                    $("#QtyMsg").text("Quantity must be a whole number");
+                    $("#Qty").val("");
+                    $("#Total").text('$' + 0.00);
+                    return;
+                }
+                //Update Total
+                var qty = parseInt($("#Qty").val())
+
+                if (qty > _Qty) {
+                    $("#QtyMsg").show();
+                    $("#QtyMsg").text("Max quantity is " + _Qty);
+                    $("#Qty").val("");
+                    $("#Total").text('$' + 0.00);
+                    return;
+                }
+                var ttl = _Price * qty;
+                if (isNaN(ttl)) {
+                    ttl = 0.00;
+                }
+                $("#Total").text('$' + ttl.toFixed(2));
+
+            }) //end qty key up function
+
+
+            $("#btnAddToCart").click(function () {
+
+                
+                var qty = parseInt($("#Qty").val());
+                var ttl = $("#Total").text();
+                // var itemdesc = $("#cBrand").text() + ' ' + $("#cName").text() + ' ' + $("#cLength").text() + 'x' + $("#cRing").text();
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/AddToCart",
+                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Accessory',ItemName:'" + _DisplayName + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 2) {
+                            $("#lbladdtocartmsg").text("Item already in cart!");
+                            $("#Qty").val("");
+                            getCartCount();
+                            return;
+                        }
+
+                        getCartCount();
+                        $("#Qty").val("");
+                        $('#viewCigarModal').modal('hide');
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            })
+
+
+
+
+
+            //My Cart Code
+
+
+            $(".cartme").click(function () {
+                $("#cartmsg").text("");
+                $("#CartLoader").empty();
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GoToCart",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#cartmsg").text("(No items in cart to show)");
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                            var content = "<div class='col-lg-12'> " +
+                        "     <div class='col-lg-6'> " +
+                        "         <img src='ImageHandler.ashx?id=" + item.ProductID + "&Category=" + item.Category + "' class='img-responsive img-thumbnail center-block'/> " +
+                        "     </div> " +
+                        "     <div class='col-lg-6 text-left' style='padding-top:5%'> " +
+                        "         <ul class='list-unstyled'> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>" + item.ItemName + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>(" + item.Qty + ') ' + item.Notes + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>$" + item.Price + "</b></label></li> " +
+                        "             <li><a data-notes='" + item.Notes + "' data-qty='" + item.Qty + "' data-price='" + item.Price + "' id=" + item.ProductID + " href='#' class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "         </ul> " +
+                        "     </div> " +
+                        " </div> "
+
+                            $(content).appendTo("#CartLoader");
+
+                        })
+                        getCartTotal();
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+            $("#CartLoader").delegate(".removeitem", "click", function (e) {
+                var removeitemnbr = $(this).attr('id');
+                var notes = $(this).attr('data-notes');
+                var qty = $(this).attr('data-qty');
+                var price = $(this).attr('data-price');
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/RemoveItemFromCart",
+                    data: "{ProdID:" + removeitemnbr + ",Notes:'" + notes + "',Qty:'" + qty + "',Price:'" + price + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        getCartCount();
+                        $('#viewCartModal').modal('hide');
+
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+
+
+
+            function getCartCount() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartCount",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+
+                        $("#cartcount").text(result);
+                        $("#cartcount2").text(result);
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+            // End My Cart Code
+
+            function getCartTotal() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartTotal",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartTtl").text(result);
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            }
+
+
+
+            //Subscribe To Mailing List
+            $("#btnMailChimp").click(function (e) {
+                e.preventDefault();
+                var EmailAddy = $("#MailChimpEmail").val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SubscribeToMailingList",
+                    data: "{Email:'" + EmailAddy + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+                        $("#MailChimpEmail").val("Thanks!");
+                        $("#MailChimpEmail").css("color", "#BF4A22");
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            })
+
+
+
+            function setupSlider() {
+
+
+
+                $("#NewsandEventsLoadr").addClass('partner-list');
+                var owl = $(".partner-list").data('owlCarousel');
+
+                // jQuery Owl Carousel
+                $(".partner-list").owlCarousel({
+                    pagination: false,
+                    navigation: false,
+                    navigationText: ["<i class='glyphicon glyphicon-chevron-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                    autoPlay: 2000,
+                    stopOnHover: true,
+                    items: 4
+                });
+                // jQuery Owl Carousel
+                $(".home-list").owlCarousel({
+                    pagination: false,
+                    navigation: false,
+                    navigationText: ["<i class='glyphicon glyphicon-chevron-left'></i>", "<i class='fa fa-angle-right'></i>"],
+                    autoPlay: 5000,
+                    stopOnHover: true,
+                    items: 1
+                });
+
+                owl.reinit();
+
+            }
+
+            $("a").click(function () {
+                $(this).css("background-color", "transparent");
+            })
+
+
+        })
+    </script>
 
 </body>
 </html>
+
+
+
+
 
