@@ -425,6 +425,59 @@ Public Class Engine
 
 
     <WebMethod()> _
+    Public Function SortNewsandEvents(ByVal Category As String)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            If Category = "All" Then
+                cmd.CommandText = " SELECT PostID,PostDate,PostedBy,HTML,PostTitle,NewsType,LEFT(PlainText,250)PlainText,PostType,Hashtag,EventLocation,EventDate FROM NewsPosts ORDER BY PostDate DESC"
+            Else
+                cmd.CommandText = " SELECT PostID,PostDate,PostedBy,HTML,PostTitle,NewsType,LEFT(PlainText,250)PlainText,PostType,Hashtag,EventLocation,EventDate FROM NewsPosts WHERE PostType='" & Category & "' ORDER BY PostDate DESC"
+            End If
+
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        If dt.Rows.Count > 0 Then
+
+            NewsList.Clear()
+            For Each item As DataRow In dt.Rows()
+                Dim i As New NewsPosts
+                i.NewsPostID = item("PostID")
+                i.PostTitle = item("PostTitle")
+                i.PostDate = CDate(item("PostDate"))
+                i.PostedBy = item("PostedBy")
+                i.HTML = item("HTML")
+                i.PlainText = item("PlainText") + "..."
+                i.NewsType = item("PostType")
+                If i.NewsType = "Event" Then
+                    i.EventLocation = item("EventLocation")
+                    i.EventMonth = GetMonth(CDate(item("EventDate")).Month)
+                    i.EventDay = CDate(item("EventDate")).Day.ToString()
+
+                Else
+                    i.EventLocation = ""
+                    i.EventMonth = ""
+                    i.EventDay = ""
+                End If
+                NewsList.Add(i)
+            Next
+            Return NewsList
+        Else
+            Return 0
+        End If
+    End Function
+
+
+    <WebMethod()> _
     Public Function LoadNewsandEvents()
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)

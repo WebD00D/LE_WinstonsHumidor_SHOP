@@ -14,258 +14,532 @@
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
 
+
     <!-- Bootstrap core CSS -->
     <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
 
-  
 </head>
 
-<body>
+<body style="background-color:white">
 
 
 
-  
 
-        
 
-    <nav class="navbar navbar-fixed-top" >
-        <div class="navbar-background container">
-            <div class=" WHnavbar navbar-header">
-                <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" id="WHnavbar" href="#">WINSTON'S HUMIDOR</a>
-            </div>
-            
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#about">About</a></li>
-                    <li class="dropdown list">
-                        <a href="#" class="active dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="Cigars.html">Cigars</a></li>
-                            <li><a href="Pipes.html">Pipes</a></li>
-                            <li><a href="PipeTobacco.html">Pipe Tobacco</a></li>
-                            <li><a href="Coffee.html">Coffee</a></li>
-                            <li><a href="Apparel.html">Apparel</a></li>
-                            <li><a href="Accessories.html">Accessories</a></li>
-                        </ul>
-                    </li>
 
-                    <li class="active"><a href="Events.html">News & Events</a></li>
-                    <li class="active"><a href="#">Contact</a></li>                
-                    <li class="active"><a href="#">Directions</a></li>
-                    <li class="active"><a href="#">Log in</a></li>
-                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+    <nav class="menu hidden-lg hidden-xl" id="theMenu">
+        <div class="menu-wrap">
+            <h1 class="logo"><img src="images/WinstonHumidor_Cigar_Brown(2).png" class="img-responsive center-block" style="max-width:100px" /></h1>
+            <i class="icon-remove menu-close"></i>
+            <a href="index.html" class="smoothScroll">Home</a>
+            <a href="Cigars.html" class="smoothScroll">Cigars</a>
+            <a href="Pipes.html" class="smoothScroll">Pipes</a>
+            <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
+            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="Accessories.html" class="smoothScroll">Accessories</a>
+            <a href="Coffee.html" class="smoothScroll">Coffee</a>
+            <a href="Events.html" class="smoothScroll">News / Events</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
+
+            <a href="#"><i class="icon-facebook"></i></a>
+            <a href="#"><i class="icon-twitter"></i></a>
+            <a href="#"><i class="icon-instagram"></i></a>
         </div>
+        <!-- Menu button -->
+        <div id="menuToggle"><i class="icon-reorder"></i></div>
     </nav>
 
-           
-    <!-----------------------------HEADER VIEWS START----------------------------------->
-    <!-- DESKTOP VIEW -->
-    <div id="headerwrap" class="hidden-sm hidden-xs" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
-        <div class="container text-center">
-            <div class="homepage-border col-lg-12">
-                <div class="col-lg-12 text-center">
-                    <h1 class="text-center shop_intros" id="WinstonsHumidorhome" style="font-size:7em; text-align: center"><b>News and Events</b></h1><br />
+    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px;padding:15px;background-color:rgba(01,01,01,1)">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
 
-                </div>
+        </div>
+        <a id="brandlogo" class="navbar-brand" href="index.html"><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:125px;" /></a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
 
-            </div>
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
+                        <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
+                        <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
+                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
+                        <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
 
-        </div><!-- /container -->
-    </div><!-- /headerwrap -->
-    
-        <!-- MOBILE VIEW -->
-    <div id="headerwrap" class="hidden-md hidden-lg hidden-xl" style="background-image:url(images/CigarTest2.png);background-size:cover;background-repeat:no-repeat;padding-bottom:20px;background-position-y:70%">
-        <div class="container text-center">
-            <div class="col-lg-12" id="homepage-border-mobile">
+                    </ul>
+                </li>
+                <!--<li><a href="#">About</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="Events.html">News</a></li>
+                <!--<li><a href="#">Login</a></li>-->
+                <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
+                <li><a href="#"></a></li>
 
-                <div class="col-lg-12 text-center">
-                    <h1 class="text-center shop_intros" style="font-size:5em" id="WinstonsHumidorhome"><b>NEWS AND EVENTS</b></h1><br />
-                    <br />
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
 
 
-                </div>
-            </div>
+    <section id="featuredproductsect"></section>
+    <div class="col-lg-12" style="padding:0px">
+        <div class="col-lg-12 text-center" style="padding-top:10%;padding-bottom:5%;background:linear-gradient(rgba(160,82,45,0.85),rgba(160,82,45,0.85)),url('images/corkboard.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;background-position-y:55%">
+            <h1 style="color:white;font-family:'chiser';font-size:100px;font-weight:600" class="text-center hidden-xs hidden-sm hidden-md ">News and Events</h1>
+            <h1 style="color:white;font-family:'chiser';font-size:50px;font-weight:600" class="text-center hidden-lg">News and Events</h1>
+        </div>
 
-        </div><!-- /container -->
-    </div><!-- /headerwrap -->
-   
+        <br />
 
-    <!-----------------------------HEADER VIEWS END----------------------------------->
-
-    <div id="content">
-       <div class="container">
-           <div class="col-lg-8">
-
-               <!--NEWS BLOCK START-->
-                      <div class="col-lg-10 col-lg-offset-1 eventsnippet"  >
-                          <img src="images/NEWSiconred.png" class="hidden-med hidden-lg hidden-xl" style="float:left; width: 20%; margin: 6% 2.5% 1% .25%"/>
-                          <h2 style="font-family:'chiser'"> <b>Herrerra Estelli Boxes Are In!</b></h2>
-                          <ul class="list-inline">
-                              <li class="posted_by">Christian Bryant</li>
-                              <li class="post_date">July 26th, 2015</li>
-                              <li class="post_type">News</li>
-                          </ul>
-
-                          <p class="newsevent_p hidden-sm hidden-xs" style="margin: 0 15% 2% 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>               
-                          <a href="#" class="btn-news">Continue Reading...</a>
-                          
-                          <img src="images/NEWSiconred.png" class="hidden-sm hidden-xs" style="float:right; width: 25%; margin: -24% 0% 1% 0" />
-                      </div>
-               <!--NEWS BLOCK END-->
-
-               <!--EVENT BLOCK START-->
-                      <div class="col-lg-10 col-lg-offset-1 eventsnippet">
-                      
-
-                          <h2 class="hidden-sm hidden-xs" style="font-family:'chiser'"> <b>Rocky Patel Cigar Event</b></h2>
-                          <h2 class="hidden-med hidden-lg hidden-xl" style="font-family:'chiser'; margin: 4% 0 0 20%"> <b>Rocky Patel Cigar Event</b></h2>
-                          <ul class="list-inline hidden-sm hidden-xs">
-                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
-                              <li style="color: rgba(0,0,0,0.5); font-family: 'tex'; font-size: 1.2em;">July 26th, 2015</li>
-                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
-                          </ul>
-                          <ul class="list-inline hidden-med hidden-lg hidden-xl" style="margin: 0 0 0 18%">
-                              <li style="color: rgba(0,0,0,0.7); font-family: 'tex'; font-size: 1.2em;">Christian Bryant</li>
-                              <li style="color: rgba(0,0,0,0.5)">July 26th, 2015</li>
-                              <li style="color:rgba(255,0,0,0.5); font-family:'tex'; font-size: 1.2em">Event</li>
-                          </ul>                          
-                          <p class="newsevent_p hidden-sm hidden-xs" style="margin: 0 15% 2% 0">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
-                          <p class="newsevent_pMOBILE hidden-med hidden-lg hidden-xl">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>                          
-                          <a href="#" class="btn-news" style="background-color:none">Continue Reading...</a>
-                          
-                          <div class="datelocation hidden-sm hidden-xs" style="margin: -29% 0 0 0">
-                          <h1 class="events_month">july</h1>
-                          <h2 class="events_day">26</h2>
-                          <h1 class="events_location" style="font-size: 2em;">location, va</h1>
-                          </div>
-                          
-                          <div class="datelocationMOBILE hidden-med hidden-lg hidden-xl">
-                          <h1 class="events_monthMOBILE">july</h1>
-                          <h2 class="events_dayMOBILE">26</h2>
-                          <h1 class="events_locationMOBILE">location, va</h1>
-                          </div>
-                      
-                          </div>    
-           </div>
-               <!--EVENT BLOCK END-->
-                         
-          <!--SUBSCRIBE BLOCK-->
-           <div class="col-lg-4">
-               <div class="col-lg-12">
-               
-                   <br />
-                   <div id="stayupdated_background">
-                   <h4 id="stay_updated">stay updated</h4>
-                   <h5 id="signup_">Sign up for our newsletter to stay up to date with the latest happenings around the shop!</h5>
-             
-                   <input class="form-control" placeholder="email" id="subsribe_email"/>
-                   <br />
-                   <a href="#" class="btn-news2">subscribe</a>
-                   <br />
-                   </div>
-                
-               </div>
-           </div>
-       </div>
-<!---SUBSCRIBE BLOCK ENDS-->      
-
-        
-       
-
+        <ul class="list-inline text-center">
+            <li><a id="sort_News" href="#">News</a></li>
+            <li><a id="sort_Events" href="#">Events</a></li>
+            <li><a id="sort_All" href="#">All</a></li>
+        </ul>
     </div>
 
     
 
-<!---FOOTER BEGINS-->
-    <section id="footer">
-
-        <div class="col-lg-12" id="footer_background">
-        <div id="footer_border">  
-            
-            <div id="footer_hours" class="hidden-sm hidden-xs">
-            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
-            <ul class="footer_ul">
-                <li class="footer_li"> Monday: 10am-8pm</li>
-                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
-                <li class="footer_li">Sunday: 12pm-6pm</li>
-            </ul>
-            </div>
-            <div id="footer_contact" class="hidden-sm hidden-xs">
-            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
-            <ul class="footer_ul">
-                <li class="footer_li">13817 Village Place Drive</li>
-                <li class="footer_li">Midothian, VA 23114</li>
-                <li class="footer_li">(804)379-2985</li>
-            </div>           
-            
-            <div id="footer_images_top" class="hidden-sm hidden-xs" align="right">
-            <img src="images/IPCPR.png" width="5%" style="margin: 0 1% 0 0 "/>
-            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="4%" style="margin: 0 1% 0 0"/></a>
-            <img src="images/tobacconistu.png" width="4%" style="margin: 0 1% 0 0 "/>
-            <img src="images/JoinCRA.gif" width="4%"/>
-            </div>
-            <div id="footer_image_bottom" class="hidden-sm hidden-xs" align="right">
-            <img src="images/cigarforwarriors copy.png" width="20%"/>
-            </div>
-            
-            <div style="margin: 0 0 0 28%">
-            <div class="hidden-med hidden-lg hidden-xl">
-            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Hours</h2>
-            <ul class="footer_ul">
-                <li class="footer_li"> Monday: 10am-8pm</li>
-                <li class="footer_li">Tuesday-Saturday: 10am-9pm</li>
-                <li class="footer_li">Sunday: 12pm-6pm</li>
-            </ul>
-            </div>            
-            <div class="hidden-med hidden-lg hidden-xl">
-            <h2 style="font-family:chiser; color: #fff; font-size: 2.2em; padding: 0 0 0 18%">Contact</h2>                
-            <ul class="footer_ul">
-                <li class="footer_li">13817 Village Place Drive</li>
-                <li class="footer_li">Midothian, VA 23114</li>
-                <li class="footer_li">(804)379-2985</li>
-            </ul>
-            </div> 
-            </div>            
-            
-            <div class="hidden-med hidden-lg hidden-xl" align="right" style="margin: 10% 40% 2% 0;">
-            <img src="images/IPCPR.png" width="8%" style="margin: 0 1% 0 0 "/>
-            <a href="https://www.facebook.com/pages/Winstons-Humidor/109561062399051" target="blank"><img src="images/facebook-icon-brown.png" width="7%" style="margin: 0 1% 0 0"/></a>
-            <img src="images/tobacconistu.png" width="7%" style="margin: 0 1% 0 0 "/>
-            <img src="images/JoinCRA.gif" width="7%"/>
-            </div>            
-            <div class="hidden-med hidden-lg hidden-xlalign="right">
-            <img src="images/cigarforwarriors copy.png" width="25%" style="margin: 0 0 0 37%"/>
-            </div>
-            </div>             
    
-                
-            
-            
-        </div>  
 
-    </section>
-<!---FOOTER ENDS-->
+
+
+
+    <div id="PostLoader" class="col-lg-8 col-lg-offset-2 " style="background-color:white;padding-top:2%">
+        
+       <!--<a href="#" style="text-decoration:none">
+           <div class="col-lg-4">
+               <div class="col-lg-12 text-left" style="min-height:400px;max-height:400px;border:1px solid #eeeeee;padding:0px;border-radius:10px;margin:10px">
+                   <div class="col-lg-12" style="border-radius:10px;border-bottom-left-radius:0px;border-bottom-right-radius:0px;padding-top:15%;padding-bottom:15%;padding-left:0px;background:linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url('images/coffee-beans.jpg');background-size:cover;background-repeat:no-repeat;background-position:center center;">
+                   </div>
+                   <div class="col-lg-12">
+                       <div style="margin-top:15px">
+                           <h4 style="font-family:'chiser';color:#b2bac2"><b>July 3rd 2015</b></h4>
+                           <h3 style="font-family:'chiser';color:#171616;margin-top:10px"><b>An example post title here you want to read</b></h3>
+                           <p style="color:#808080;line-height:20px">how can you forget about the actual post?? This is the brief introduction of the article.
+                           We will probably only pull in the first 100 or so characters and append this at the end -> ...</p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </a>-->
+       
+      
+    
  
+    </div>
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center">
+                        <br />
+                        <h2 class="text-center" style="font-family:'chiser'"><b>My Cart</b></h2>
+                        <label style="font-family:'chiser'" class="text-center" id="cartmsg"></label>
+                        <div id="CartLoader">
+
+
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total:$<span id="CartTtl"></span></b></h3>
+                            <a href="Checkout.html" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+
  
+    <div id="c">
+
+        <div class="col-lg-12 text-center" style="padding:20px;background-color:#171616">
+            <div class="col-lg-4">
+
+                <h5><a href="index.html" style="color:white">"I smoke in moderation. Only one cigar at a time" - Mark Twain</a></h5>
+            </div>
+            <div class="col-lg-4">
+
+            </div>
+            <div class="col-lg-4">
+                <h5><a href="http://www.laboremedge.com" style="color:white">Made with <i style="color:rgba(206,70,70,0.7)" class="icon-heart"></i> by Laborem Edge</a></h5>
+            </div>
+
+        </div>
+    </div>
+
+
+
 
     <!-- Placed at the end of the document so the pages load faster -->
-<script type="text/javascript" src="js/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/smoothscroll.js" type="text/javascript"></script>
+    <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+
     <script>
         $(document).ready(function () {
 
 
+            $("#sort_News").click(function (e) {
+                e.preventDefault();
+                sortby('News');
+            })
+            $("#sort_Events").click(function (e) {
+                e.preventDefault();
+                sortby('Event');
+            })
+
+            $("#sort_All").click(function (e) {
+                e.preventDefault();
+                sortby('All');
+            })
+
+         
+
+            function sortby(category) {
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SortNewsandEvents",
+                    data: "{Category:'"+ category +"'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        var result = data.d;
+                        if (result == 0) {
+                            return;
+                        }
+
+                        $("#PostLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                            var content = "  <a href='ViewSinglePost.html?postid=" + item.NewsPostID + "' style='text-decoration:none'> " +
+                                 "  <div class='col-lg-4'> " +
+                                 "  <div class='col-lg-12 text-left' style='min-height:400px;max-height:400px;border:1px solid #eeeeee;padding:0px;border-radius:10px;margin:10px'> " +
+                                 "  <div class='col-lg-12' style='border-radius:10px;border-bottom-left-radius:0px;border-bottom-right-radius:0px;padding-top:15%;padding-bottom:15%;padding-left:0px;background:linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(ImageHandler.ashx?id=" + item.NewsPostID + "&Category=NewsPost);background-size:cover;background-repeat:no-repeat;background-position:center center;'> " +
+                                 "  </div> " +
+                                 "  <div class='col-lg-12'> " +
+                                 "  <div style='margin-top:15px'> " +
+                                 "  <h4 style='font-family:" + 'chiser' + ";color:#b2bac2'><b>" + item.PostDate + "</b></h4> " +
+                                 "  <h3 style='font-family:" + 'chiser' + ";color:#171616;margin-top:10px'><b>" + item.PostTitle + "</b></h3> " +
+                                 "  <p style='color:#808080;line-height:20px'> " + item.PlainText + "</p> " +
+                                 "   </div>    " +
+                                 "  </div>     " +
+                                 "  </div>     " +
+                                 "  </div>     " +
+                                 "  </a>       "
+
+                            $(content).appendTo("#PostLoader");
+
+                        })
 
 
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/LoadNewsandEvents",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+
+                    var result = data.d;
+                    if (result == 0) {
+                        return;
+                    }
+
+                    $("#PostLoader").empty();
+                    // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                    $.each(result, function (index, item) {
+
+                        var content = "  <a href='ViewSinglePost.html?postid=" + item.NewsPostID + "' style='text-decoration:none'> " +
+                             "  <div class='col-lg-4'> " +
+                             "  <div class='col-lg-12 text-left' style='min-height:400px;max-height:400px;border:1px solid #eeeeee;padding:0px;border-radius:10px;margin:10px'> " +
+                             "  <div class='col-lg-12' style='border-radius:10px;border-bottom-left-radius:0px;border-bottom-right-radius:0px;padding-top:15%;padding-bottom:15%;padding-left:0px;background:linear-gradient(rgba(255,255,255,0.5),rgba(255,255,255,0.5)),url(ImageHandler.ashx?id="+ item.NewsPostID +"&Category=NewsPost);background-size:cover;background-repeat:no-repeat;background-position:center center;'> " +
+                             "  </div> " +
+                             "  <div class='col-lg-12'> " +
+                             "  <div style='margin-top:15px'> " +
+                             "  <h4 style='font-family:" + 'chiser' + ";color:#b2bac2'><b>" + item.PostDate + "</b></h4> " +
+                             "  <h3 style='font-family:" + 'chiser' + ";color:#171616;margin-top:10px'><b>" + item.PostTitle + "</b></h3> " +
+                             "  <p style='color:#808080;line-height:20px'> " + item.PlainText + "</p> " +
+                             "   </div>    " +
+                             "  </div>     " +
+                             "  </div>     " +
+                             "  </div>     " +
+                             "  </a>       " 
+
+                        $(content).appendTo("#PostLoader");
+
+                    })
+                     
+    
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+   
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetCartCount",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var result = data.d;
+
+
+                    $("#cartcount").text(result);
+                    $("#cartcount2").text(result);
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+            //My Cart Code
+
+
+            $(".cartme").click(function () {
+                $("#cartmsg").text("");
+                $("#CartLoader").empty();
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GoToCart",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#cartmsg").text("(No items in cart to show)");
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                            var content = "<div class='col-lg-12'> " +
+                        "     <div class='col-lg-6'> " +
+                        "         <img src='ImageHandler.ashx?id=" + item.ProductID + "&Category=" + item.Category + "' class='img-responsive img-thumbnail center-block'/> " +
+                        "     </div> " +
+                        "     <div class='col-lg-6 text-left' style='padding-top:5%'> " +
+                        "         <ul class='list-unstyled'> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>" + item.ItemName + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>(" + item.Qty + ') ' + item.Notes + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>$" + item.Price + "</b></label></li> " +
+                        "             <li><a data-notes='" + item.Notes + "' data-qty='" + item.Qty + "' data-price='" + item.Price + "' id=" + item.ProductID + " href='#' class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "         </ul> " +
+                        "     </div> " +
+                        " </div> "
+
+                            $(content).appendTo("#CartLoader");
+
+                        })
+                        getCartTotal();
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+            $("#CartLoader").delegate(".removeitem", "click", function (e) {
+                var removeitemnbr = $(this).attr('id');
+                var notes = $(this).attr('data-notes');
+                var qty = $(this).attr('data-qty');
+                var price = $(this).attr('data-price');
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/RemoveItemFromCart",
+                    data: "{ProdID:" + removeitemnbr + ",Notes:'" + notes + "',Qty:'" + qty + "',Price:'" + price + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        getCartCount();
+                        $('#viewCartModal').modal('hide');
+
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+
+
+
+            function getCartCount() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartCount",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+
+                        $("#cartcount").text(result);
+                        $("#cartcount2").text(result);
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+            // End My Cart Code
+
+            function getCartTotal() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartTotal",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartTtl").text(result);
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            }
+
+
+
+            //Subscribe To Mailing List
+            $("#btnMailChimp").click(function (e) {
+                e.preventDefault();
+                var EmailAddy = $("#MailChimpEmail").val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SubscribeToMailingList",
+                    data: "{Email:'" + EmailAddy + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+                        $("#MailChimpEmail").val("Thanks!");
+                        $("#MailChimpEmail").css("color", "#BF4A22");
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            })
+
+
+
+        
+
+            $("a").click(function () {
+                $(this).css("background-color", "transparent");
+            })
 
 
         })
@@ -273,3 +547,8 @@
 
 </body>
 </html>
+
+
+
+
+
