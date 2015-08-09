@@ -1,0 +1,405 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>Checkout Step 1 | Winston's Humidor</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/style.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet" />
+    <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
+
+</head>
+
+<body style="background-color:white">
+
+
+
+
+
+
+    <nav class="menu hidden-lg hidden-xl" id="theMenu">
+        <div class="menu-wrap">
+            <h1 class="logo"><img src="images/WinstonHumidor_Cigar_Brown(2).png" class="img-responsive center-block" style="max-width:100px" /></h1>
+            <i class="icon-remove menu-close"></i>
+            <a href="index.html" class="smoothScroll">Home</a>
+            <a href="Cigars.html" class="smoothScroll">Cigars</a>
+            <a href="Pipes.html" class="smoothScroll">Pipes</a>
+            <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
+            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="Accessories.html" class="smoothScroll">Accessories</a>
+            <a href="Coffee.html" class="smoothScroll">Coffee</a>
+            <a href="Events.html" class="smoothScroll">News / Events</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
+
+            <a href="#"><i class="icon-facebook"></i></a>
+            <a href="#"><i class="icon-twitter"></i></a>
+            <a href="#"><i class="icon-instagram"></i></a>
+        </div>
+        <!-- Menu button -->
+        <div id="menuToggle"><i class="icon-reorder"></i></div>
+    </nav>
+
+    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px;padding:15px;background-color:rgba(01,01,01,1)">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <a id="brandlogo" class="navbar-brand" href="index.html"><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:125px;" /></a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
+                        <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
+                        <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
+                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
+                        <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
+
+                    </ul>
+                </li>
+                <!--<li><a href="#">About</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="Events.html">News</a></li>
+                <!--<li><a href="#">Login</a></li>-->
+                <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
+                <li><a href="#"></a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+
+
+    <div class="col-lg-4 col-lg-offset-4 text-center" style="margin-top:10%;border:2px solid #EEEEEE">
+        <br />
+        <br />
+        <img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block hidden-lg hidden-md hidden-sm" style="height:125px;" />
+        <h3 style="font-family:'chiser'"><b>Account Login</b></h3>
+        <input style="font-family:'chiser';font-size:larger" class="form-control" placeholder="Email Address" />
+        <br />
+        <input style="font-family:'chiser';font-size:larger" class="form-control" placeholder="Password" />
+        <br />
+        <ul class="list-inline text-right">
+            <li><a href="#" class="text-right"><i class=" glyphicon glyphicon-info-sign"></i> Don't have an account?</a></li>
+            <li><a href="#" class="text-right"><i class=" glyphicon glyphicon-question-sign"></i> Forgot password?</a></li>
+        </ul>
+        <hr />
+        <ul class="list-inline text-right">
+
+       
+            <li><a href="#" style="font-size:large" class="btn btn-primary">Sign In</a></li>
+        </ul>
+
+    </div>
+
+
+
+
+
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="viewCartModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center">
+                        <br />
+                        <h2 class="text-center" style="font-family:'chiser'"><b>My Cart</b></h2>
+                        <label style="font-family:'chiser'" class="text-center" id="cartmsg"></label>
+                        <div id="CartLoader">
+
+
+                        </div>
+                        <div class="col-lg-12 text-center">
+                            <h3 class="text-center" style="font-family:'chiser'"><b>Cart Total:$<span id="CartTtl"></span></b></h3>
+                            <a href="Checkout.html" style="font-size:large;" class="btn btn-default"><i class="glyphicon glyphicon-shopping-cart"></i> Checkout</a>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <br />
+                    <br />
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.min.js" type="text/javascript"></script>
+    <script src="js/bootstrap.min.js" type="text/javascript"></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script src="js/smoothscroll.js" type="text/javascript"></script>
+    <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+    <script src="js/url.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+
+            //var sPageURL = window.location.href
+            //var postID = window.url('?postid', sPageURL);
+
+
+
+
+            $.ajax({
+                type: "POST",
+                url: "Engine.asmx/GetCartCount",
+                data: "{}",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data) {
+                    var result = data.d;
+
+
+                    $("#cartcount").text(result);
+                    $("#cartcount2").text(result);
+
+                },
+                failure: function (msg) {
+                    alert(msg);
+                },
+                error: function (err) {
+                    alert(err);
+                }
+            }) //end ajax
+
+
+            //My Cart Code
+
+
+            $(".cartme").click(function () {
+                $("#cartmsg").text("");
+                $("#CartLoader").empty();
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GoToCart",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#cartmsg").text("(No items in cart to show)");
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartLoader").empty();
+                        // "<img class='img img-responsive'  src='ImageHandler.ashx?id=" + item.NewsPostID + "'>"
+                        $.each(result, function (index, item) {
+
+                            var content = "<div class='col-lg-12'> " +
+                        "     <div class='col-lg-6'> " +
+                        "         <img src='ImageHandler.ashx?id=" + item.ProductID + "&Category=" + item.Category + "' class='img-responsive img-thumbnail center-block'/> " +
+                        "     </div> " +
+                        "     <div class='col-lg-6 text-left' style='padding-top:5%'> " +
+                        "         <ul class='list-unstyled'> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>" + item.ItemName + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>(" + item.Qty + ') ' + item.Notes + "</b></label></li> " +
+                        "             <li><label class='text-left' style='font-family:'chiser';'><b>$" + item.Price + "</b></label></li> " +
+                        "             <li><a data-notes='" + item.Notes + "' data-qty='" + item.Qty + "' data-price='" + item.Price + "' id=" + item.ProductID + " href='#' class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-remove'></i></a></li> " +
+                        "         </ul> " +
+                        "     </div> " +
+                        " </div> "
+
+                            $(content).appendTo("#CartLoader");
+
+                        })
+                        getCartTotal();
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+            $("#CartLoader").delegate(".removeitem", "click", function (e) {
+                var removeitemnbr = $(this).attr('id');
+                var notes = $(this).attr('data-notes');
+                var qty = $(this).attr('data-qty');
+                var price = $(this).attr('data-price');
+
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/RemoveItemFromCart",
+                    data: "{ProdID:" + removeitemnbr + ",Notes:'" + notes + "',Qty:'" + qty + "',Price:'" + price + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        getCartCount();
+                        $('#viewCartModal').modal('hide');
+
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            })
+
+
+
+
+
+            function getCartCount() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartCount",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+
+                        $("#cartcount").text(result);
+                        $("#cartcount2").text(result);
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+            // End My Cart Code
+
+            function getCartTotal() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartTotal",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result == 0) {
+                            $("#CartTtl").text("0.00");
+                            return;
+                        }
+
+                        $("#CartTtl").text(result);
+
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            }
+
+
+
+            //Subscribe To Mailing List
+            $("#btnMailChimp").click(function (e) {
+                e.preventDefault();
+                var EmailAddy = $("#MailChimpEmail").val();
+
+
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/SubscribeToMailingList",
+                    data: "{Email:'" + EmailAddy + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+
+                        //take data and append as list item parameters to be selected by user
+                        var result = data.d;
+                        $("#MailChimpEmail").val("Thanks!");
+                        $("#MailChimpEmail").css("color", "#BF4A22");
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            })
+
+
+
+
+
+            $("a").click(function () {
+                $(this).css("background-color", "transparent");
+            })
+
+
+        })
+    </script>
+
+</body>
+</html>
+
+
+
+
+
+

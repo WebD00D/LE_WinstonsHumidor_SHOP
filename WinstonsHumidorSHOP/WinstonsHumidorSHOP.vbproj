@@ -93,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Accessories.html" />
+    <Content Include="AccountLogin.html" />
     <Content Include="Apparel.html" />
     <Content Include="Checkout.html" />
     <Content Include="Checkout_1.html" />
@@ -153,6 +154,7 @@
     <Content Include="Pipes.html" />
     <Content Include="PipeTobacco.html" />
     <Content Include="ProductDetails.html" />
+    <Content Include="ReviewOrder.html" />
     <Content Include="TestPage.html" />
     <Content Include="css\Type\chiseb.svg" />
     <Content Include="css\Type\chiser.svg" />

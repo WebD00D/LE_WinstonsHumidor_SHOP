@@ -23,6 +23,7 @@ Public Class Engine
         Public Category As String
         Public ItemName As String
         Public scCount As Integer
+        Public BasePrice As Decimal
     End Class
 
     Public Class Accessory
@@ -227,12 +228,30 @@ Public Class Engine
             End If
 
         Next
-
-
-
-
         Return ""
     End Function
+    <WebMethod(True)> _
+    Public Function UpdateItemTotal(ByVal ProdID As String, ByVal Notes As String, ByVal DesiredQty As String)
+        Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+
+        If InMyCart Is Nothing Then
+            Return 0
+        End If
+
+        For i As Integer = 0 To InMyCart.Count - 1
+
+            If InMyCart(i).ProductID = ProdID AndAlso InMyCart(i).Notes = Notes Then
+                InMyCart(i).Qty = DesiredQty
+                InMyCart(i).Price =
+                Session("Cart") = InMyCart
+                Return ""
+            End If
+
+        Next
+        Return ""
+    End Function
+
+
 
 
 
@@ -247,6 +266,7 @@ Public Class Engine
             i.Notes = Notes
             Dim dPrice As Decimal = CDec(Price)
             i.Price = Math.Round(dPrice, 2)
+
             i.Category = Category
             i.ItemName = ItemName
             i.scCount = 1
