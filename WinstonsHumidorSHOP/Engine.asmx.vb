@@ -242,7 +242,7 @@ Public Class Engine
 
             If InMyCart(i).ProductID = ProdID AndAlso InMyCart(i).Notes = Notes Then
                 InMyCart(i).Qty = DesiredQty
-                InMyCart(i).Price =
+                InMyCart(i).Price = CInt(DesiredQty) * InMyCart(i).BasePrice
                 Session("Cart") = InMyCart
                 Return ""
             End If
@@ -256,7 +256,7 @@ Public Class Engine
 
 
     <WebMethod(True)> _
-    Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String, ByVal Category As String, ByVal ItemName As String) As String
+    Public Function AddToCart(ByVal ProductID As String, ByVal Qty As String, ByVal Notes As String, ByVal Price As String, ByVal Category As String, ByVal ItemName As String, ByVal UnitPrice As String) As String
 
         If Session("Cart") Is Nothing Then
             Dim i As New ShoppingCart
@@ -270,6 +270,8 @@ Public Class Engine
             i.Category = Category
             i.ItemName = ItemName
             i.scCount = 1
+            Dim dBasePrice As Decimal = CDec(UnitPrice)
+            i.BasePrice = Math.Round(dBasePrice, 2)
             itemList.Add(i)
             Session("Cart") = itemList
         Else
@@ -296,14 +298,16 @@ Public Class Engine
                 Dim dPrice As Decimal = CDec(Price)
                 i.Price = Math.Round(dPrice, 2)
                 i.Category = Category
+                Dim dBasePrice As Decimal = CDec(UnitPrice)
+                i.BasePrice = Math.Round(dBasePrice, 2)
                 i.scCount = itemlist.Count + 1
                 itemlist.Add(i)
             Else
                 Return 2
             End If
 
-           
-          
+
+
 
         End If
 

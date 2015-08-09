@@ -512,6 +512,7 @@
             var _Price;
             var _Description;
             var _Option;
+            var _BaseUnitPrice;
 
             //P.PipeID = item("PipeID")
             //P.ProductID = item("ProductID")
@@ -629,7 +630,7 @@
                         ttl = 0.00;
                     }
                     $("#Total").text('$' + ttl.toFixed(2));
-               
+                    _BaseUnitPrice = _Price
             }) //end qty key up function
 
 
@@ -644,7 +645,7 @@
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/AddToCart",
-                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Pipes',ItemName:'" + _DisplayName + "'}",
+                    data: "{ProductID:'" + _ProductViewing + "',Qty:'" + qty + "',Notes:'" + _Option + "',Price:'" + ttl + "',Category:'Pipes',ItemName:'" + _DisplayName + "',UnitPrice:'"+ _BaseUnitPrice +"'}",
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {

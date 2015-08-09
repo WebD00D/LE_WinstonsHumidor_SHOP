@@ -95,6 +95,7 @@
                 
             
                 </table>
+        <label id="lblMsg" style="color:red"></label>
         <hr />
         <h4 style="font-family:'chiser'" >Discount Code</h4>
         <input style="font-family:'chiser'" placeholder="enter code" class="form-control" />
@@ -141,7 +142,7 @@
 
         $(document).ready(function () {
 
-
+            $("#lblMsg").text("");
                
                 $("#CartReviewTable").empty();
                 $.ajax({
@@ -166,7 +167,7 @@
                            
                          
                      
-                            var content = " <tr id="+ item.ItemName +"><td><h4 style='font-family:arial'><b>" + item.ItemName + "  "+ item.Notes +"</b></h4></td> " +
+                            var content = " <tr data-lastqty="+ item.Qty +" id="+ item.ItemName +"><td><h4 style='font-family:arial'><b>" + item.ItemName + "  "+ item.Notes +"</b></h4></td> " +
                                           " <td style='padding-top:15px'><input style='max-width:50px' value="+ item.Qty +" class='form-control inputqty' /></td> " +
                                           " <td><h4 style='font-family:arial'>$" + item.Price + "</h4></td> " +
                                           " <td style='padding-top:15px'> " +
@@ -201,12 +202,11 @@
                             var result = data.d;
 
                             if (result == 0) {
+
                                 return;
                             }
 
-                            getCartTotal();
-                            getCartCount();
-                            whatsinmycart();
+                       
                         },
                         failure: function (msg) {
                             alert(msg);
@@ -244,12 +244,12 @@
 
                                 
 
-                                var content = " <tr><td><h4 style='font-family:arial'><b>" + item.ItemName + "  "+ item.Notes +"</b></h4></td> " +
-                                         " <td style='padding-top:15px'><input style='max-width:50px' value="+ item.Qty +" class='form-control inputqty' /></td> " +
-                                         " <td><h4 style='font-family:arial'>$" + item.Price + "</h4></td> " +
-                                         " <td style='padding-top:15px'> " +
-                                         " <a href='#' data-price='"+ item.Price +"' data-qty="+ item.Qty +" data-notes='"+ item.Notes  +"' data-productid="+ item.ProductID +"  class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-trash'></i></a> " +
-                                         " </td><td  style='padding-top:15px'><a href='#' data-notes='" + item.Notes + "' data-productid=" + item.ProductID + " class='btn btn-sm btn-success updateitem'><i class='glyphicon glyphicon-ok'></i></a></td></tr> "
+                                var content = " <tr data-lastqty=" + item.Qty + " id=" + item.ItemName + "><td><h4 style='font-family:arial'><b>" + item.ItemName + "  " + item.Notes + "</b></h4></td> " +
+                                           " <td style='padding-top:15px'><input style='max-width:50px' value=" + item.Qty + " class='form-control inputqty' /></td> " +
+                                           " <td><h4 style='font-family:arial'>$" + item.Price + "</h4></td> " +
+                                           " <td style='padding-top:15px'> " +
+                                           " <a href='#' data-price='" + item.Price + "' data-qty=" + item.Qty + " data-notes='" + item.Notes + "' data-productid=" + item.ProductID + "  class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-trash'></i></a> " +
+                                           " </td><td style='padding-top:15px'><a href='#' data-notes='" + item.Notes + "' data-productid=" + item.ProductID + " class='btn btn-sm btn-success updateitem'><i class='glyphicon glyphicon-ok'></i></a></td></tr> "
 
                                 $(content).appendTo("#CartReviewTable");
 
@@ -270,18 +270,28 @@
 
 
                 $("#CartReviewTable").delegate('.updateitem', "click", function () {
-                   
+                    $("#lblMsg").text("");
                    // alert($(".inputqty").val());
                     var disc = $(this).closest('tr');
                     var valz = disc.find('.inputqty')
                     var desiredqty = valz.val();
+                    var lastqty = $(disc).attr('data-lastqty');
+
+                    if (desiredqty == 0) {
+                        $("#lblMsg").text("You have set qty to 0. If this is correct, simply click the 'trash' button to remove item from your cart.");
+                        valz.val(lastqty);
+                        return;
+                    }
                    
                     var prod = $(this).attr('data-productid');
                     var notes = $(this).attr('data-notes');
 
 
                     updateTotal(prod, notes, desiredqty);
-
+                    whatsinmycart();
+                    getCartTotal();
+                    getCartCount();
+                   
                    
 
                 })
