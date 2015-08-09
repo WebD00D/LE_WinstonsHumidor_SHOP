@@ -95,6 +95,7 @@
     <Content Include="Accessories.html" />
     <Content Include="Apparel.html" />
     <Content Include="Checkout.html" />
+    <Content Include="Checkout_1.html" />
     <Content Include="Cigars.html" />
     <Content Include="Coffee.html" />
     <Content Include="css\bootstrap.min.css" />

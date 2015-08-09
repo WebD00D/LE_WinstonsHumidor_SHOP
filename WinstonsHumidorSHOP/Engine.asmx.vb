@@ -177,7 +177,10 @@ Public Class Engine
         Target.AddCreditCard(CustyID, "CARDNBR", 12, 2015, "123")
         Dim Customer = Target.GetCustomer(CustyID)
 
+
         Dim Card = Customer.PaymentProfiles(0)
+
+
         Dim Request2 = New AuthorizationRequest(Card.CardNumber, Card.CardExpiration, 10.0, "Description")
 
         Return ""
