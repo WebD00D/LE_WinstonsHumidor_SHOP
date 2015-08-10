@@ -74,19 +74,19 @@
 
         <div class="col-lg-6 text-left" style="font-family:'chiser'">
             <h4 style="font-family:'chiser'"><b>Shipping Details</b> </h4>
-            <input  class="form-control" placeholder="Email Address"/>
+            <input id="txtEmailAddress" class="form-control" placeholder="Email Address"/>
             <br />
-            <input class="form-control" placeholder="First Name" />
+            <input id="txtFirstName" class="form-control" placeholder="First Name" />
             <br />
-            <input class="form-control" placeholder="Last Name" />
+            <input id="txtLastName" class="form-control" placeholder="Last Name" />
             <br />
-            <input class="form-control" placeholder="Street Address" />
+            <input id="txtStreet" class="form-control" placeholder="Street Address" />
             <br />
-            <input class="form-control" placeholder="City" />
+            <input id="txtCity" class="form-control" placeholder="City" />
             <br />
-            <input class="form-control" placeholder="State" />
+            <input id="txtState" class="form-control" placeholder="State" />
             <br />
-            <input class="form-control" placeholder="Zip" />
+            <input id="txtZip" class="form-control" placeholder="Zip" />
         </div>
         <div class="col-lg-6 text-left" style="font-family:'chiser'">
             <h4 style=" font-family:'chiser'">
@@ -110,33 +110,20 @@
                 <b>Payment Summary</b>
             </h4>
             <h4 style="font-family:'chiser'">Sub Total:$<span id="txtsubtotal"></span></h4>
-            <h4 style="font-family:'chiser'">Discount:$<span id="txtdiscount"></span></h4>
+            <h4 style="font-family:'chiser'">Discount: -$<span id="txtdiscount"></span></h4>
+            <h4 style="font-family:'chiser'">Shipping:$25.00</h4>
             <h4 style="font-family:'chiser'">Grand Total:$<span id="txtgrandtotal"></span></h4>
             <br />
-            <a href="#" class="btn btn-primary">Submit Order</a>
+            <a href="#" id="btnSubmitOrder" class="btn btn-primary">Submit Order</a>
             <br />
             <br />
-            <label style="color:red">Something didn't process</label>
+            <label id="paymentmsg" style="color:red"></label>
         </div>
         
 
 
 
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ 
 
     </div>
 
@@ -156,327 +143,85 @@
 
         $(document).ready(function () {
 
-
-          //  var sPageURL = window.location.href
-           // var postID = window.url('?postid', sPageURL);
-
-         //   ?subtotal="+ subtotal + "&discount="+ discount + "&grandtotal="+ grandtotal 
-
-
-            //$("#discount").text("0.00");
-            //$("#lblMsg").text("");
-
-            //    $("#CartReviewTable").empty();
-            //    $.ajax({
-            //        type: "POST",
-            //        url: "Engine.asmx/GoToCart",
-            //        data: "{}",
-            //        contentType: "application/json; charset=utf-8",
-            //        dataType: "json",
-            //        success: function (data) {
-            //            var result = data.d;
-
-            //            if (result == 0) {
-            //                return;
-            //            }
-
-
-            //            $("#CartReviewTable").empty();
-            //            var theader = " <tr><th>Product</th><th>Quantity</th><th>Price</th><th></th><th></th></tr>"
-            //            $(theader).appendTo("#CartReviewTable");
-
-            //            $.each(result, function (index, item) {
-
-
-
-            //                var content = " <tr data-lastqty="+ item.Qty +" id="+ item.ItemName +"><td><h4 style='font-family:arial'><b>" + item.ItemName + "  "+ item.Notes +"</b></h4></td> " +
-            //                              " <td style='padding-top:15px'><input style='max-width:50px' value="+ item.Qty +" class='form-control inputqty' /></td> " +
-            //                              " <td><h4 style='font-family:arial'>$" + item.Price + "</h4></td> " +
-            //                              " <td style='padding-top:15px'> " +
-            //                              " <a href='#' data-price='"+ item.Price +"' data-qty="+ item.Qty +" data-notes='"+ item.Notes  +"' data-productid="+ item.ProductID +"  class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-trash'></i></a> " +
-            //                              " </td><td style='padding-top:15px'><a href='#' data-notes='" + item.Notes + "' data-productid=" + item.ProductID + " class='btn btn-sm btn-success updateitem'><i class='glyphicon glyphicon-ok'></i></a></td></tr> "
-
-            //                $(content).appendTo("#CartReviewTable");
-
-            //            })
-
-            //            getCartTotal();
-
-            //        },
-            //        failure: function (msg) {
-            //            alert(msg);
-            //        },
-            //        error: function (err) {
-            //            alert(err);
-            //        }
-            //    }) //end ajax
-
-            //    var _dAmount;
-            //    $("#btnDiscountCode").click(function () {
-            //        $("#lblMsg").text("");
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/ApplyDiscount",
-            //            data: "{DiscountCode:'" + $("#txtDiscountCode").val() + "'}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-
-            //                if (result == 0) {
-            //                    $("#lblMsg").text("Discount code is invalid.");
-            //                    return;
-            //                } else {
-
-            //                    _dAmount = result
-            //                   //(_dAmount).toFixed(2);
-            //                    $("#discount").text((_dAmount).toFixed(2));
-
-            //                    applydiscount(_dAmount);
-            //                }
-
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-
-            //    })
-
-
-            //    function applydiscount(amount) {
-            //       // $("#total").text("0.00");
-
-            //        var beforeTtl = $("#total").text()
-            //        var afterDiscount = beforeTtl - amount
-            //        var discountformat = (afterDiscount).toFixed(2);
-            //        $("#total").text(discountformat);
-
-            //    }
-
-
-
-            //    $("#btnContinue").click(function () {
-
-            //        var subtotal = $("#subtotal").text();
-            //        var discount = $("#discount").text();
-            //        var grandtotal = $("#total").text();
-
-            //        window.location.href = "index.html?subtotal="+ subtotal + "&discount="+ discount + "&grandtotal="+ grandtotal
-
-
-            //    })
-
-
-            //    function updateTotal(Product,Notes,Qty){
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/UpdateItemTotal",
-            //            data: "{ProdID:'"+ Product +"',Notes:'"+ Notes +"',DesiredQty:'"+ Qty +"'}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-
-            //                if (result == 0) {
-
-            //                    return;
-            //                }
-
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-            //    }
-
-
-            //   // UpdateItemTotal(ByVal ProdID As Integer, ByVal Notes As String, ByVal Price As String, ByVal DesiredQty As String)
-
-            //    function whatsinmycart() {
-            //        $("#CartReviewTable").empty();
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/GoToCart",
-            //            data: "{}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-
-            //                if (result == 0) {
-            //                    return;
-            //                }
-
-
-            //                $("#CartReviewTable").empty();
-            //                var theader = " <tr><th>Product</th><th>Quantity</th><th>Price</th><th></th><th></th></tr>"
-            //                $(theader).appendTo("#CartReviewTable");
-
-            //                $.each(result, function (index, item) {
-
-
-
-            //                    var content = " <tr data-lastqty=" + item.Qty + " id=" + item.ItemName + "><td><h4 style='font-family:arial'><b>" + item.ItemName + "  " + item.Notes + "</b></h4></td> " +
-            //                               " <td style='padding-top:15px'><input style='max-width:50px' value=" + item.Qty + " class='form-control inputqty' /></td> " +
-            //                               " <td><h4 style='font-family:arial'>$" + item.Price + "</h4></td> " +
-            //                               " <td style='padding-top:15px'> " +
-            //                               " <a href='#' data-price='" + item.Price + "' data-qty=" + item.Qty + " data-notes='" + item.Notes + "' data-productid=" + item.ProductID + "  class='btn btn-sm btn-danger removeitem'><i class='glyphicon glyphicon-trash'></i></a> " +
-            //                               " </td><td style='padding-top:15px'><a href='#' data-notes='" + item.Notes + "' data-productid=" + item.ProductID + " class='btn btn-sm btn-success updateitem'><i class='glyphicon glyphicon-ok'></i></a></td></tr> "
-
-            //                    $(content).appendTo("#CartReviewTable");
-
-            //                })
-
-            //                getCartTotal();
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-            //    }
-
-
-
-            //    $("#CartReviewTable").delegate('.updateitem', "click", function () {
-            //        $("#lblMsg").text("");
-            //       // alert($(".inputqty").val());
-            //        var disc = $(this).closest('tr');
-            //        var valz = disc.find('.inputqty')
-            //        var desiredqty = valz.val();
-            //        var lastqty = $(disc).attr('data-lastqty');
-
-            //        if (desiredqty == 0) {
-            //            $("#lblMsg").text("You have set qty to 0. If this is correct, simply click the 'trash' button to remove item from your cart.");
-            //            valz.val(lastqty);
-            //            return;
-            //        }
-
-            //        var prod = $(this).attr('data-productid');
-            //        var notes = $(this).attr('data-notes');
-
-
-            //        updateTotal(prod, notes, desiredqty);
-            //        whatsinmycart();
-            //        getCartTotal();
-            //        getCartCount();
-
-
-
-            //    })
-
-            //    $("#CartReviewTable").delegate('.removeitem', "click", function () {
-
-            //        var removeitemnbr = $(this).attr('data-productid');
-            //        var notes = $(this).attr('data-notes');
-            //        var qty = $(this).attr('data-qty');
-            //        var price = $(this).attr('data-price');
-
-
-
-
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/RemoveItemFromCart",
-            //            data: "{ProdID:" + removeitemnbr + ",Notes:'" + notes + "',Qty:'" + qty + "',Price:'" + price + "'}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-            //                whatsinmycart();
-            //                getCartTotal();
-            //                getCartCount();
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-            //    })
-
-
-
-            //    function getCartCount() {
-
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/GetCartCount",
-            //            data: "{}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-
-
-            //                $("#cartcount").text(result);
-            //                $("#cartcount2").text(result);
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-            //    }
-
-            //    function getCartTotal() {
-
-            //        $.ajax({
-            //            type: "POST",
-            //            url: "Engine.asmx/GetCartTotal",
-            //            data: "{}",
-            //            contentType: "application/json; charset=utf-8",
-            //            dataType: "json",
-            //            success: function (data) {
-            //                var result = data.d;
-
-            //                if (result == 0) {
-            //                    $("#subtotal").text("0.00");
-            //                    $("#total").text("0.00");
-            //                    $("#discount").text("0.00");
-            //                    return;
-            //                }
-
-            //                $("#subtotal").text(result.toFixed(2));
-            //                $("#shippingprice").text("25.00");
-            //                var subttl = parseFloat($("#subtotal").text());
-            //                var shipttl = parseFloat($("#shippingprice").text());
-            //                var discount = parseFloat($("#discount").text());
-            //                var ttl = (subttl + shipttl) - discount;
-
-
-            //                var numb = parseFloat(ttl)
-            //                $("#total").text(numb.toFixed(2));
-
-
-
-            //            },
-            //            failure: function (msg) {
-            //                alert(msg);
-            //            },
-            //            error: function (err) {
-            //                alert(err);
-            //            }
-            //        }) //end ajax
-
-            //    }
+            
+            // page load details
+            var sPageURL = window.location.href
+            var subtotal = window.url('?subtotal', sPageURL);
+            var discount = window.url('#discount', sPageURL);
+            $("#txtsubtotal").text(subtotal);
+            $("#txtdiscount").text(discount);
+            var grandtotal = (parseFloat(subtotal) - parseFloat(discount)) + 25.00;
+            $("#txtgrandtotal").text((grandtotal).toFixed(2));
+
+            // end page load details
+
+            $("#btnSubmitOrder").click(function (e) {
+                e.preventDefault();
+                // if logged in is true then don't worry about validating payment info fields
+                // but we will still need to check shipping info. 
+
+                $("#paymentmsg").text(" ");
+
+                var Email = $("#txtEmailAddress");
+                var FirstName = $("#txtFirstName");
+                var LastName = $("#txtLastName");
+                var Street = ("#txtStreet");
+                var City = $("#txtCity");
+                var State = $("#txtState");
+                var Zip = $("#txtZip");
+
+                $(Email).css("border-color", "#ccc");
+                $(FirstName).css("border-color", "#ccc");
+                $(LastName).css("border-color", "#ccc");
+                $(Street).css("border-color", "#ccc");
+                $(City).css("border-color", "#ccc");
+                $(State).css("border-color", "#ccc");
+                $(Zip).css("border-color", "#ccc");
+
+                if ($.trim($(Email).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid email address.");
+                    $(Email).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(FirstName).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid first name.");
+                    $(FirstName).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(LastName).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid last name.");
+                    $(LastName).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(Street).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid street address.");
+                    $(Street).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(City).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid city.");
+                    $(City).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(State).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid state.");
+                    $(State).css("border-color", "red");
+                    return;
+                }
+                if ($.trim($(Zip).val()) == "") {
+                    $("#paymentmsg").text("Please provide a valid zipcode.");
+                    $(Zip).css("border-color", "red");
+                    return;
+                }
+
+
+
+
+
+
+            })
+
+       
 
         })
     </script>
