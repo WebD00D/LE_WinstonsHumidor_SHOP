@@ -202,6 +202,33 @@ Public Class Engine
 
 
     <WebMethod()> _
+    Public Function ApplyDiscount(ByVal DiscountCode As String)
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT DiscountAmount FROM Configuration WHERE DiscountCode = '" & DiscountCode & "' AND DiscountCodeIsValid = 1"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        If dt.Rows().Count = 0 Then
+            Return 0
+        Else
+            Return Math.Round(dt.Rows(0).Item("DiscountAmount"), 2)
+        End If
+
+    End Function
+
+
+
+
+    <WebMethod()> _
     Public Function RetrieveCustomer(ByVal Email As String, ByVal Password As String)
         'TODO --> Pull customer profileid from the database
         Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")

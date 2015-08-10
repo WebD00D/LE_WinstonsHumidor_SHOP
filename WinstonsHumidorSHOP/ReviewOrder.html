@@ -98,16 +98,17 @@
         <label id="lblMsg" style="color:red"></label>
         <hr />
         <h4 style="font-family:'chiser'" >Discount Code</h4>
-        <input style="font-family:'chiser'" placeholder="enter code" class="form-control" />
+        <input id="txtDiscountCode" style="font-family:'chiser'" placeholder="enter code" class="form-control" />
         
      
        
         <div class="col-lg-12 text-right">
-            <a style="margin-top:12px;margin-bottom:12px" href="#" class="btn btn-sm btn-primary">Apply Code</a>
+            <a id="btnDiscountCode" style="margin-top:12px;margin-bottom:12px" href="#" class="btn btn-sm btn-primary">Apply Code</a>
             <h4 style="font-family:'chiser'">Sub Total: $<span id="subtotal"></span> </h4>
+            <h4 style="font-family:'chiser';color:red">Discount: -$<span  id="discount"></span> </h4>
             <h4 style="font-family:'chiser'">Shipping: $<span id="shippingprice"></span></h4>
             <h4 style="font-family:'chiser'"><b>Total: $<span id="total"></span></b></h4>
-            <a href="#" style="margin-top:12px"  class="btn btn-sm btn-primary"> Continue</a>
+            <a href="#" id="btnContinue" style="margin-top:12px"  class="btn btn-sm btn-primary"> Continue</a>
         </div>
      
 
@@ -141,7 +142,7 @@
     <script>
 
         $(document).ready(function () {
-
+            $("#discount").text("0.00");
             $("#lblMsg").text("");
                
                 $("#CartReviewTable").empty();
@@ -189,6 +190,65 @@
                     }
                 }) //end ajax
           
+                var _dAmount;
+                $("#btnDiscountCode").click(function () {
+                    $("#lblMsg").text("");
+                    $.ajax({
+                        type: "POST",
+                        url: "Engine.asmx/ApplyDiscount",
+                        data: "{DiscountCode:'" + $("#txtDiscountCode").val() + "'}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            var result = data.d;
+
+                            if (result == 0) {
+                                $("#lblMsg").text("Discount code is invalid.");
+                                return;
+                            } else {
+
+                                _dAmount = result
+                               //(_dAmount).toFixed(2);
+                                $("#discount").text((_dAmount).toFixed(2));
+                           
+                                applydiscount(_dAmount);
+                            }
+                            
+
+                        },
+                        failure: function (msg) {
+                            alert(msg);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    }) //end ajax
+
+                })
+
+
+                function applydiscount(amount) {
+                   // $("#total").text("0.00");
+                    
+                    var beforeTtl = $("#total").text()
+                    var afterDiscount = beforeTtl - amount
+                    var discountformat = (afterDiscount).toFixed(2);
+                    $("#total").text(discountformat);
+
+                }
+
+
+
+                $("#btnContinue").click(function () {
+
+                    var subtotal = $("#subtotal").text();
+                    var discount = $("#discount").text();
+                    var grandtotal = $("#total").text();
+
+                    window.location.href = "ShippingAndPayment.html?subtotal="+ subtotal + "&discount="+ discount + "&grandtotal="+ grandtotal 
+
+
+                })
 
 
                 function updateTotal(Product,Notes,Qty){
@@ -369,7 +429,7 @@
                             if (result == 0) {
                                 $("#subtotal").text("0.00");
                                 $("#total").text("0.00");
-                               
+                                $("#discount").text("0.00");
                                 return;
                             }
 
@@ -377,7 +437,8 @@
                             $("#shippingprice").text("25.00");
                             var subttl = parseFloat($("#subtotal").text());
                             var shipttl = parseFloat($("#shippingprice").text());
-                            var ttl = subttl + shipttl;
+                            var discount = parseFloat($("#discount").text());
+                            var ttl = (subttl + shipttl) - discount;
                             
 
                             var numb = parseFloat(ttl)

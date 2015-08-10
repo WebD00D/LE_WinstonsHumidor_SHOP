@@ -155,6 +155,7 @@
     <Content Include="PipeTobacco.html" />
     <Content Include="ProductDetails.html" />
     <Content Include="ReviewOrder.html" />
+    <Content Include="ShippingAndPayment.html" />
     <Content Include="TestPage.html" />
     <Content Include="css\Type\chiseb.svg" />
     <Content Include="css\Type\chiser.svg" />
