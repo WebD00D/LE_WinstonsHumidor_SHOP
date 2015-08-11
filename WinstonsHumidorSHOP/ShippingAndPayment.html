@@ -47,7 +47,28 @@
         <div id="menuToggle"><i class="icon-reorder"></i></div>
     </nav>
 
+    <div class="modal fade" id="loginmodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="padding:5%">
+                <input id="txtLoginEmail" style="font-family:'chiser'" class="form-control" placeholder="Email" />
+                <br />
+                <input id="txtLoginPassword" type="password" style="font-family:'chiser'" class="form-control" placeholder="Password" />
 
+                <div>
+
+                    <div class="modal-footer">
+                        
+                        <br />
+                        <br />
+                        <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i> Close</button>
+                        <button id="btnLogin" type="button" class="btn btn-news2">Login</button>
+                        <br />
+                        <label id="lblloginmessage" style="color:red"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <section id="HomeMaster"></section>
     <!-----------------------------HEADER VIEWS START----------------------------------->
@@ -67,7 +88,7 @@
 
         <div class="col-lg-12 text-left alert alert-info" style="margin-bottom:5%">
 
-           <h4 style="font-family:'chiser'">For a faster checkout experience, <a style="font-size:large" class="text-info" href="#"><b>log into your account</b></a></h4>
+           <h4 style="font-family:'chiser'">For a faster checkout experience, <a style="font-size:large" data-toggle='modal' data-target='#loginmodal' class="text-info" href="#"><b>log into your account</b></a></h4>
            <span style="font-size:medium;font-family:'chiser';font-style:italic"><i class="glyphicon glyphicon-info-sign"></i> Don't have one? No worries! Simply check 'save my details' at the end of the form.</span>
         </div>
 
@@ -99,7 +120,7 @@
             <br />
             <input class="form-control" placeholder="Card Security Code" />
             <br />
-            <input type="checkbox"/> Save My Details
+            <input id="cbSaveMyDetails" type="checkbox"/> Save My Details
             <br />
             <br />
             <input type="password" class="form-control" placeholder="Password"/>
@@ -143,7 +164,13 @@
 
         $(document).ready(function () {
 
-            
+
+           
+
+
+
+
+            var _IsLoggedIn = false;
             // page load details
             var sPageURL = window.location.href
             var subtotal = window.url('?subtotal', sPageURL);
@@ -155,8 +182,55 @@
 
             // end page load details
 
+            var _User;
+            var _Email;
+            
+
+
+            $("#btnLogin").click(function (e) {
+                e.preventDefault();
+                var Email = $("#txtLoginEmail").val();
+                var Password = $("#txtLoginPassword").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/LoginUser",
+                    data: "{Email:'"+ Email +"',Password:'"+ Password +"'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        _IsLoggedIn == true;
+                        $.each(result, function (index, item) {
+
+                            
+                            // set field value equal to members pertinent information
+                            
+ 
+                           
+
+                        })
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+
+                
+            })
+
+
+
+
             $("#btnSubmitOrder").click(function (e) {
                 e.preventDefault();
+
+               
                 // if logged in is true then don't worry about validating payment info fields
                 // but we will still need to check shipping info. 
 
@@ -214,16 +288,32 @@
                     return;
                 }
 
+                if (_IsLoggedIn == true) {
 
+                } else {
+                    if ($("#cbSaveMyDetails").is(":checked")) {
+                        //create account before charging  card
+                    } else {
+                       // just charge card
+                    }
+                }
 
-
-
+               
+                    
+                  
 
             })
 
        
 
         })
+
+
+
+
+
+
+
     </script>
 
 

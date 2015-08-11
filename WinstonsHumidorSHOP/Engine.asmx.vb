@@ -4,6 +4,8 @@ Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports MailChimp
 Imports AuthorizeNet
+Imports System.Security
+Imports System.Security.Cryptography
 
 
 
@@ -14,6 +16,21 @@ Imports AuthorizeNet
 <ToolboxItem(False)> _
 Public Class Engine
     Inherits System.Web.Services.WebService
+
+    Public Class WinstonsUser
+        Public UserID As Integer
+        Public AuthorizeNbr As String
+        Public Email As String
+        Public FirstName As String
+        Public LastName As String
+        Public Street As String
+        Public City As String
+        Public State As String
+        Public Zip As String
+        Public IsPasswordReset As Boolean
+        Public Password As String
+    End Class
+
 
     Public Class ShoppingCart
         Public ProductID As Integer
@@ -176,6 +193,7 @@ Public Class Engine
         Dim CustyID As String = Custy.ProfileID
 
         Target.AddCreditCard(CustyID, "CARDNBR", 12, 2015, "123")
+
         Dim Customer = Target.GetCustomer(CustyID)
 
 
@@ -189,17 +207,123 @@ Public Class Engine
 
 
     <WebMethod()> _
-    Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String)
+    Public Function UnHashIt(ByVal hashOfInput As String, ByVal ControlHash As String)
+
+        ' Hash the input. 
+        ' Dim hashOfInput As String = GetHash(md5Hash, input)
+
+        ' Create a StringComparer an compare the hashes. 
+        Dim comparer As StringComparer = StringComparer.OrdinalIgnoreCase
+
+        If 0 = comparer.Compare(hashOfInput, ControlHash) Then
+            Return True
+        Else
+            Return False
+        End If
+    End Function
+
+    <WebMethod()> _
+    Public Function GetHash(ByVal Hash As MD5, ByVal Input As String)
+
+        ' Convert the input string to a byte array and compute the hash. 
+        Dim data As Byte() = Hash.ComputeHash(Encoding.UTF8.GetBytes(Input))
+
+        ' Create a new Stringbuilder to collect the bytes 
+        ' and create a string. 
+        Dim sBuilder As New StringBuilder()
+
+        ' Loop through each byte of the hashed data  
+        ' and format each one as a hexadecimal string. 
+        Dim i As Integer
+        For i = 0 To data.Length - 1
+            sBuilder.Append(data(i).ToString("x2"))
+        Next i
+
+        ' Return the hexadecimal string. 
+        Return sBuilder.ToString()
+
+    End Function
+
+    <WebMethod()> _
+    Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String, ByVal Password As String)
+
+        Dim hash As String
+        Using md5Hash As MD5 = MD5.Create()
+            hash = GetHash(md5Hash, Password)
+        End Using
+
+        'Remember to use hash when inserting into SQL
+
 
         Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
         Dim Custy = Target.CreateCustomer(email, "Winston's Humidor Customer Profile")
         Dim CustyID As String = Custy.ProfileID
 
-        'TODO --> Save customer profileid in the database
+        ' TODO --> Save customer profileid in the database
+        ' 
 
         Return ""
     End Function
 
+    
+
+    <WebMethod()> _
+    Public Function LoginUser(ByVal Email As String, ByVal Password As String)
+
+        Dim HashedPassed As String = Nothing
+
+            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+            Dim dt As New DataTable
+            Using cmd As SqlCommand = con.CreateCommand
+                cmd.Connection = con
+                cmd.Connection.Open()
+                cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT * FROM Users WHERE Email = " & Email
+                cmd.Connection.Close()
+            End Using
+
+        If dt.Rows.Count > 0 Then
+            'now we unhash and compare
+            If UnHashIt(Password, dt.Rows(0).Item("Password")) Then
+
+
+                ' [UserID]()
+                ',[AuthorizeProfileID]
+                ',[Email]
+                ',[FirstName]
+                ',[LastName]
+                ',[Street]
+                ',[City]
+                ',[State]
+                ',[Zip]
+                ',[IsPasswordReset]
+                ',[Password]
+
+
+                Dim UserList As New List(Of WinstonsUser)
+                For Each item As DataRow In dt.Rows()
+                    Dim i As New WinstonsUser
+                    i.UserID = item("UserID")
+                    i.AuthorizeNbr = item("AuthorizeProfileID")
+                    i.Email = item("Email")
+                    i.FirstName = item("FirstName")
+                    i.LastName = item("LastName")
+                    i.Street = item("Street")
+                    i.City = item("City")
+                    i.State = item("State")
+                    i.Zip = item("Zip")
+                    UserList.Add(i)
+                Next
+
+                Return UserList
+            End If
+        Else
+            Return 0
+            ' on return zero, then the email entered is not found.
+        End If
+
+        Return ""
+    End Function
 
     <WebMethod()> _
     Public Function ApplyDiscount(ByVal DiscountCode As String)
@@ -359,11 +483,13 @@ Public Class Engine
             Total = Total + Price
         Next
         Return Math.Round(Total, 2)
+
     End Function
 
     <WebMethod(True)> _
     Public Function GetCartCount()
         Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
+
         If InMyCart Is Nothing Then
             Return 0
         End If
