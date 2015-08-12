@@ -112,13 +112,13 @@
         <div class="col-lg-6 text-left" style="font-family:'chiser'">
             <h4 style=" font-family:'chiser'">
             <b>Payment Details</b> </h4>
-            <input class="form-control" placeholder="Credit Card Number" />
+            <input id="ccNbr" class="form-control" placeholder="Credit Card Number" />
             <br />
-            <input class="form-control" placeholder="2 Digit Expiration Month" />
+            <input id="ccExMonth" class="form-control" placeholder="2 Digit Expiration Month" />
             <br />
-            <input class="form-control" placeholder="4 Digit Expiration Year" />
+            <input id="ccExYear" class="form-control" placeholder="2 Digit Expiration Year" />
             <br />
-            <input class="form-control" placeholder="Card Security Code" />
+            <input id="ccSecCode" class="form-control" placeholder="Card Security Code" />
             <br />
             <input id="cbSaveMyDetails" type="checkbox"/> Save My Details
             <br />
@@ -185,7 +185,7 @@
             var _User;
             var _Email;
             
-
+           
 
             $("#btnLogin").click(function (e) {
                 e.preventDefault();
@@ -203,7 +203,7 @@
                         _IsLoggedIn == true;
                         $.each(result, function (index, item) {
 
-                            
+                            _User = item.UserID;
                             // set field value equal to members pertinent information
                             
  
@@ -288,18 +288,50 @@
                     return;
                 }
 
-                if (_IsLoggedIn == true) {
+                //if (_IsLoggedIn == true) {
 
-                } else {
-                    if ($("#cbSaveMyDetails").is(":checked")) {
-                        //create account before charging  card
-                    } else {
-                       // just charge card
-                    }
-                }
+                //} else {
+                //    if ($("#cbSaveMyDetails").is(":checked")) {
+                //        //create account before charging  card
+                //    } else {
+                //       // just charge card
+                //    }
+                //}
 
-               
+              //  CheckoutAsGuest(ByVal Email As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As String, ByVal Shipping As String, ByVal Tax As String, ByVal TotalToCharge As String)
                     
+                var ccnum = $("#ccNbr").val();
+                var exmonth = $("#ccExMonth").val();
+                var exyear = $("#ccExYear").val();
+                var seccode = $("#ccSecCode").val();
+                alert("yo");
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/CheckoutAsGuest",
+                    data: "{Email:'" + Email.val() + "',FirstName:'" + FirstName.val() + "',LastName:'" + LastName.val() + "',Street:'" + $(Street).val() + "',City:'" + City.val() + "',State:'" + State.val() + "',Zipcode:'" + Zip.val() + "',CC:'" + ccnum + "',ccMonth:'" + exmonth + "',ccYear:'" + exyear + "',ccSecurity:'" + seccode + "',saveDetails:'" + true + "',SubTotal:'" + 10.00 + "',Discount:'" + 2.00 + "',Shipping:'" + 5.00 + "',Tax:'" + 6.00 + "',TotalToCharge:'" + 55.00 + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        _IsLoggedIn == true;
+                        $.each(result, function (index, item) {
+
+                            _User = item.UserID;
+                            // set field value equal to members pertinent information
+                           
+                           
+
+                        })
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
                   
 
             })

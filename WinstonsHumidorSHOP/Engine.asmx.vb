@@ -172,6 +172,106 @@ Public Class Engine
 #End Region
 
 #Region "Shopping Cart and Checkout"
+
+
+    <WebMethod()> _
+    Public Function CheckoutAsUser(ByVal UserID As Integer, ByVal FullAddress As String)
+        Return ""
+    End Function
+
+    <WebMethod(True)> _
+    Public Function CheckoutAsGuest(ByVal Email As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As Decimal, ByVal Shipping As Decimal, ByVal Tax As Decimal, ByVal TotalToCharge As Decimal)
+
+        Dim myShoppingCart As List(Of ShoppingCart) = Session("Cart")
+
+        'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
+        If saveDetails = True Then
+
+            Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
+            Dim CustyID As String = Custy.ProfileID
+
+            Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
+            Dim Customer = Target.GetCustomer(CustyID)
+            Dim Payment = Customer.PaymentProfiles(0)
+            Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(TotalToCharge), "Winston's Humidor Order")
+            'Step 2 - Create the gateway, sending in your credentials
+            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            ' Step 3 - Send the request to the gateway
+            Dim response = gate.Send(Request)
+            'Use for codes to showing to customer, and storing transaction id's in db
+            Dim ResponseCode As String = response.ResponseCode
+            Dim ResponseMsg As String = response.Message
+
+
+            'save user info in database
+
+            'update product quantities
+
+            'insert new order in the database 
+
+
+
+
+        Else
+            ' don't save anything for custy. Just charge, update database, and send new order details.
+            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+            'Step 2 - Create the gateway, sending in your credentials
+            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            ' Step 3 - Send the request to the gateway
+            Dim response = gate.Send(Request)
+            'Use for codes to showing to customer, and storing transaction id's in db
+            Dim ResponseCode As String = response.ResponseCode
+            Dim ResponseMsg As String = response.Message
+
+
+            'update product quantities
+
+            'insert new order in the database 
+
+
+
+
+        End If
+
+        Return ""
+    End Function
+
+
+
+
+
+    Public Function CheckoutAsSavedUser(ByVal Email As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal SubTtl As Decimal, ByVal Discount As Decimal, ByVal Total As Decimal, ByVal Custy As String)
+
+
+        'for testing use custy id of 36567042
+
+        Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+        Dim Customer = Target.GetCustomer(Custy)
+        Dim Payment = Customer.PaymentProfiles(0)
+
+        Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(Total), "Winston's Humidor Order")
+        'Step 2 - Create the gateway, sending in your credentials
+        Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+        ' Step 3 - Send the request to the gateway
+        Dim response = gate.Send(Request)
+        'Use for codes to showing to customer, and storing transaction id's in db
+        Dim ResponseCode As String = response.ResponseCode
+        Dim ResponseMsg As String = response.Message
+
+
+        Return ""
+    End Function
+
+
+
+
+    <WebMethod()> _
+    Public Function DoCharge()
+        Return ""
+    End Function
+
+
     <WebMethod(True)> _
     Public Function Checkout()
 
@@ -244,61 +344,45 @@ Public Class Engine
 
     End Function
 
-    <WebMethod()> _
-    Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String, ByVal Password As String)
+    '<WebMethod()> _
+    'Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String, ByVal Password As String)
 
-        Dim hash As String
-        Using md5Hash As MD5 = MD5.Create()
-            hash = GetHash(md5Hash, Password)
-        End Using
+    '    Dim hash As String
+    '    Using md5Hash As MD5 = MD5.Create()
+    '        hash = GetHash(md5Hash, Password)
+    '    End Using
+    '    'Remember to use hash when inserting into SQL
 
-        'Remember to use hash when inserting into SQL
+    '    Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
+    '    Dim Custy = Target.CreateCustomer(email, "Winston's Humidor Customer Profile")
+    '    Dim CustyID As String = Custy.ProfileID
+
+    '    ' TODO --> Save customer profileid in the database
+    '    ' 
+
+    '    Return ""
+    'End Function
 
 
-        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
-        Dim Custy = Target.CreateCustomer(email, "Winston's Humidor Customer Profile")
-        Dim CustyID As String = Custy.ProfileID
-
-        ' TODO --> Save customer profileid in the database
-        ' 
-
-        Return ""
-    End Function
-
-    
 
     <WebMethod()> _
     Public Function LoginUser(ByVal Email As String, ByVal Password As String)
 
         Dim HashedPassed As String = Nothing
 
-            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
-            Dim dt As New DataTable
-            Using cmd As SqlCommand = con.CreateCommand
-                cmd.Connection = con
-                cmd.Connection.Open()
-                cmd.CommandType = CommandType.Text
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
             cmd.CommandText = "SELECT * FROM Users WHERE Email = " & Email
-                cmd.Connection.Close()
-            End Using
+            cmd.Connection.Close()
+        End Using
 
         If dt.Rows.Count > 0 Then
             'now we unhash and compare
             If UnHashIt(Password, dt.Rows(0).Item("Password")) Then
-
-
-                ' [UserID]()
-                ',[AuthorizeProfileID]
-                ',[Email]
-                ',[FirstName]
-                ',[LastName]
-                ',[Street]
-                ',[City]
-                ',[State]
-                ',[Zip]
-                ',[IsPasswordReset]
-                ',[Password]
-
 
                 Dim UserList As New List(Of WinstonsUser)
                 For Each item As DataRow In dt.Rows()
@@ -590,7 +674,7 @@ Public Class Engine
                 i.PlainText = item("PlainText")
                 i.NewsType = item("PostType")
 
-            
+
 
 
 
@@ -767,7 +851,7 @@ Public Class Engine
                 i.SKU = item("SKU")
                 i.Category = item("Category")
                 i.Price = GetFeaturedProductDetails(i.ProductID, i.Category, "Price")
-                i.Name = GetFeaturedProductDetails(i.ProductID, i.Category, "Name") 
+                i.Name = GetFeaturedProductDetails(i.ProductID, i.Category, "Name")
                 BaseProductList.Add(i)
             Next
             Return BaseProductList
@@ -852,7 +936,7 @@ Public Class Engine
 
 
 
-	
+
 
     End Function
 
