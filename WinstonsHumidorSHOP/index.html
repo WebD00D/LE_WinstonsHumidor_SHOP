@@ -891,31 +891,45 @@
 
 
             function setupSlider() {
-                
-              
+
+
+
                 $("#NewsandEventsLoadr").addClass('partner-list');
-                var owl = $(".partner-list").data('owlCarousel');
 
-                // jQuery Owl Carousel
                 $(".partner-list").owlCarousel({
-                    pagination: false,
-                    navigation: false,
-                    navigationText: ["<i class='glyphicon glyphicon-chevron-left'></i>", "<i class='fa fa-angle-right'></i>"],
-                    autoPlay: 2000,
+
+
+
+                    responsive: true,
+                    navText: ["<i class='glyphicon glyphicon-chevron-left'></i>", "<i class='glyphicon glyphicon-chevron-right'></i>"],
+
+                    responsiveClass: true,
+                    autoplay: true,
+                    responsive: {
+                        0: {
+                            items: 1,
+                            nav: false,
+                            loop: true
+                        },
+                        600: {
+                            items: 3,
+                            nav: false,
+                            loop: true
+                        },
+                        1000: {
+                            items: 3,
+                            nav: true,
+                            loop: true
+                        }
+                    },
+                    nav: false,
+                    loop: true,
+                    rtl: true,
                     stopOnHover: true,
-                    items: 4
-                });
-                // jQuery Owl Carousel
-                $(".home-list").owlCarousel({
-                    pagination: false,
-                    navigation: false,
-                    navigationText: ["<i class='glyphicon glyphicon-chevron-left'></i>", "<i class='fa fa-angle-right'></i>"],
-                    autoPlay: 5000,
-                    stopOnHover: true,
-                    items: 1
+
                 });
 
-                owl.reinit();
+                // owl.reinit();
 
             }
 
