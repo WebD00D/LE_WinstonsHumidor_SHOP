@@ -363,6 +363,25 @@
     <script>
         $(document).ready(function () {
 
+
+            $("#brandlogo").addClass('hidden');
+            $("#topnav").css("background-color", "rgba(01,01,01,0.0)");
+            $(window).scroll(function () {
+
+                if ($(document).scrollTop() < 560) {
+                    $("#brandlogo").addClass('hidden');
+                    $("#topnav").css("background-color", "rgba(01,01,01,0.0)");
+
+
+                } else {
+                    $("#brandlogo").removeClass('hidden');
+                    $("#topnav").css("background-color", "rgba(01,01,01,1.0)");
+
+
+                }
+            });
+
+
             var cigars = 'Apparel'
             $.ajax({
                 type: "POST",
@@ -595,13 +614,6 @@
                 _XXL = $(this).attr('data-xxl');
                 _XXXL = $(this).attr('data-xxxl');
 
-                alert(_XS);
-                alert('Small:' + _SM);
-                alert(_MD);
-                alert(_LG);
-                alert(_XL);
-                alert(_XXL);
-                alert(_XXXL);
                
                 $("#cName").text(_Name);
 
@@ -643,13 +655,7 @@
                 _XXL = $(this).attr('data-xxl');
                 _XXXL = $(this).attr('data-xxxl');
 
-                alert(_XS);
-                alert('Small:' + _SM);
-                alert(_MD);
-                alert(_LG);
-                alert(_XL);
-                alert(_XXL);
-                alert(_XXXL);
+             
 
 
                 $("#cName").text(_Name);
@@ -671,9 +677,9 @@
 
 
             $("#SizeSelect").change(function () {
-                alert("changed value to " + $("#SizeSelect option:selected").text());
+              
                 var sizeselected = $("#SizeSelect option:selected").text()
-                alert(sizeselected);
+              
                 switch (sizeselected) {
                     case 'XS':
                         _Qty = _XS;
@@ -724,7 +730,7 @@
                         $("#Qty").val("");
                 }
 
-                alert(_Option + ' ' + _Qty);
+              
 
 
 

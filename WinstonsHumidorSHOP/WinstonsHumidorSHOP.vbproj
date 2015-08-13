@@ -111,6 +111,7 @@
     <Content Include="Events.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="font\fontawesome-webfont.svg" />
+    <Content Include="images\1920x1200_Xi1Xi3Open-Genesis-Scene.jpg" />
     <Content Include="images\accessories.jpg" />
     <Content Include="images\Apperal Coming Soon.jpg" />
     <Content Include="images\CARTiconred.png" />
@@ -130,6 +131,7 @@
     <Content Include="images\dark_wood.png" />
     <Content Include="images\facebook-icon-brown.png" />
     <Content Include="images\IMG_9642.jpg" />
+    <Content Include="images\IMG_9850.jpg" />
     <Content Include="images\IMG_9868.jpg" />
     <Content Include="images\IMG_9918.jpg" />
     <Content Include="images\IMG_9927.jpg" />
