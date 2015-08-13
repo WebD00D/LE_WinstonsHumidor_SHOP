@@ -15,8 +15,8 @@
 /* display none until init */
 .owl-carousel{
 	display: none;
-	position: relative;
-	width: 100%;
+	/*position: relative;*/
+	/*width: 100%;*/
 	-ms-touch-action: pan-y;
 }
 .owl-carousel .owl-wrapper{
@@ -26,8 +26,8 @@
 }
 .owl-carousel .owl-wrapper-outer{
 	overflow: hidden;
-	position: relative;
-	width: 100%;
+	/*position: relative;
+	width: 100%;*/
 }
 .owl-carousel .owl-wrapper-outer.autoHeight{
 	-webkit-transition: height 500ms ease-in-out;
@@ -44,28 +44,66 @@
 .owl-controls .owl-buttons div{
 	cursor: pointer;
 }
-.owl-controls {
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
+
 
 /* mouse grab icon */
 .grabbing { 
     cursor:url(grabbing.png) 8 8, move;
 }
 
-/* fix */
-.owl-carousel  .owl-wrapper,
-.owl-carousel  .owl-item{
-	-webkit-backface-visibility: hidden;
-	-moz-backface-visibility:    hidden;
-	-ms-backface-visibility:     hidden;
-  -webkit-transform: translate3d(0,0,0);
-  -moz-transform: translate3d(0,0,0);
-  -ms-transform: translate3d(0,0,0);
+
+
+.owl-theme .owl-controls{
+	/*margin-top: 10px;*/
+	text-align: center;
 }
 
+.owl-theme .owl-controls .owl-buttons div{
+	color: #FFF;
+	/*display: inline-block;*/
+	
+	border:none;
+	background-color:rgba(01,01,01,0.7);
+	filter: Alpha(Opacity=50);/*IE7 fix*/
+	opacity: 0.5;
+}
+.owl-theme .owl-controls.clickable .owl-buttons div:hover{
+	filter: Alpha(Opacity=100);
+	opacity: 1;
+	text-decoration: none;
+}
+
+
+.owl-theme .owl-controls .owl-page{
+	display: inline-block;
+	zoom: 1;
+	*display: inline;
+}
+
+
+.owl-theme .owl-controls .owl-buttons div {
+  position: absolute;
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-prev{
+  left: 0%;
+  top: 0%; 
+  padding-top:125px;
+
+  height:100%;
+  font-size:30px
+}
+ 
+.owl-theme .owl-controls .owl-buttons .owl-next{
+  right: 0%;
+  top: 0%; 
+  padding-top:125px;
+   
+  height:100%;
+  font-size:30px;
+  margin-right:0px;
+ 
+}
+
+.owl-buttons {
+    margin-top: 0px;
