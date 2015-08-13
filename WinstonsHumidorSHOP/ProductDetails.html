@@ -25,42 +25,98 @@
 
 
 
-    <nav class="navbar navbar-fixed-top">
-        <div class="navbar-background container">
-            <div class=" WHnavbar navbar-header">
-                <button type="button" style="background-color:#342A2A" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                    <span style="background-color:white" class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" id="WHnavbar" href="#">WINSTON'S HUMIDOR</a>
-            </div>
-            <div id="navbar" class="collapse navbar-collapse">
-                <ul class="nav navbar-nav navbar-right">
+    <!-- We hide the side nav bar only on full desktop view and will show the top navbar instead. -->
+    <nav class="menu hidden-lg hidden-xl" id="theMenu">
+        <div class="menu-wrap">
+            <h1 class="logo"><img src="images/WinstonHumidor_Cigar_Brown(2).png" class="img-responsive center-block" style="max-width:100px" /></h1>
+            <i class="icon-remove menu-close"></i>
+            <a href="index.html" class="smoothScroll">Home</a>
+            <a href="Cigars.html" class="smoothScroll">Cigars</a>
+            <a href="Pipes.html" class="smoothScroll">Pipes</a>
+            <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
+            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="Accessories.html" class="smoothScroll">Accessories</a>
+            <a href="Coffee.html" class="smoothScroll">Coffee</a>
+            <a href="Events.html" class="smoothScroll">Blog / Events</a>
+            <a href="#" data-toggle="modal" data-target="#contactModal">Contact</a>
+            <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
 
-                    <li><a href="#about">About</a></li>
-                    <li class="dropdown list">
-                        <a href="#" class="active dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Shop <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="Cigars.html">Cigars</a></li>
-                            <li><a href="Pipes.html">Pipes</a></li>
-                            <li><a href="PipeTobacco.html">Pipe Tobacco</a></li>
-                            <li><a href="Coffee.html">Coffee</a></li>
-                            <li><a href="Apparel.html">Apparel</a></li>
-                            <li><a href="Accessories.html">Accessories</a></li>
-
-                        </ul>
-                    </li>
-
-                    <li class="active"><a href="Events.html">News & Events</a></li>
-                    <li class="active"><a href="#">Contact</a></li>
-                    <li class="active"><a href="#">Directions</a></li>
-                    <li><a href="#contact" id="navbar_cart">Cart</a></li>
-                </ul>
-            </div><!--/.nav-collapse -->
+            <a href="#"><i class="icon-facebook"></i></a>
+            <a href="#"><i class="icon-twitter"></i></a>
+            <a href="#"><i class="icon-instagram"></i></a>
         </div>
+        <!-- Menu button -->
+        <div id="menuToggle"><i class="icon-reorder"></i></div>
     </nav>
+
+    <nav id="topnav" class="navbar hidden-xs hidden-sm hidden-md navbar-fixed-top" role="navigation" style="margin-bottom:0px;padding:15px">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <a id="brandlogo" class="navbar-brand" href="index.html"><img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:125px;" /></a>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="navbar-collapse-1">
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a href="#" data-toggle="modal" data-target="#contactModal">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
+                        <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
+                        <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
+                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
+                        <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
+
+                    </ul>
+                </li>
+                <!--<li><a href="#">About</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="Events.html">Blog / Events</a></li>
+                <!--<li><a href="#">Login</a></li>-->
+                <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
+                <li><a href="#"></a></li>
+
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </nav>
+
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center" style="padding:0px">
+
+
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <iframe class="embed-responsive-item" width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Winston's%20Humidor%2C%20Village%20Place%20Drive%2C%20Midlothian%2C%20VA%2C%20United%20States&key=AIzaSyAcBygQuhrqbsfdVtXDhyq5VE6MhL01ids" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="col-lg-12 text-center">
+                            <h3 style="font-family:'chiser'"><a href="tel:+18043792985"><b>(804) 379-2985</b></a></h3>
+
+                            <h3 style="font-family:'chiser'"><a href="mailto:info@winstonshumidor.com"><b>info@winstonshumidor.com</b></a></h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <div id="headerwrap" style="background-color:#EEEEEE;padding-bottom:20px">

@@ -30,6 +30,7 @@
 
 
 
+    <!-- We hide the side nav bar only on full desktop view and will show the top navbar instead. -->
     <nav class="menu hidden-lg hidden-xl" id="theMenu">
         <div class="menu-wrap">
             <h1 class="logo"><img src="images/WinstonHumidor_Cigar_Brown(2).png" class="img-responsive center-block" style="max-width:100px" /></h1>
@@ -41,7 +42,8 @@
             <a href="Apparel.html" class="smoothScroll">Apparel</a>
             <a href="Accessories.html" class="smoothScroll">Accessories</a>
             <a href="Coffee.html" class="smoothScroll">Coffee</a>
-            <a href="Events.html" class="smoothScroll">News / Events</a>
+            <a href="Events.html" class="smoothScroll">Blog / Events</a>
+            <a href="#" data-toggle="modal" data-target="#contactModal">Contact</a>
             <a id="myCart" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount"></span>)</a>
 
             <a href="#"><i class="icon-facebook"></i></a>
@@ -68,7 +70,7 @@
         <div class="collapse navbar-collapse" id="navbar-collapse-1">
 
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#">Contact</a></li>
+                <li><a href="#" data-toggle="modal" data-target="#contactModal">Contact</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Shop <b class="caret"></b></a>
                     <ul class="dropdown-menu">
@@ -84,7 +86,7 @@
                 <!--<li><a href="#">About</a></li>-->
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="Events.html">News / Events</a></li>
+                <li><a href="Events.html">Blog / Events</a></li>
                 <!--<li><a href="#">Login</a></li>-->
                 <li><a id="myCart2" data-toggle='modal' data-target='#viewCartModal' href="#" class="smoothScroll cartme">Cart (<span id="cartcount2"></span>)</a></li>
                 <li><a href="#"></a></li>
@@ -93,12 +95,39 @@
         </div><!-- /.navbar-collapse -->
     </nav>
 
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+
+                <div>
+                    <div class="col-lg-12 text-center" style="padding:0px">
+
+
+                        <div class="embed-responsive embed-responsive-4by3">
+                            <iframe class="embed-responsive-item" width="600" height="450" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?q=Winston's%20Humidor%2C%20Village%20Place%20Drive%2C%20Midlothian%2C%20VA%2C%20United%20States&key=AIzaSyAcBygQuhrqbsfdVtXDhyq5VE6MhL01ids" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="col-lg-12 text-center">
+                            <h3 style="font-family:'chiser'"><a href="tel:+18043792985"><b>(804) 379-2985</b></a></h3>
+
+                            <h3 style="font-family:'chiser'"><a href="mailto:info@winstonshumidor.com"><b>info@winstonshumidor.com</b></a></h3>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <section id="featuredproductsect"></section>
     <div class="col-lg-12" style="padding:0px">
-        <div class="col-lg-12 text-center" style="padding-top:10%;padding-bottom:5%;background:linear-gradient(rgba(160,82,45,0.85),rgba(160,82,45,0.85)),url('images/tobacco_field_1800x1229.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;background-position-y:55%">
-            <h1 style="color:white;font-family:'chiser';font-size:100px;font-weight:600" class="text-center hidden-xs hidden-sm hidden-md ">News and Events</h1>
-            <h1 style="color:white;font-family:'chiser';font-size:50px;font-weight:600" class="text-center hidden-lg">News and Events</h1>
+        <div class="col-lg-12 text-center" style="padding-top:10%;padding-bottom:5%;background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.6)),url('images/tobacco_field_1800x1229.jpg');background-size:cover;background-repeat:no-repeat;background-position:center;background-position-y:55%">
+            <h1 style="color:white;font-family:'chiser';font-size:100px;font-weight:600" class="text-center hidden-xs hidden-sm hidden-md ">Blog and Events</h1>
+            <h1 style="color:white;font-family:'chiser';font-size:50px;font-weight:600" class="text-center hidden-lg">Blog and Events</h1>
         </div>
 
         <br />
