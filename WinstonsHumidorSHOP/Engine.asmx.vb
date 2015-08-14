@@ -540,19 +540,61 @@ Public Class Engine
         '2) Then insert each item in the order into order details table with the referenced Order ID
         Dim ShoppingCart As List(Of ShoppingCart) = Session("Cart")
 
+        Dim OrderDetailsDT As New DataTable
+        OrderDetailsDT.Columns.Add("OrderID")
+        OrderDetailsDT.Columns.Add("ProductID")
+        OrderDetailsDT.Columns.Add("ItemName")
+        OrderDetailsDT.Columns.Add("Category")
+        OrderDetailsDT.Columns.Add("Qty")
+        OrderDetailsDT.Columns.Add("Notes")
+        OrderDetailsDT.Columns.Add("Price")
+        OrderDetailsDT.Columns.Add("BasePrice")
+
         For i As Integer = 0 To ShoppingCart.Count - 1
-            Using cmd As SqlCommand = con.CreateCommand
-                cmd.Connection = con
-                cmd.Connection.Open()
 
-                cmd.Connection.Close()
-            End Using
+            Dim r As DataRow = OrderDetailsDT.NewRow()
+            r("OrderID") = ""
+            r("ProductID") = ""
+            r("ItemName") = ""
+            r("Category") = ""
+            r("Qty") = ""
+            r("Notes") = ""
+            r("Price") = ""
+            r("BasePrice") = ""
+            OrderDetailsDT.Rows.Add(r)
         Next
-
 
 
         Return ""
     End Function
+
+
+
+    'Protected Sub Bulk_Insert(sender As Object, e As EventArgs)
+    '    Dim dt As New DataTable()
+    '    dt.Columns.AddRange(New DataColumn(2) {New DataColumn("Id", GetType(Integer)), New DataColumn("Name", GetType(String)), New DataColumn("Country", GetType(String))})
+    '    For Each row As GridViewRow In GridView1.Rows
+    '        If TryCast(row.FindControl("CheckBox1"), CheckBox).Checked Then
+    '            Dim id As Integer = Integer.Parse(row.Cells(1).Text)
+    '            Dim name As String = row.Cells(2).Text
+    '            Dim country As String = row.Cells(3).Text
+    '            dt.Rows.Add(id, name, country)
+    '        End If
+    '    Next
+    '    If dt.Rows.Count > 0 Then
+    '        Dim consString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
+    '        Using con As New SqlConnection(consString)
+    '            Using cmd As New SqlCommand("Insert_Customers")
+    '                cmd.CommandType = CommandType.StoredProcedure
+    '                cmd.Connection = con
+    '                cmd.Parameters.AddWithValue("@tblCustomers", dt)
+    '                con.Open()
+    '                cmd.ExecuteNonQuery()
+    '                con.Close()
+    '            End Using
+    '        End Using
+    '    End If
+    'End Sub
 
 
     <WebMethod(True)> _
