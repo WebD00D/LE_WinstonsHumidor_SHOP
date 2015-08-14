@@ -175,45 +175,6 @@ Public Class Engine
 
 
     <WebMethod()> _
-    Public Function CheckoutAsUser(ByVal UserID As Integer, ByVal FullAddress As String)
-        Return ""
-    End Function
-
-
-    <WebMethod(True)> _
-    Public Function CreateUser(ByVal AuthorizeID As String, ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String)
-        Try
-            Dim hash As String
-            Using md5Hash As MD5 = MD5.Create()
-                hash = GetHash(md5Hash, Password)
-            End Using
-            'save user info in database
-            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
-            Using cmd As SqlCommand = con.CreateCommand
-                cmd.Connection = con
-                cmd.Connection.Open()
-                cmd.CommandType = CommandType.StoredProcedure
-                cmd.CommandText = "sp_Insert_NewUser"
-                cmd.Parameters.AddWithValue("@AuthorizeProfileID", AuthorizeID)
-                cmd.Parameters.AddWithValue("@Email", Email)
-                cmd.Parameters.AddWithValue("@FirstName ", FirstName)
-                cmd.Parameters.AddWithValue("@LastName ", LastName)
-                cmd.Parameters.AddWithValue("@Street ", Street)
-                cmd.Parameters.AddWithValue("@City ", City)
-                cmd.Parameters.AddWithValue("@State ", State)
-                cmd.Parameters.AddWithValue("@Zip ", Zipcode)
-                cmd.Parameters.AddWithValue("@Password ", hash)
-                cmd.Connection.Close()
-            End Using
-            Return True
-        Catch ex As Exception
-            Return False
-        End Try
-
-    End Function
-
-
-    <WebMethod()> _
     Public Function GetCigarCounts(ByVal ProductId As Integer)
 
         Dim CigarList As New List(Of Cigar)
@@ -509,9 +470,35 @@ Public Class Engine
 
 
         Return ""
+
+        'Protected Sub Bulk_Insert(sender As Object, e As EventArgs)
+        '    Dim dt As New DataTable()
+        '    dt.Columns.AddRange(New DataColumn(2) {New DataColumn("Id", GetType(Integer)), New DataColumn("Name", GetType(String)), New DataColumn("Country", GetType(String))})
+        '    For Each row As GridViewRow In GridView1.Rows
+        '        If TryCast(row.FindControl("CheckBox1"), CheckBox).Checked Then
+        '            Dim id As Integer = Integer.Parse(row.Cells(1).Text)
+        '            Dim name As String = row.Cells(2).Text
+        '            Dim country As String = row.Cells(3).Text
+        '            dt.Rows.Add(id, name, country)
+        '        End If
+        '    Next
+        '    If dt.Rows.Count > 0 Then
+        '        Dim consString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
+        '        Using con As New SqlConnection(consString)
+        '            Using cmd As New SqlCommand("Insert_Customers")
+        '                cmd.CommandType = CommandType.StoredProcedure
+        '                cmd.Connection = con
+        '                cmd.Parameters.AddWithValue("@tblCustomers", dt)
+        '                con.Open()
+        '                cmd.ExecuteNonQuery()
+        '                con.Close()
+        '            End Using
+        '        End Using
+        '    End If
+        'End Sub
     End Function
 
-    <WebMethod> _
+    <WebMethod(True)> _
     Public Function CreateNewOrder(ByVal OrderTotal As Decimal, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal Email As String)
 
         '1) Create Order and get returned id back
@@ -535,12 +522,10 @@ Public Class Engine
             cmd.Connection.Close()
         End Using
 
-
-
         '2) Then insert each item in the order into order details table with the referenced Order ID
         Dim ShoppingCart As List(Of ShoppingCart) = Session("Cart")
-
         Dim OrderDetailsDT As New DataTable
+
         OrderDetailsDT.Columns.Add("OrderID")
         OrderDetailsDT.Columns.Add("ProductID")
         OrderDetailsDT.Columns.Add("ItemName")
@@ -551,127 +536,137 @@ Public Class Engine
         OrderDetailsDT.Columns.Add("BasePrice")
 
         For i As Integer = 0 To ShoppingCart.Count - 1
-
             Dim r As DataRow = OrderDetailsDT.NewRow()
-            r("OrderID") = ""
-            r("ProductID") = ""
-            r("ItemName") = ""
-            r("Category") = ""
-            r("Qty") = ""
-            r("Notes") = ""
-            r("Price") = ""
-            r("BasePrice") = ""
+            r("OrderID") = OrderID
+            r("ProductID") = ShoppingCart(i).ProductID
+            r("ItemName") = ShoppingCart(i).ItemName
+            r("Category") = ShoppingCart(i).Category
+            r("Qty") = ShoppingCart(i).Qty
+            r("Notes") = ShoppingCart(i).Notes
+            r("Price") = ShoppingCart(i).Price
+            r("BasePrice") = ShoppingCart(i).BasePrice
             OrderDetailsDT.Rows.Add(r)
         Next
 
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "sp_Insert_OrderDetails"
+            cmd.Parameters.AddWithValue("@tblOrderDetails", OrderDetailsDT)
+            cmd.Connection.Open()
+            cmd.ExecuteNonQuery()
+            cmd.Connection.Close()
+        End Using
 
         Return ""
     End Function
 
+    <WebMethod(True)> _
+    Public Function CreateUser(ByVal AuthorizeID As String, ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String)
+        Try
+            Dim hash As String
+            Using md5Hash As MD5 = MD5.Create()
+                hash = GetHash(md5Hash, Password)
+            End Using
+            'save user info in database
+            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+            Using cmd As SqlCommand = con.CreateCommand
+                cmd.Connection = con
+                cmd.Connection.Open()
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "sp_Insert_NewUser"
+                cmd.Parameters.AddWithValue("@AuthorizeProfileID", AuthorizeID)
+                cmd.Parameters.AddWithValue("@Email", Email)
+                cmd.Parameters.AddWithValue("@FirstName ", FirstName)
+                cmd.Parameters.AddWithValue("@LastName ", LastName)
+                cmd.Parameters.AddWithValue("@Street ", Street)
+                cmd.Parameters.AddWithValue("@City ", City)
+                cmd.Parameters.AddWithValue("@State ", State)
+                cmd.Parameters.AddWithValue("@Zip ", Zipcode)
+                cmd.Parameters.AddWithValue("@Password ", hash)
+                cmd.Connection.Close()
+            End Using
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
 
-
-    'Protected Sub Bulk_Insert(sender As Object, e As EventArgs)
-    '    Dim dt As New DataTable()
-    '    dt.Columns.AddRange(New DataColumn(2) {New DataColumn("Id", GetType(Integer)), New DataColumn("Name", GetType(String)), New DataColumn("Country", GetType(String))})
-    '    For Each row As GridViewRow In GridView1.Rows
-    '        If TryCast(row.FindControl("CheckBox1"), CheckBox).Checked Then
-    '            Dim id As Integer = Integer.Parse(row.Cells(1).Text)
-    '            Dim name As String = row.Cells(2).Text
-    '            Dim country As String = row.Cells(3).Text
-    '            dt.Rows.Add(id, name, country)
-    '        End If
-    '    Next
-    '    If dt.Rows.Count > 0 Then
-    '        Dim consString As String = ConfigurationManager.ConnectionStrings("constr").ConnectionString
-    '        Using con As New SqlConnection(consString)
-    '            Using cmd As New SqlCommand("Insert_Customers")
-    '                cmd.CommandType = CommandType.StoredProcedure
-    '                cmd.Connection = con
-    '                cmd.Parameters.AddWithValue("@tblCustomers", dt)
-    '                con.Open()
-    '                cmd.ExecuteNonQuery()
-    '                con.Close()
-    '            End Using
-    '        End Using
-    '    End If
-    'End Sub
+    End Function
 
 
     <WebMethod(True)> _
     Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As Decimal, ByVal Shipping As Decimal, ByVal Tax As Decimal, ByVal TotalToCharge As Decimal)
 
-        '  Dim myShoppingCart As List(Of ShoppingCart) = Session("Cart")
+        Try
+            'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
+            If saveDetails = True Then
 
-        'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
-        If saveDetails = True Then
+                Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+                Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
+                Dim CustyID As String = Custy.ProfileID
 
-            Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-            Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
-            Dim CustyID As String = Custy.ProfileID
-
-            Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
-            Dim Customer = Target.GetCustomer(CustyID)
-            Dim Payment = Customer.PaymentProfiles(0)
-            Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(TotalToCharge), "Winston's Humidor Order")
-            'Step 2 - Create the gateway, sending in your credentials
-            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-            ' Step 3 - Send the request to the gateway
-            Dim response = gate.Send(Request)
-            'Use for codes to showing to customer, and storing transaction id's in db
-            Dim ResponseCode As String = response.ResponseCode
-            Dim ResponseMsg As String = response.Message
+                Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
+                Dim Customer = Target.GetCustomer(CustyID)
+                Dim Payment = Customer.PaymentProfiles(0)
+                Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(TotalToCharge), "Winston's Humidor Order")
+                'Step 2 - Create the gateway, sending in your credentials
+                Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+                ' Step 3 - Send the request to the gateway
+                Dim response = gate.Send(Request)
+                'Use for codes to showing to customer, and storing transaction id's in db
+                Dim ResponseCode As String = response.ResponseCode
+                Dim ResponseMsg As String = response.Message
 
 
-            If Not ResponseCode = "1" Then
-                'transaction failed
-                Return "FAILED"
+                If Not ResponseCode = "1" Then
+                    'transaction failed
+                    Return "FAILED"
+                Else
+                    'save users info
+                    CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
+                    'update purchased product quantities
+                    UpdateInventory()
+                    'insert new order in the database 
+                    CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
+                End If
+
             Else
-                'transaction passed, save users info in the database, and also update purchased products quantity
-                Dim UserCreated As Boolean = CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
-                'TO DO: If UserCreated = False Then Do some error handling.
+                ' don't save anything for custy. Just charge, update database, and send new order details.
+                Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+                'Step 2 - Create the gateway, sending in your credentials
+                Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+                ' Step 3 - Send the request to the gateway
+                Dim response = gate.Send(Request)
+                'Use for codes to showing to customer, and storing transaction id's in db
+                Dim ResponseCode As String = response.ResponseCode
+                Dim ResponseMsg As String = response.Message
 
                 'update product quantities
                 UpdateInventory()
                 'insert new order in the database 
-                CreateNewOrder(CDec(TotalToCharge))
-
+                CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
 
             End If
 
-        Else
-            ' don't save anything for custy. Just charge, update database, and send new order details.
-            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
-            'Step 2 - Create the gateway, sending in your credentials
-            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-            ' Step 3 - Send the request to the gateway
-            Dim response = gate.Send(Request)
-            'Use for codes to showing to customer, and storing transaction id's in db
-            Dim ResponseCode As String = response.ResponseCode
-            Dim ResponseMsg As String = response.Message
-
-            'update product quantities
-
-            'insert new order in the database 
+            ' TO DO: Send email notifications to customer and business
 
 
+            Return "Success"
+        Catch ex As Exception
+            Return ex.Message.ToString()
+        End Try
 
-
-        End If
-
-        Return ""
+       
     End Function
 
 
+    Public Function CheckoutAsSavedUser(ByVal Email As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal SubTtl As Decimal, ByVal Discount As Decimal, ByVal Total As Decimal)
 
-
-
-    Public Function CheckoutAsSavedUser(ByVal Email As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal SubTtl As Decimal, ByVal Discount As Decimal, ByVal Total As Decimal, ByVal Custy As String)
-
-
-        'for testing use custy id of 36567042
+        Dim WinstonsUser As List(Of WinstonsUser) = Session("WinstonsUser")
 
         Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-        Dim Customer = Target.GetCustomer(Custy)
+        'for testing use custy id of 36567042
+        Dim Customer = Target.GetCustomer(WinstonsUser(0).AuthorizeNbr)
         Dim Payment = Customer.PaymentProfiles(0)
 
         Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(Total), "Winston's Humidor Order")
@@ -683,52 +678,20 @@ Public Class Engine
         Dim ResponseCode As String = response.ResponseCode
         Dim ResponseMsg As String = response.Message
 
+        If Not ResponseCode = "1" Then
+            'transaction failed
+            Return "FAILED"
+        Else
+           
+            UpdateInventory()
+            'insert new order in the database 
+            CreateNewOrder(CDec(Total), WinstonsUser(0).FirstName, WinstonsUser(0).LastName, Street, City, State, Zip, Email)
+        End If
 
         Return ""
     End Function
 
-
-
-
-    <WebMethod()> _
-    Public Function DoCharge()
-        Return ""
-    End Function
-
-
-    <WebMethod(True)> _
-    Public Function Checkout()
-
-        'Step 1 - Create the request
-        Dim Request = New AuthorizationRequest("CARDNBR", "1216", 10.0, "Description")
-
-        'Step 2 - Create the gateway, sending in your credentials
-        Dim gate = New Gateway("APILOGIN", "TRANSKEY")
-        ' Step 3 - Send the request to the gateway
-        Dim response = gate.Send(Request)
-
-        'Use for codes to showing to customer, and storing transaction id's in db
-        Dim ResponseCode As String = response.ResponseCode
-        Dim ResponseMsg As String = response.Message
-
-        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
-        Dim Custy = Target.CreateCustomer("email", "description")
-
-        Dim CustyID As String = Custy.ProfileID
-
-        Target.AddCreditCard(CustyID, "CARDNBR", 12, 2015, "123")
-
-        Dim Customer = Target.GetCustomer(CustyID)
-
-
-        Dim Card = Customer.PaymentProfiles(0)
-
-
-        Dim Request2 = New AuthorizationRequest(Card.CardNumber, Card.CardExpiration, 10.0, "Description")
-
-        Return ""
-    End Function
-
+    
 
     <WebMethod()> _
     Public Function UnHashIt(ByVal hashOfInput As String, ByVal ControlHash As String)
@@ -768,27 +731,7 @@ Public Class Engine
 
     End Function
 
-    '<WebMethod()> _
-    'Public Function CreateNewCustomer(ByVal cnbr As String, ByVal mm As String, ByVal yyyy As String, ByVal csv As String, ByVal email As String, ByVal Password As String)
-
-    '    Dim hash As String
-    '    Using md5Hash As MD5 = MD5.Create()
-    '        hash = GetHash(md5Hash, Password)
-    '    End Using
-    '    'Remember to use hash when inserting into SQL
-
-    '    Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
-    '    Dim Custy = Target.CreateCustomer(email, "Winston's Humidor Customer Profile")
-    '    Dim CustyID As String = Custy.ProfileID
-
-    '    ' TODO --> Save customer profileid in the database
-    '    ' 
-
-    '    Return ""
-    'End Function
-
-
-
+   
     <WebMethod()> _
     Public Function LoginUser(ByVal Email As String, ByVal Password As String)
 
@@ -859,15 +802,6 @@ Public Class Engine
 
 
 
-
-    <WebMethod()> _
-    Public Function RetrieveCustomer(ByVal Email As String, ByVal Password As String)
-        'TODO --> Pull customer profileid from the database
-        Dim Target As CustomerGateway = New CustomerGateway("APILOGIN", "TRANSKEY")
-        Target.GetCustomer("ProfileID")
-        Return Target
-    End Function
-
     <WebMethod(True)> _
     Public Function RemoveItemFromCart(ByVal ProdID As Integer, ByVal Notes As String, ByVal Qty As String, ByVal Price As String)
         Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
@@ -889,6 +823,7 @@ Public Class Engine
         Next
         Return ""
     End Function
+
     <WebMethod(True)> _
     Public Function UpdateItemTotal(ByVal ProdID As String, ByVal Notes As String, ByVal DesiredQty As String)
         Dim InMyCart As List(Of ShoppingCart) = Session("Cart")
@@ -909,9 +844,6 @@ Public Class Engine
         Next
         Return ""
     End Function
-
-
-
 
 
     <WebMethod(True)> _
@@ -1003,7 +935,6 @@ Public Class Engine
         End If
         Return InMyCart.Count
     End Function
-
 
 
     <WebMethod(True)> _
