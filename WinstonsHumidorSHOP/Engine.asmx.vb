@@ -179,10 +179,344 @@ Public Class Engine
         Return ""
     End Function
 
-    <WebMethod(True)> _
-    Public Function CheckoutAsGuest(ByVal Email As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As Decimal, ByVal Shipping As Decimal, ByVal Tax As Decimal, ByVal TotalToCharge As Decimal)
 
+    <WebMethod(True)> _
+    Public Function CreateUser(ByVal AuthorizeID As String, ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String)
+        Try
+            Dim hash As String
+            Using md5Hash As MD5 = MD5.Create()
+                hash = GetHash(md5Hash, Password)
+            End Using
+            'save user info in database
+            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+            Using cmd As SqlCommand = con.CreateCommand
+                cmd.Connection = con
+                cmd.Connection.Open()
+                cmd.CommandType = CommandType.StoredProcedure
+                cmd.CommandText = "sp_Insert_NewUser"
+                cmd.Parameters.AddWithValue("@AuthorizeProfileID", AuthorizeID)
+                cmd.Parameters.AddWithValue("@Email", Email)
+                cmd.Parameters.AddWithValue("@FirstName ", FirstName)
+                cmd.Parameters.AddWithValue("@LastName ", LastName)
+                cmd.Parameters.AddWithValue("@Street ", Street)
+                cmd.Parameters.AddWithValue("@City ", City)
+                cmd.Parameters.AddWithValue("@State ", State)
+                cmd.Parameters.AddWithValue("@Zip ", Zipcode)
+                cmd.Parameters.AddWithValue("@Password ", hash)
+                cmd.Connection.Close()
+            End Using
+            Return True
+        Catch ex As Exception
+            Return False
+        End Try
+
+    End Function
+
+
+    <WebMethod()> _
+    Public Function GetCigarCounts(ByVal ProductId As Integer)
+
+        Dim CigarList As New List(Of Cigar)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT BoxCount,BoxQty,SingleQty FROM Cigars WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+
+            If dt.Rows.Count > 0 Then
+                CigarList(0).BoxCount = dt.Rows(0).Item("BoxCount")
+                CigarList(0).BoxQty = dt.Rows(0).Item("BoxQty")
+                CigarList(0).SingleQty = dt.Rows(0).Item("SingleQty")
+                Return CigarList
+            Else
+                Return ""
+            End If
+       
+        End Using
+
+    End Function
+
+    <WebMethod()> _
+    Public Function GetAccessoryCounts(ByVal ProductId As Integer)
+
+        Dim AccessoryList As New List(Of Accessory)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT Qty FROM Accessories WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+
+            If dt.Rows.Count > 0 Then
+                AccessoryList(0).SKU = dt.Rows(0).Item("Qty")
+                Return AccessoryList
+            Else
+                Return ""
+            End If
+
+        End Using
+
+    End Function
+
+    <WebMethod()> _
+    Public Function GetApparelCounts(ByVal ProductId As Integer)
+
+        Dim ApparelList As New List(Of Apparel)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT * FROM Apparel WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+  
+            If dt.Rows.Count > 0 Then
+                ApparelList(0).XS = dt.Rows(0).Item("XS_Qty")
+                ApparelList(0).SM = dt.Rows(0).Item("SM_Qty")
+                ApparelList(0).MD = dt.Rows(0).Item("MD_Qty")
+                ApparelList(0).LG = dt.Rows(0).Item("LG_Qty")
+                ApparelList(0).XL = dt.Rows(0).Item("XL_Qty")
+                ApparelList(0).XXL = dt.Rows(0).Item("XXL_Qty")
+                ApparelList(0).XXXL = dt.Rows(0).Item("XXXL_Qty")
+                Return ApparelList
+            Else
+                Return ""
+            End If
+
+        End Using
+
+    End Function
+
+    <WebMethod()> _
+    Public Function GetPipeCounts(ByVal ProductId As Integer)
+
+        Dim PipeList As New List(Of Pipe)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT Qty FROM Pipes WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+
+            If dt.Rows.Count > 0 Then
+                PipeList(0).Qty = dt.Rows(0).Item("Qty")
+                Return PipeList
+            Else
+                Return ""
+            End If
+
+        End Using
+
+    End Function
+
+    <WebMethod()> _
+    Public Function GetPipeTobaccoCounts(ByVal ProductId As Integer)
+
+        Dim PipeTobaccoList As New List(Of PipeTobacco)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT Qty FROM PipeTobacco WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+
+            If dt.Rows.Count > 0 Then
+                PipeTobaccoList(0).Qty = dt.Rows(0).Item("Qty")
+                Return PipeTobaccoList
+            Else
+                Return ""
+            End If
+
+        End Using
+
+    End Function
+
+    <WebMethod()> _
+    Public Function GetCoffeeCounts(ByVal ProductId As Integer)
+
+        Dim CoffeeList As New List(Of Coffee)
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT Qty FROM Coffee WHERE ProductID =" & ProductId
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+
+            If dt.Rows.Count > 0 Then
+                CoffeeList(0).Qty = dt.Rows(0).Item("Qty")
+                Return CoffeeList
+            Else
+                Return ""
+            End If
+
+        End Using
+
+    End Function
+
+    <WebMethod(True)> _
+    Public Function UpdateInventory()
+
+    
         Dim myShoppingCart As List(Of ShoppingCart) = Session("Cart")
+        Dim cartItem As New ShoppingCart
+        Dim cmdtext As String = " "
+
+        For i As Integer = 0 To myShoppingCart.Count - 1
+            cartItem = myShoppingCart(i)
+
+            Select Case cartItem.Category
+
+                Case "Cigars"
+                    Dim Cigar As List(Of Cigar) = GetCigarCounts(cartItem.ProductID)
+                    Dim FullBoxCount As Integer = Cigar(0).BoxCount
+                    Dim OldFullBoxQty As Integer = Cigar(0).BoxQty
+                    Dim OldSingleQty As Integer = Cigar(0).SingleQty
+                    Dim NewSingleQty As Integer = Nothing
+                    Dim NewFullBoxQty As Integer = Nothing
+                    If cartItem.Notes.Contains("Single(s)") Then
+                        'How many singles did they buy and how many are left?
+                        Dim SinglesPurchased As Integer = cartItem.Qty
+                        NewSingleQty = OldSingleQty - SinglesPurchased
+                        NewFullBoxQty = Math.Floor(NewSingleQty / FullBoxCount)
+                    Else
+                        ' cartItem.Notes.Contains("Box(s)") it was a box sale
+                        Dim FullBoxesPurchased As Integer = cartItem.Qty
+                        NewFullBoxQty = OldFullBoxQty - FullBoxesPurchased
+                        NewSingleQty = OldSingleQty - (FullBoxesPurchased * FullBoxCount)
+                    End If
+
+                    cmdtext = "UPDATE Cigars SET SingleQty = " & NewSingleQty & ",BoxQty = " & NewFullBoxQty & " WHERE ProductID = " & cartItem.ProductID
+
+
+                Case "Accessory"
+                    Dim Accessory As List(Of Accessory) = GetAccessoryCounts(cartItem.ProductID)
+                    Dim OldAccessoryQty As Integer = Accessory(0).Qty
+                    Dim NewAccessoryQty As Integer = OldAccessoryQty - cartItem.Qty
+                    cmdtext = "UPDATE Acccessories SET Qty = " & NewAccessoryQty & " WHERE ProductID = " & cartItem.ProductID
+
+                Case "Apparel"
+                    Dim Apparel As List(Of Apparel) = GetApparelCounts(cartItem.ProductID)
+                    Dim SizeDataColumn As String = Nothing
+                    Dim OldApparelQty As Integer = Nothing
+                    Select Case cartItem.Notes
+                        Case "Size: XS"
+                            SizeDataColumn = "XS_Qty"
+                            OldApparelQty = CInt(Apparel(0).XS)
+                        Case "Size: SM"
+                            SizeDataColumn = "SM_Qty"
+                            OldApparelQty = CInt(Apparel(0).SM)
+                        Case "Size: MD"
+                            SizeDataColumn = "MD_Qty"
+                            OldApparelQty = CInt(Apparel(0).MD)
+                        Case "Size: LG"
+                            SizeDataColumn = "LG_Qty"
+                            OldApparelQty = CInt(Apparel(0).LG)
+                        Case "Size: XL"
+                            SizeDataColumn = "XL_Qty"
+                            OldApparelQty = CInt(Apparel(0).XL)
+                        Case "Size: XXL"
+                            SizeDataColumn = "XXL_Qty"
+                            OldApparelQty = CInt(Apparel(0).XXL)
+                        Case "Size: XXXL"
+                            SizeDataColumn = "XXXL_Qty"
+                            OldApparelQty = CInt(Apparel(0).XXXL)
+                    End Select
+                    Dim NewApparelQty As Integer = OldApparelQty - cartItem.Qty
+                    cmdtext = "UPDATE Apparel SET " & SizeDataColumn & " = " & NewApparelQty & " WHERE ProductID = " & cartItem.ProductID
+
+                Case "Pipes"
+
+                    Dim Pipe As List(Of Pipe) = GetPipeCounts(cartItem.ProductID)
+                    Dim OldPipeQty As Integer = Pipe(0).Qty
+                    Dim NewPipeQty As Integer = OldPipeQty - cartItem.Qty
+                    cmdtext = "UPDATE Pipes SET Qty = " & NewPipeQty & " WHERE ProductID = " & cartItem.ProductID
+
+                Case "PipeTobacco"
+                    Dim PipeTobacco As List(Of PipeTobacco) = GetPipeTobaccoCounts(cartItem.ProductID)
+                    Dim OldPipeTobaccoQty As Integer = PipeTobacco(0).Qty
+                    Dim NewPipeTobaccoQty As Integer = OldPipeTobaccoQty - cartItem.Qty
+                    cmdtext = "UPDATE PipeTobacco SET Qty = " & NewPipeTobaccoQty & " WHERE ProductID = " & cartItem.ProductID
+
+                Case "Coffee"
+                    Dim CoffeeList As List(Of Coffee) = GetCoffeeCounts(cartItem.ProductID)
+                    Dim OldCoffeeQty As Integer = CoffeeList(0).Qty
+                    Dim NewCoffeeQty As Integer = OldCoffeeQty - cartItem.Qty
+                    cmdtext = "UPDATE Coffee SET Qty = " & NewCoffeeQty & " WHERE ProductID = " & cartItem.ProductID
+
+                Case Else
+                    cmdtext = " "
+
+            End Select
+
+            Try
+                If Not Trim(cmdtext) = String.Empty Then
+                    Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+                    Using cmd As SqlCommand = con.CreateCommand
+                        cmd.Connection = con
+                        cmd.Connection.Open()
+                        cmd.CommandType = CommandType.Text
+                        cmd.CommandText = cmdtext
+                        cmd.ExecuteNonQuery()
+                        cmd.Connection.Close()
+                    End Using
+                End If
+            Catch ex As Exception
+
+            End Try
+        Next
+
+
+        Return ""
+    End Function
+
+
+
+    <WebMethod(True)> _
+    Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As Decimal, ByVal Shipping As Decimal, ByVal Tax As Decimal, ByVal TotalToCharge As Decimal)
+
+        '  Dim myShoppingCart As List(Of ShoppingCart) = Session("Cart")
 
         'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
         If saveDetails = True Then
@@ -204,14 +538,20 @@ Public Class Engine
             Dim ResponseMsg As String = response.Message
 
 
-            'save user info in database
+            If Not ResponseCode = "1" Then
+                'transaction failed
+                Return "FAILED"
+            Else
+                'transaction passed, save users info in the database, and also update purchased products quantity
+                Dim UserCreated As Boolean = CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
+                'TO DO: If UserCreated = False Then Do some error handling.
 
-            'update product quantities
+                'update product quantities
+                UpdateInventory()
+                'insert new order in the database 
 
-            'insert new order in the database 
 
-
-
+            End If
 
         Else
             ' don't save anything for custy. Just charge, update database, and send new order details.
@@ -223,7 +563,6 @@ Public Class Engine
             'Use for codes to showing to customer, and storing transaction id's in db
             Dim ResponseCode As String = response.ResponseCode
             Dim ResponseMsg As String = response.Message
-
 
             'update product quantities
 
