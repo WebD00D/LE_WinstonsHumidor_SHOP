@@ -511,6 +511,48 @@ Public Class Engine
         Return ""
     End Function
 
+    <WebMethod> _
+    Public Function CreateNewOrder(ByVal OrderTotal As Decimal, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal Email As String)
+
+        '1) Create Order and get returned id back
+
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim OrderID As Integer = Nothing
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.StoredProcedure
+            cmd.CommandText = "sp_Insert_NewOrder"
+            cmd.Parameters.AddWithValue("@OrderTotal", OrderTotal)
+            cmd.Parameters.AddWithValue("@FirstName", FirstName)
+            cmd.Parameters.AddWithValue("@LastName", LastName)
+            cmd.Parameters.AddWithValue("@Street", Street)
+            cmd.Parameters.AddWithValue("@City", City)
+            cmd.Parameters.AddWithValue("@State", State)
+            cmd.Parameters.AddWithValue("@Zip", Zip)
+            cmd.Parameters.AddWithValue("@Email", Email)
+            OrderID = cmd.ExecuteNonQuery()
+            cmd.Connection.Close()
+        End Using
+
+
+
+        '2) Then insert each item in the order into order details table with the referenced Order ID
+        Dim ShoppingCart As List(Of ShoppingCart) = Session("Cart")
+
+        For i As Integer = 0 To ShoppingCart.Count - 1
+            Using cmd As SqlCommand = con.CreateCommand
+                cmd.Connection = con
+                cmd.Connection.Open()
+
+                cmd.Connection.Close()
+            End Using
+        Next
+
+
+
+        Return ""
+    End Function
 
 
     <WebMethod(True)> _
@@ -549,6 +591,7 @@ Public Class Engine
                 'update product quantities
                 UpdateInventory()
                 'insert new order in the database 
+                CreateNewOrder(CDec(TotalToCharge))
 
 
             End If
