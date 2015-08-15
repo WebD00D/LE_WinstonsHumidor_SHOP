@@ -29,6 +29,8 @@ Public Class Engine
         Public Zip As String
         Public IsPasswordReset As Boolean
         Public Password As String
+        Public CardType As String
+        Public Last4 As String
     End Class
 
 
@@ -498,6 +500,38 @@ Public Class Engine
         'End Sub
     End Function
 
+
+    <WebMethod()> _
+    Public Function GetShippingRate()
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT ShippingRate FROM Configuration WHERE ID = 1"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+        Return Math.Round(dt.Rows(0).Item("ShippingRate"), 2)
+    End Function
+
+    <WebMethod(True)> _
+    Public Function GetUserDetails()
+
+
+        If Session("WinstonsUser") Is Nothing Then
+            Return False
+        Else
+            Dim WinstonsUser As List(Of WinstonsUser) = Session("WinstonsUser")
+            Return WinstonsUser
+        End If
+
+    End Function
+
     <WebMethod(True)> _
     Public Function CreateNewOrder(ByVal OrderTotal As Decimal, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zip As String, ByVal Email As String)
 
@@ -656,7 +690,7 @@ Public Class Engine
             Return ex.Message.ToString()
         End Try
 
-       
+
     End Function
 
 
@@ -682,7 +716,7 @@ Public Class Engine
             'transaction failed
             Return "FAILED"
         Else
-           
+
             UpdateInventory()
             'insert new order in the database 
             CreateNewOrder(CDec(Total), WinstonsUser(0).FirstName, WinstonsUser(0).LastName, Street, City, State, Zip, Email)
@@ -691,7 +725,7 @@ Public Class Engine
         Return ""
     End Function
 
-    
+
 
     <WebMethod()> _
     Public Function UnHashIt(ByVal hashOfInput As String, ByVal ControlHash As String)
@@ -731,8 +765,8 @@ Public Class Engine
 
     End Function
 
-   
-    <WebMethod()> _
+
+    <WebMethod(True)> _
     Public Function LoginUser(ByVal Email As String, ByVal Password As String)
 
         Dim HashedPassed As String = Nothing

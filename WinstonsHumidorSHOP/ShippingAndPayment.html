@@ -202,7 +202,7 @@
             </h4>
             <h4 style="font-family:'chiser'">Sub Total:$<span id="txtsubtotal"></span></h4>
             <h4 style="font-family:'chiser'">Discount: -$<span id="txtdiscount"></span></h4>
-            <h4 style="font-family:'chiser'">Shipping:$25.00</h4>
+            <h4 style="font-family:'chiser'">Shipping:$<span id="txtShippingRate"></span></h4>
             <h4 style="font-family:'chiser'">Grand Total:$<span id="txtgrandtotal"></span></h4>
             <br />
             <a href="#" id="btnSubmitOrder" class="btn btn-primary">Submit Order</a>
@@ -235,10 +235,6 @@
         $(document).ready(function () {
 
 
-           
-
-
-
 
             var _IsLoggedIn = false;
             // page load details
@@ -247,15 +243,79 @@
             var discount = window.url('#discount', sPageURL);
             $("#txtsubtotal").text(subtotal);
             $("#txtdiscount").text(discount);
-            var grandtotal = (parseFloat(subtotal) - parseFloat(discount)) + 25.00;
-            $("#txtgrandtotal").text((grandtotal).toFixed(2));
+            GetShipping();
+            IsUserLoggedIn();
+
+
+            function IsUserLoggedIn() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetUserDetails",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+                        if (result = 0) {
+
+                        } else {
+                            ClearForm();
+                            _IsLoggedIn == true;
+                            $.each(result, function (index, item) {
+
+
+                            })
+                        }
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+
+            function ClearForm() {
+                    
+               // To Do: Clear out all form fields.
+
+            }
+
+
+            function GetShipping() {
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetShippingRate",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        $("#txtShippingRate").text(result);
+                        var grandtotal = (parseFloat(subtotal) - parseFloat(discount)) + parseFloat(result);
+                        $("#txtgrandtotal").text((grandtotal).toFixed(2));
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+
 
             // end page load details
 
             var _User;
             var _Email;
             
-           
+            getCartCount();
 
             $("#btnLogin").click(function (e) {
                 e.preventDefault();
@@ -277,8 +337,6 @@
                             // set field value equal to members pertinent information
                             
  
-                           
-
                         })
 
                     },
@@ -406,13 +464,40 @@
 
             })
 
-       
+            function getCartCount() {
+
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetCartCount",
+                    data: "{}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+
+
+                        $("#cartcount").text(result);
+                        $("#cartcount2").text(result);
+
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+            }
+
+
+
+            $(".smoothScroll").click(function () {
+                $(this).css("background-color", "transparent");
+            })
+
+
 
         })
-
-
-
-
 
 
 

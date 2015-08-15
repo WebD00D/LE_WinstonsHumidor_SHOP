@@ -9,7 +9,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Home | Winston's Humidor</title>
+    <title>Review Order | Winston's Humidor</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -213,6 +213,11 @@
     <script>
 
         $(document).ready(function () {
+
+            
+
+
+
             $("#discount").text("0.00");
             $("#lblMsg").text("");
                
@@ -251,6 +256,7 @@
                         })
 
                         getCartTotal();
+                        getCartCount();
 
                     },
                     failure: function (msg) {
@@ -263,6 +269,7 @@
           
                 var _dAmount;
                 $("#btnDiscountCode").click(function () {
+                    
                     $("#lblMsg").text("");
                     $.ajax({
                         type: "POST",
@@ -297,14 +304,19 @@
 
                 })
 
-
+                var _DiscountApplied = false;
                 function applydiscount(amount) {
                    // $("#total").text("0.00");
-                    
-                    var beforeTtl = $("#total").text()
-                    var afterDiscount = beforeTtl - amount
-                    var discountformat = (afterDiscount).toFixed(2);
-                    $("#total").text(discountformat);
+                    if (_DiscountApplied == false) {
+                        var beforeTtl = $("#total").text()
+                        var afterDiscount = beforeTtl - amount
+                        var discountformat = (afterDiscount).toFixed(2);
+                        $("#total").text(discountformat);
+                        _DiscountApplied = true;
+                    } else {
+                        $("#lblMsg").text("Discount code has already been applied.");
+                    }
+                 
 
                 }
 
@@ -435,8 +447,6 @@
                     var price = $(this).attr('data-price');
 
 
-
-
                     $.ajax({
                         type: "POST",
                         url: "Engine.asmx/RemoveItemFromCart",
@@ -486,6 +496,43 @@
                     }) //end ajax
                 }
 
+
+
+            //set shipping price
+                function GetShipping() {
+                    $.ajax({
+                        type: "POST",
+                        url: "Engine.asmx/GetShippingRate",
+                        data: "{}",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json",
+                        success: function (data) {
+                            var result = data.d;
+                            $("#shippingprice").text(result);
+
+
+                            var subttl = parseFloat($("#subtotal").text());
+                            var shipttl = parseFloat($("#shippingprice").text());
+                            var discount = parseFloat($("#discount").text());
+                            var ttl = (subttl + shipttl) - discount;
+
+
+                            var numb = parseFloat(ttl)
+                            $("#total").text(numb.toFixed(2));
+
+                        },
+                        failure: function (msg) {
+                            alert(msg);
+                        },
+                        error: function (err) {
+                            alert(err);
+                        }
+                    }) //end ajax
+                }
+             
+               
+
+
                 function getCartTotal() {
 
                     $.ajax({
@@ -505,18 +552,8 @@
                             }
 
                             $("#subtotal").text(result.toFixed(2));
-                            $("#shippingprice").text("25.00");
-                            var subttl = parseFloat($("#subtotal").text());
-                            var shipttl = parseFloat($("#shippingprice").text());
-                            var discount = parseFloat($("#discount").text());
-                            var ttl = (subttl + shipttl) - discount;
-                            
-
-                            var numb = parseFloat(ttl)
-                            $("#total").text(numb.toFixed(2));
-                            
-
-
+                          
+                            GetShipping();
                         },
                         failure: function (msg) {
                             alert(msg);
@@ -527,6 +564,9 @@
                     }) //end ajax
 
                 }
+                $(".smoothScroll").click(function () {
+                    $(this).css("background-color", "transparent");
+                })
 
         })
     </script>
