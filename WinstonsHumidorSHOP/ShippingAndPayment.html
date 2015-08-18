@@ -193,7 +193,7 @@
             <input id="cbSaveMyDetails" type="checkbox"/> Save My Details
             <br />
             <br />
-            <input type="password" class="form-control" placeholder="Password"/>
+            <input id="txtPassword" type="password" class="form-control" placeholder="Password"/>
         </div>
         <div class="col-lg-12 text-left" style="font-family:'chiser';margin-top:5%">
             <hr />
@@ -235,7 +235,7 @@
         $(document).ready(function () {
 
 
-
+            $("#txtPassword").hide();
             var _IsLoggedIn = false;
             // page load details
             var sPageURL = window.location.href
@@ -245,6 +245,27 @@
             $("#txtdiscount").text(discount);
             GetShipping();
             IsUserLoggedIn();
+
+
+            var SaveUser = false;
+
+            $("#cbSaveMyDetails").change(function () {
+
+                if ($(this).is(':checked')) {
+                   // alert("This is checked");
+                    $("#txtPassword").show();
+                    SaveUser = true;
+                   // alert(SaveUser);
+                    
+                } else {
+                   // alert("This is not checked");
+                    $("#txtPassword").hide();
+                    SaveUser = false;
+                   // alert(SaveUser);
+                }
+
+            })
+
 
 
             function IsUserLoggedIn() {
