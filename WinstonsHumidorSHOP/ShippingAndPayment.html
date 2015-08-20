@@ -213,9 +213,6 @@
         
 
 
-
- 
-
     </div>
 
 
@@ -388,7 +385,7 @@
                 var Email = $("#txtEmailAddress");
                 var FirstName = $("#txtFirstName");
                 var LastName = $("#txtLastName");
-                var Street = ("#txtStreet");
+                var Street = $("#txtStreet");
                 var City = $("#txtCity");
                 var State = $("#txtState");
                 var Zip = $("#txtZip");
@@ -453,12 +450,19 @@
                 var exmonth = $("#ccExMonth").val();
                 var exyear = $("#ccExYear").val();
                 var seccode = $("#ccSecCode").val();
-                alert("yo");
-
+          
+                
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/CheckoutAsGuest",
-                    data: "{Email:'" + Email.val() + "',FirstName:'" + FirstName.val() + "',LastName:'" + LastName.val() + "',Street:'" + $(Street).val() + "',City:'" + City.val() + "',State:'" + State.val() + "',Zipcode:'" + Zip.val() + "',CC:'" + ccnum + "',ccMonth:'" + exmonth + "',ccYear:'" + exyear + "',ccSecurity:'" + seccode + "',saveDetails:'" + true + "',SubTotal:'" + 10.00 + "',Discount:'" + 2.00 + "',Shipping:'" + 5.00 + "',Tax:'" + 6.00 + "',TotalToCharge:'" + 55.00 + "'}",
+                    data: "{Email:'" + $("#txtEmailAddress").val() + "',Password:'"+ $("#txtPassword").val() +"',FirstName:'" + $("#txtFirstName").val() +
+                           "',LastName:'" + $("#txtLastName").val() + "',Street:'" + $("#txtStreet").val() +
+                           "',City:'" + $("#txtCity").val() + "',State:'" + $("#txtState").val() + "',Zipcode:'" + $("#txtZip").val() +
+                           "',CC:'" + ccnum + "',ccMonth:'" + exmonth + "',ccYear:'" + exyear + "',ccSecurity:'" + seccode +
+                           "',saveDetails:" + true + ",SubTotal:'" + 10.00 + "',Discount:'" + 2.00 + "',Shipping:'" + 5.00 +
+                           "',Tax:'" + 6.00 + "',TotalToCharge:'" + 55.00 + "'}",
+
+ 
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {

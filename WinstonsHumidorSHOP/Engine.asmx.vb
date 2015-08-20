@@ -629,7 +629,7 @@ Public Class Engine
 
 
     <WebMethod(True)> _
-    Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As Decimal, ByVal Shipping As Decimal, ByVal Tax As Decimal, ByVal TotalToCharge As Decimal)
+    Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As String, ByVal Shipping As String, ByVal Tax As String, ByVal TotalToCharge As String)
 
         Try
             'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
@@ -725,7 +725,29 @@ Public Class Engine
         Return ""
     End Function
 
+    <WebMethod(True)> _
+    Public Function GetTAXPercentage(ByVal SubTotal As String, ByVal Discount As String)
 
+        Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+        Dim dt As New DataTable
+        Using cmd As SqlCommand = con.CreateCommand
+            cmd.Connection = con
+            cmd.Connection.Open()
+            cmd.CommandType = CommandType.Text
+            cmd.CommandText = "SELECT TaxRatePercentage FROM Configuration"
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(dt)
+            End Using
+            cmd.Connection.Close()
+        End Using
+
+        Dim TaxRate As Decimal = (dt.Rows(0).Item("TaxRatePercentage") / 100)
+        Dim GetTaxOn As Decimal = CDec(SubTotal) - CDec(Discount)
+        Dim TaxableAmount As Decimal = Math.Round(GetTaxOn * TaxRate, 2)
+
+        Return TaxableAmount
+    End Function
 
     <WebMethod()> _
     Public Function UnHashIt(ByVal hashOfInput As String, ByVal ControlHash As String)
