@@ -156,11 +156,11 @@
     <div class="col-lg-8 col-lg-offset-2" style="padding-left:10%;padding-right:10%;padding-top:4%;margin-bottom:5%">
 
 
-        <div class="col-lg-12 text-left alert alert-info" style="margin-bottom:5%">
+        <!--<div class="col-lg-12 text-left alert alert-info" style="margin-bottom:5%">
 
            <h4 style="font-family:'chiser'">For a faster checkout experience, <a style="font-size:large" data-toggle='modal' data-target='#loginmodal' class="text-info" href="#"><b>log into your account</b></a></h4>
            <span style="font-size:medium;font-family:'chiser';font-style:italic"><i class="glyphicon glyphicon-info-sign"></i> Don't have one? No worries! Simply check 'save my details' at the end of the form.</span>
-        </div>
+        </div>-->
 
 
         <div class="col-lg-6 text-left" style="font-family:'chiser'">
@@ -190,10 +190,10 @@
             <br />
             <input id="ccSecCode" class="form-control" placeholder="Card Security Code" />
             <br />
-            <input id="cbSaveMyDetails" type="checkbox"/> Save My Details
+            <!--<input id="cbSaveMyDetails" type="checkbox"/> Save My Details
             <br />
             <br />
-            <input id="txtPassword" type="password" class="form-control" placeholder="Password"/>
+            <input id="txtPassword" type="password" class="form-control" placeholder="Password"/>-->
         </div>
         <div class="col-lg-12 text-left" style="font-family:'chiser';margin-top:5%">
             <hr />
@@ -242,7 +242,7 @@
             $("#txtsubtotal").text(subtotal);
             $("#txtdiscount").text(discount);
             GetShipping();
-            IsUserLoggedIn();
+           // IsUserLoggedIn();
 
 
             var SaveUser = false;
@@ -486,9 +486,9 @@
                 var seccode = $("#ccSecCode").val();
                 var savedetails = false;
 
-                if ($("#cbSaveMyDetails").is(":checked")) {
-                    savedetails = true;
-                }
+                //if ($("#cbSaveMyDetails").is(":checked")) {
+                //    savedetails = true;
+                //}
                 
                 $.ajax({
                     type: "POST",
@@ -497,7 +497,7 @@
                            "',LastName:'" + $("#txtLastName").val() + "',Street:'" + $("#txtStreet").val() +
                            "',City:'" + $("#txtCity").val() + "',State:'" + $("#txtState").val() + "',Zipcode:'" + $("#txtZip").val() +
                            "',CC:'" + ccnum + "',ccMonth:'" + exmonth + "',ccYear:'" + exyear + "',ccSecurity:'" + seccode +
-                           "',saveDetails:" + savedetails + ",SubTotal:'" + $("#txtsubtotal").text() + "',Discount:'" + $("#txtdiscount").text() + "',Shipping:'" + $("#txtShippingRate").text() +
+                           "',saveDetails:" + SaveUser + ",SubTotal:'" + $("#txtsubtotal").text() + "',Discount:'" + $("#txtdiscount").text() + "',Shipping:'" + $("#txtShippingRate").text() +
                            "',Tax:'" + $("#taxprice").text() + "',TotalToCharge:'" + $("#txtgrandtotal").text() + "'}",
 
                    
@@ -505,15 +505,11 @@
                     dataType: "json",
                     success: function (data) {
                         var result = data.d;
-                        _IsLoggedIn == true;
-                        $.each(result, function (index, item) {
+                       
 
-                            _User = item.UserID;
-                            // set field value equal to members pertinent information
-                           
-                           
-
-                        })
+                        // Clear Form
+                        // Empty Cart
+                        // Redirect to Thank You Page
 
                     },
                     failure: function (msg) {

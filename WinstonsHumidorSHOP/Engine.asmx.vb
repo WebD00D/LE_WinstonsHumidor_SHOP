@@ -643,7 +643,7 @@ Public Class Engine
     <WebMethod(True)> _
     Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As String, ByVal Shipping As String, ByVal Tax As String, ByVal TotalToCharge As String)
 
-
+        saveDetails = False ' change this once I figure out how to access stored customer.
 
         'Validate totals and such
         Dim _grandtotal As Decimal = CDec(TotalToCharge)
@@ -659,56 +659,67 @@ Public Class Engine
         End If
 
         Try
-            'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
-            If saveDetails = True Then
-
-                Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-                Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
-                Dim CustyID As String = Custy.ProfileID
-                Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
-                Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
-                'Step 2 - Create the gateway, sending in your credentials
-                Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-                ' Step 3 - Send the request to the gateway
-                Dim response = gate.Send(Request)
-                'Use for codes to showing to customer, and storing transaction id's in db
-                Dim ResponseCode As String = response.ResponseCode
-                Dim ResponseMsg As String = response.Message
+            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            Dim response = gate.Send(Request)
+            Dim ResponseCode As String = response.ResponseCode
+            Dim ResponseMsg As String = response.Message
+            If Not response.ResponseCode = "1" Then
+                Select Case response.ResponseCode
+                    Case "2"
+                        Return "We're sorry, but your card could not be processed. Please try again, or contact support."
+                    Case "6"
+                        Return "The card number entered is invalid. Please try again, or contact support."
+                    Case "7"
+                        Return "The card expiration date entered is invalid. Please try again, or contact support."
+                    Case "8"
+                        Return "The card entered has expired. Please try again, or contact support."
+                    Case "17"
+                        Return "We're sorry, but we cannot accept this type of card. Please try again, or contact support."
+                    Case "19"
+                        Return "We're sorry, but a network error has interupted this transaction. Please try again, or contact support."
+                    Case Else
+                        Return "We're sorry, but your card could not be processed. Please try again, or contact support."
+                End Select
                 
-
-                If Not Response.ResponseCode = "1" Then
-                    'transaction failed
-                    Return "FAILED"
-                Else
-                    'save users info
-                    CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
-                    'update purchased product quantities
-                    UpdateInventory()
-                    'insert new order in the database 
-                    CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
-                End If
-
             Else
-                ' don't save anything for custy. Just charge, update database, and send new order details.
-                Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
-
-                'Step 2 - Create the gateway, sending in your credentials
-                Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-                ' Step 3 - Send the request to the gateway
-                Dim response = gate.Send(Request)
-                'Use for codes to showing to customer, and storing transaction id's in db
-                Dim ResponseCode As String = response.ResponseCode
-                Dim ResponseMsg As String = response.Message
-
-                'update product quantities
                 UpdateInventory()
-                'insert new order in the database 
                 CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
-
+                'SendConfirmationEmails()
             End If
 
-            ' TO DO: Send email notifications to customer and business
+            'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
+            'If saveDetails = True Then
 
+            '    Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            '    Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
+            '    Dim CustyID As String = Custy.ProfileID
+            '    Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
+            '    Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+            '    'Step 2 - Create the gateway, sending in your credentials
+            '    Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            '    ' Step 3 - Send the request to the gateway
+            '    Dim response = gate.Send(Request)
+            '    'Use for codes to showing to customer, and storing transaction id's in db
+            '    Dim ResponseCode As String = response.ResponseCode
+            '    Dim ResponseMsg As String = response.Message
+            '    ' Target.AuthorizeAndCapture()
+
+            '    If Not response.ResponseCode = "1" Then
+            '        'transaction failed
+            '        Return "FAILED"
+            '    Else
+            '        'save users info
+            '        CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
+            '        'update purchased product quantities
+            '        UpdateInventory()
+            '        'insert new order in the database 
+            '        CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
+            '    End If
+
+            'Else
+            '    'BASE CHARGE CODE WORKING BELOW
+            'End If
 
             Return "Success"
         Catch ex As Exception
