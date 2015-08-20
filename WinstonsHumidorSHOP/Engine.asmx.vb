@@ -179,6 +179,9 @@ Public Class Engine
     <WebMethod()> _
     Public Function GetCigarCounts(ByVal ProductId As Integer)
 
+
+
+        Dim cigar As New Cigar
         Dim CigarList As New List(Of Cigar)
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
@@ -195,9 +198,11 @@ Public Class Engine
             cmd.Connection.Close()
 
             If dt.Rows.Count > 0 Then
-                CigarList(0).BoxCount = dt.Rows(0).Item("BoxCount")
-                CigarList(0).BoxQty = dt.Rows(0).Item("BoxQty")
-                CigarList(0).SingleQty = dt.Rows(0).Item("SingleQty")
+
+                cigar.BoxCount = dt.Rows(0).Item("BoxCount")
+                cigar.BoxQty = dt.Rows(0).Item("BoxQty")
+                cigar.SingleQty = dt.Rows(0).Item("SingleQty")
+                CigarList.Add(cigar)
                 Return CigarList
             Else
                 Return ""
@@ -226,8 +231,8 @@ Public Class Engine
             cmd.Connection.Close()
 
             If dt.Rows.Count > 0 Then
-                AccessoryList(0).SKU = dt.Rows(0).Item("Qty")
-                Return AccessoryList
+
+                Return dt.Rows(0).Item("Qty")
             Else
                 Return ""
             End If
@@ -238,7 +243,7 @@ Public Class Engine
 
     <WebMethod()> _
     Public Function GetApparelCounts(ByVal ProductId As Integer)
-
+        Dim Apparel As New Apparel
         Dim ApparelList As New List(Of Apparel)
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
@@ -255,13 +260,14 @@ Public Class Engine
             cmd.Connection.Close()
   
             If dt.Rows.Count > 0 Then
-                ApparelList(0).XS = dt.Rows(0).Item("XS_Qty")
-                ApparelList(0).SM = dt.Rows(0).Item("SM_Qty")
-                ApparelList(0).MD = dt.Rows(0).Item("MD_Qty")
-                ApparelList(0).LG = dt.Rows(0).Item("LG_Qty")
-                ApparelList(0).XL = dt.Rows(0).Item("XL_Qty")
-                ApparelList(0).XXL = dt.Rows(0).Item("XXL_Qty")
-                ApparelList(0).XXXL = dt.Rows(0).Item("XXXL_Qty")
+                Apparel.XS = dt.Rows(0).Item("XS_Qty")
+                Apparel.SM = dt.Rows(0).Item("SM_Qty")
+                Apparel.MD = dt.Rows(0).Item("MD_Qty")
+                Apparel.LG = dt.Rows(0).Item("LG_Qty")
+                Apparel.XL = dt.Rows(0).Item("XL_Qty")
+                Apparel.XXL = dt.Rows(0).Item("XXL_Qty")
+                Apparel.XXXL = dt.Rows(0).Item("XXXL_Qty")
+                ApparelList.Add(Apparel)
                 Return ApparelList
             Else
                 Return ""
@@ -290,8 +296,8 @@ Public Class Engine
             cmd.Connection.Close()
 
             If dt.Rows.Count > 0 Then
-                PipeList(0).Qty = dt.Rows(0).Item("Qty")
-                Return PipeList
+
+                Return dt.Rows(0).Item("Qty")
             Else
                 Return ""
             End If
@@ -319,8 +325,8 @@ Public Class Engine
             cmd.Connection.Close()
 
             If dt.Rows.Count > 0 Then
-                PipeTobaccoList(0).Qty = dt.Rows(0).Item("Qty")
-                Return PipeTobaccoList
+
+                Return dt.Rows(0).Item("Qty")
             Else
                 Return ""
             End If
@@ -332,7 +338,7 @@ Public Class Engine
     <WebMethod()> _
     Public Function GetCoffeeCounts(ByVal ProductId As Integer)
 
-        Dim CoffeeList As New List(Of Coffee)
+        ' Dim CoffeeList As New List(Of Coffee)
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
         Dim dt As New DataTable
@@ -348,8 +354,8 @@ Public Class Engine
             cmd.Connection.Close()
 
             If dt.Rows.Count > 0 Then
-                CoffeeList(0).Qty = dt.Rows(0).Item("Qty")
-                Return CoffeeList
+
+                Return dt.Rows(0).Item("Qty")
             Else
                 Return ""
             End If
@@ -394,8 +400,8 @@ Public Class Engine
 
 
                 Case "Accessory"
-                    Dim Accessory As List(Of Accessory) = GetAccessoryCounts(cartItem.ProductID)
-                    Dim OldAccessoryQty As Integer = Accessory(0).Qty
+
+                    Dim OldAccessoryQty As Integer = GetAccessoryCounts(cartItem.ProductID)
                     Dim NewAccessoryQty As Integer = OldAccessoryQty - cartItem.Qty
                     cmdtext = "UPDATE Acccessories SET Qty = " & NewAccessoryQty & " WHERE ProductID = " & cartItem.ProductID
 
@@ -430,21 +436,19 @@ Public Class Engine
                     cmdtext = "UPDATE Apparel SET " & SizeDataColumn & " = " & NewApparelQty & " WHERE ProductID = " & cartItem.ProductID
 
                 Case "Pipes"
-
-                    Dim Pipe As List(Of Pipe) = GetPipeCounts(cartItem.ProductID)
-                    Dim OldPipeQty As Integer = Pipe(0).Qty
+                    Dim OldPipeQty As Integer = GetPipeCounts(cartItem.ProductID)
                     Dim NewPipeQty As Integer = OldPipeQty - cartItem.Qty
                     cmdtext = "UPDATE Pipes SET Qty = " & NewPipeQty & " WHERE ProductID = " & cartItem.ProductID
 
                 Case "PipeTobacco"
-                    Dim PipeTobacco As List(Of PipeTobacco) = GetPipeTobaccoCounts(cartItem.ProductID)
-                    Dim OldPipeTobaccoQty As Integer = PipeTobacco(0).Qty
+
+                    Dim OldPipeTobaccoQty As Integer = GetPipeTobaccoCounts(cartItem.ProductID)
                     Dim NewPipeTobaccoQty As Integer = OldPipeTobaccoQty - cartItem.Qty
                     cmdtext = "UPDATE PipeTobacco SET Qty = " & NewPipeTobaccoQty & " WHERE ProductID = " & cartItem.ProductID
 
                 Case "Coffee"
-                    Dim CoffeeList As List(Of Coffee) = GetCoffeeCounts(cartItem.ProductID)
-                    Dim OldCoffeeQty As Integer = CoffeeList(0).Qty
+
+                    Dim OldCoffeeQty As Integer = GetCoffeeCounts(cartItem.ProductID)
                     Dim NewCoffeeQty As Integer = OldCoffeeQty - cartItem.Qty
                     cmdtext = "UPDATE Coffee SET Qty = " & NewCoffeeQty & " WHERE ProductID = " & cartItem.ProductID
 
@@ -539,6 +543,7 @@ Public Class Engine
 
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
         Dim OrderID As Integer = Nothing
+        Dim OrderDT As New DataTable
         Using cmd As SqlCommand = con.CreateCommand
             cmd.Connection = con
             cmd.Connection.Open()
@@ -552,9 +557,15 @@ Public Class Engine
             cmd.Parameters.AddWithValue("@State", State)
             cmd.Parameters.AddWithValue("@Zip", Zip)
             cmd.Parameters.AddWithValue("@Email", Email)
-            OrderID = cmd.ExecuteNonQuery()
+            Using da As New SqlDataAdapter
+                da.SelectCommand = cmd
+                da.Fill(OrderDT)
+            End Using
+
             cmd.Connection.Close()
         End Using
+
+        OrderID = OrderDT.Rows(0).Item(0)
 
         '2) Then insert each item in the order into order details table with the referenced Order ID
         Dim ShoppingCart As List(Of ShoppingCart) = Session("Cart")
@@ -618,6 +629,7 @@ Public Class Engine
                 cmd.Parameters.AddWithValue("@State ", State)
                 cmd.Parameters.AddWithValue("@Zip ", Zipcode)
                 cmd.Parameters.AddWithValue("@Password ", hash)
+                cmd.ExecuteNonQuery()
                 cmd.Connection.Close()
             End Using
             Return True
@@ -631,6 +643,21 @@ Public Class Engine
     <WebMethod(True)> _
     Public Function CheckoutAsGuest(ByVal Email As String, ByVal Password As String, ByVal FirstName As String, ByVal LastName As String, ByVal Street As String, ByVal City As String, ByVal State As String, ByVal Zipcode As String, ByVal CC As String, ByVal ccMonth As String, ByVal ccYear As String, ByVal ccSecurity As String, ByVal saveDetails As Boolean, ByVal SubTotal As String, ByVal Discount As String, ByVal Shipping As String, ByVal Tax As String, ByVal TotalToCharge As String)
 
+
+
+        'Validate totals and such
+        Dim _grandtotal As Decimal = CDec(TotalToCharge)
+        Dim _subtotal As Decimal = CDec(SubTotal)
+        Dim _tax As Decimal = CDec(Tax)
+        Dim _discount As Decimal = CDec(Discount)
+        Dim _shipping As Decimal = CDec(Shipping)
+
+        Dim _TotalToValidate As Decimal = (_subtotal + _tax + _shipping) - Discount
+
+        If Not _grandtotal = _TotalToValidate Then
+            Return "FAILED"
+        End If
+
         Try
             'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
             If saveDetails = True Then
@@ -638,11 +665,8 @@ Public Class Engine
                 Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
                 Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
                 Dim CustyID As String = Custy.ProfileID
-
                 Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
-                Dim Customer = Target.GetCustomer(CustyID)
-                Dim Payment = Customer.PaymentProfiles(0)
-                Dim Request = New AuthorizationRequest(Payment.CardNumber, Payment.CardExpiration, CDec(TotalToCharge), "Winston's Humidor Order")
+                Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
                 'Step 2 - Create the gateway, sending in your credentials
                 Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
                 ' Step 3 - Send the request to the gateway
@@ -650,9 +674,9 @@ Public Class Engine
                 'Use for codes to showing to customer, and storing transaction id's in db
                 Dim ResponseCode As String = response.ResponseCode
                 Dim ResponseMsg As String = response.Message
+                
 
-
-                If Not ResponseCode = "1" Then
+                If Not Response.ResponseCode = "1" Then
                     'transaction failed
                     Return "FAILED"
                 Else
@@ -667,6 +691,7 @@ Public Class Engine
             Else
                 ' don't save anything for custy. Just charge, update database, and send new order details.
                 Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+
                 'Step 2 - Create the gateway, sending in your credentials
                 Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
                 ' Step 3 - Send the request to the gateway

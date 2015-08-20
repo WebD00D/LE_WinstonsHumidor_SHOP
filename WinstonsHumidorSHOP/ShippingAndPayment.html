@@ -203,6 +203,7 @@
             <h4 style="font-family:'chiser'">Sub Total:$<span id="txtsubtotal"></span></h4>
             <h4 style="font-family:'chiser'">Discount: -$<span id="txtdiscount"></span></h4>
             <h4 style="font-family:'chiser'">Shipping:$<span id="txtShippingRate"></span></h4>
+            <h4 style="font-family:'chiser'">Tax:$<span id="taxprice"></span></h4>
             <h4 style="font-family:'chiser'">Grand Total:$<span id="txtgrandtotal"></span></h4>
             <br />
             <a href="#" id="btnSubmitOrder" class="btn btn-primary">Submit Order</a>
@@ -314,8 +315,7 @@
                     success: function (data) {
                         var result = data.d;
                         $("#txtShippingRate").text(result);
-                        var grandtotal = (parseFloat(subtotal) - parseFloat(discount)) + parseFloat(result);
-                        $("#txtgrandtotal").text((grandtotal).toFixed(2));
+                      GetTAX()
                     },
                     failure: function (msg) {
                         alert(msg);
@@ -326,7 +326,41 @@
                 }) //end ajax
             }
 
+            function GetTAX() {
 
+                $.ajax({
+                    type: "POST",
+                    url: "Engine.asmx/GetTAXPercentage",
+                    data: "{SubTotal:'" + subtotal + "',Discount:'" + discount + "'}",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        var result = data.d;
+                        $("#taxprice").text(result);
+
+                        //var subttl = parseFloat($("#subtotal").text());
+                        //var shipttl = parseFloat($("#shippingprice").text());
+                        //var discount = parseFloat($("#discount").text());
+                        //// var tax = parseFloat($("#taxprice").text)
+                        //var ttl = (subttl + result + shipttl) - discount;
+                        //alert(ttl);
+
+                        //var numb = parseFloat(ttl)
+                        //$("#total").text(numb.toFixed(2));
+
+                        var grandtotal = (parseFloat(subtotal) + parseFloat($("#txtShippingRate").text()) + result) - parseFloat(discount);
+                        $("#txtgrandtotal").text((grandtotal).toFixed(2));
+                        
+                    },
+                    failure: function (msg) {
+                        alert(msg);
+                    },
+                    error: function (err) {
+                        alert(err);
+                    }
+                }) //end ajax
+
+            }
 
             // end page load details
 
@@ -450,7 +484,11 @@
                 var exmonth = $("#ccExMonth").val();
                 var exyear = $("#ccExYear").val();
                 var seccode = $("#ccSecCode").val();
-          
+                var savedetails = false;
+
+                if ($("#cbSaveMyDetails").is(":checked")) {
+                    savedetails = true;
+                }
                 
                 $.ajax({
                     type: "POST",
@@ -459,10 +497,10 @@
                            "',LastName:'" + $("#txtLastName").val() + "',Street:'" + $("#txtStreet").val() +
                            "',City:'" + $("#txtCity").val() + "',State:'" + $("#txtState").val() + "',Zipcode:'" + $("#txtZip").val() +
                            "',CC:'" + ccnum + "',ccMonth:'" + exmonth + "',ccYear:'" + exyear + "',ccSecurity:'" + seccode +
-                           "',saveDetails:" + true + ",SubTotal:'" + 10.00 + "',Discount:'" + 2.00 + "',Shipping:'" + 5.00 +
-                           "',Tax:'" + 6.00 + "',TotalToCharge:'" + 55.00 + "'}",
+                           "',saveDetails:" + savedetails + ",SubTotal:'" + $("#txtsubtotal").text() + "',Discount:'" + $("#txtdiscount").text() + "',Shipping:'" + $("#txtShippingRate").text() +
+                           "',Tax:'" + $("#taxprice").text() + "',TotalToCharge:'" + $("#txtgrandtotal").text() + "'}",
 
- 
+                   
                     contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     success: function (data) {

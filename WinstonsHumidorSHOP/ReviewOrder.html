@@ -289,11 +289,10 @@
                                 _dAmount = result
                                //(_dAmount).toFixed(2);
                                 $("#discount").text((_dAmount).toFixed(2));
-                           
-                                applydiscount(_dAmount);
+                                getCartTotal();
+                               // applydiscount(_dAmount);
                             }
-                            
-
+ 
                         },
                         failure: function (msg) {
                             alert(msg);
@@ -317,7 +316,6 @@
                     } else {
                         $("#lblMsg").text("Discount code has already been applied.");
                     }
-                 
 
                 }
 
@@ -330,8 +328,6 @@
                     var grandtotal = $("#total").text();
 
                     window.location.href = "ShippingAndPayment.html?subtotal="+ subtotal + "#discount="+ discount 
-
-
                 })
 
 
@@ -349,8 +345,6 @@
 
                                 return;
                             }
-
-                       
                         },
                         failure: function (msg) {
                             alert(msg);
@@ -361,8 +355,6 @@
                     }) //end ajax
                 }
 
-
-               // UpdateItemTotal(ByVal ProdID As Integer, ByVal Notes As String, ByVal Price As String, ByVal DesiredQty As String)
 
                 function whatsinmycart() {
                     $("#CartReviewTable").empty();
@@ -379,14 +371,11 @@
                                 return;
                             }
 
-
                             $("#CartReviewTable").empty();
                             var theader = " <tr><th>Product</th><th>Quantity</th><th>Price</th><th></th><th></th></tr>"
                             $(theader).appendTo("#CartReviewTable");
 
                             $.each(result, function (index, item) {
-
-                                
 
                                 var content = " <tr data-lastqty=" + item.Qty + " id=" + item.ItemName + "><td><h4 style='font-family:arial'><b>" + item.ItemName + "  " + item.Notes + "</b></h4></td> " +
                                            " <td style='padding-top:15px'><input style='max-width:50px' value=" + item.Qty + " class='form-control inputqty' /></td> " +
@@ -412,7 +401,6 @@
                 }
 
 
-
                 $("#CartReviewTable").delegate('.updateitem', "click", function () {
                     $("#lblMsg").text("");
                    // alert($(".inputqty").val());
@@ -430,14 +418,11 @@
                     var prod = $(this).attr('data-productid');
                     var notes = $(this).attr('data-notes');
 
-
                     updateTotal(prod, notes, desiredqty);
                     whatsinmycart();
                     getCartTotal();
                     getCartCount();
                    
-                   
-
                 })
 
                 $("#CartReviewTable").delegate('.removeitem', "click", function () {
@@ -446,7 +431,6 @@
                     var notes = $(this).attr('data-notes');
                     var qty = $(this).attr('data-qty');
                     var price = $(this).attr('data-price');
-
 
                     $.ajax({
                         type: "POST",
@@ -473,7 +457,6 @@
 
 
                 function getCartCount() {
-
                     $.ajax({
                         type: "POST",
                         url: "Engine.asmx/GetCartCount",
@@ -540,9 +523,7 @@
                             var subttl = parseFloat($("#subtotal").text());
                             var shipttl = parseFloat($("#shippingprice").text());
                             var discount = parseFloat($("#discount").text());
-                          //  var tax = parseFloat($("#taxprice").text)
-
-
+                            // var tax = parseFloat($("#taxprice").text)
                             var ttl = (subttl + result + shipttl) - discount;
                             alert(ttl);
 
@@ -596,6 +577,7 @@
                 $(".smoothScroll").click(function () {
                     $(this).css("background-color", "transparent");
                 })
+
 
         })
     </script>
