@@ -659,6 +659,8 @@ Public Class Engine
         End If
 
         Try
+
+
             Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
             Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
             Dim response = gate.Send(Request)
@@ -681,11 +683,12 @@ Public Class Engine
                     Case Else
                         Return "We're sorry, but your card could not be processed. Please try again, or contact support."
                 End Select
-                
+
             Else
                 UpdateInventory()
                 CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
-                'SendConfirmationEmails()
+                SendConfirmationEmails()
+                ClearShoppingCart()
             End If
 
             'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
@@ -727,6 +730,24 @@ Public Class Engine
         End Try
 
 
+    End Function
+
+    <WebMethod(True)> _
+    Public Function SendConfirmationEmails()
+        Return ""
+    End Function
+
+    <WebMethod(True)> _
+    Public Function ClearShoppingCart()
+
+        Dim myShoppingCart As List(Of ShoppingCart) = Session("Cart")
+        myShoppingCart.Clear()
+        Session("Cart") = myShoppingCart
+
+        Dim newshoppingCart As New List(Of ShoppingCart)
+        newshoppingCart = Session("Cart")
+
+        Return ""
     End Function
 
 
