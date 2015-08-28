@@ -132,7 +132,9 @@
     <Content Include="images\facebook-icon-brown.png" />
     <Content Include="images\IMG_9642.jpg" />
     <Content Include="images\IMG_9850.jpg" />
-    <Content Include="images\IMG_9868.jpg" />
+    <Content Include="images\certs\IMG_9868.jpg" />
+    <Content Include="images\certs\IMG_9877.jpg" />
+    <Content Include="images\IMG_9889.jpg" />
     <Content Include="images\IMG_9918.jpg" />
     <Content Include="images\IMG_9927.jpg" />
     <Content Include="images\IPCPR.png" />
