@@ -403,7 +403,7 @@
 
                 $("#CartReviewTable").delegate('.updateitem', "click", function () {
                     $("#lblMsg").text("");
-                   // alert($(".inputqty").val());
+                 
                     var disc = $(this).closest('tr');
                     var valz = disc.find('.inputqty')
                     var desiredqty = valz.val();
@@ -525,7 +525,7 @@
                             var discount = parseFloat($("#discount").text());
                             // var tax = parseFloat($("#taxprice").text)
                             var ttl = (subttl + result + shipttl) - discount;
-                            alert(ttl);
+                           // alert(ttl);
 
                             var numb = parseFloat(ttl)
                             $("#total").text(numb.toFixed(2));

@@ -677,8 +677,20 @@
 
             $("#btnAddToCart").click(function () {
 
-                
+                $("#lbladdtocartmsg").text("");
                 var qty = parseInt($("#Qty").val());
+
+                if (qty == 0) {
+                    $("#lbladdtocartmsg").text("Invalid quantity.");
+                    return;
+                }
+                if (isNaN(qty)) {
+                    $("#lbladdtocartmsg").text("No quantity has been specified.");
+                    return;
+                }
+                
+   
+
                 var ttl = $("#Total").text();
                 // var itemdesc = $("#cBrand").text() + ' ' + $("#cName").text() + ' ' + $("#cLength").text() + 'x' + $("#cRing").text();
 

@@ -699,6 +699,20 @@
                 var ttl = $("#Total").text();
                 // var itemdesc = $("#cBrand").text() + ' ' + $("#cName").text() + ' ' + $("#cLength").text() + 'x' + $("#cRing").text();
 
+
+                $("#lbladdtocartmsg").text("");
+
+
+                if (qty == 0) {
+                    $("#lbladdtocartmsg").text("Invalid quantity.");
+                    return;
+                }
+                if (isNaN(qty)) {
+                    $("#lbladdtocartmsg").text("No quantity has been specified.");
+                    return;
+                }
+
+
                 $.ajax({
                     type: "POST",
                     url: "Engine.asmx/AddToCart",

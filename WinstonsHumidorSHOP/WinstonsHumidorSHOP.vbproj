@@ -107,6 +107,7 @@
     <Content Include="css\owl-carousel\owl.carousel.css" />
     <Content Include="css\owl-carousel\owl.carousel.min.js" />
     <Content Include="css\style.css" />
+    <Content Include="email_OrderConfirmation.html" />
     <Content Include="Engine.asmx" />
     <Content Include="Events.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />

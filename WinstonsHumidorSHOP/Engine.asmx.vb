@@ -6,7 +6,17 @@ Imports MailChimp
 Imports AuthorizeNet
 Imports System.Security
 Imports System.Security.Cryptography
-
+Imports System.IO.MemoryStream
+Imports System.Threading.Tasks
+Imports System.IO
+Imports System.Text
+Imports System.Net.Mail
+Imports System.Net.Mail.SmtpClient
+Imports System.Net.Mail.SmtpDeliveryFormat
+Imports System.Net.Mail.SmtpDeliveryMethod
+Imports System.Net.Mail.SmtpAccess
+Imports System.Net.Mail.SmtpPermission
+Imports System.Net.Mail.MailAddress
 
 
 ' To allow this Web Service to be called from script, using ASP.NET AJAX, uncomment the following line.
@@ -178,8 +188,6 @@ Public Class Engine
 
     <WebMethod()> _
     Public Function GetCigarCounts(ByVal ProductId As Integer)
-
-
 
         Dim cigar As New Cigar
         Dim CigarList As New List(Of Cigar)
@@ -661,7 +669,7 @@ Public Class Engine
         Try
 
 
-            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
+            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order", True)
             Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
             Dim response = gate.Send(Request)
             Dim ResponseCode As String = response.ResponseCode
@@ -670,6 +678,8 @@ Public Class Engine
                 Select Case response.ResponseCode
                     Case "2"
                         Return "We're sorry, but your card could not be processed. Please try again, or contact support."
+                    Case "3"
+                        Return "A valid credit card is required."
                     Case "6"
                         Return "The card number entered is invalid. Please try again, or contact support."
                     Case "7"
@@ -687,7 +697,7 @@ Public Class Engine
             Else
                 UpdateInventory()
                 CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
-                SendConfirmationEmails()
+                SendConfirmationEmails(FirstName, LastName, Street & " " & City & " " & State & " " & Zipcode, Email, _grandtotal)
                 ClearShoppingCart()
             End If
 
@@ -733,7 +743,69 @@ Public Class Engine
     End Function
 
     <WebMethod(True)> _
-    Public Function SendConfirmationEmails()
+    Public Function SendConfirmationEmails(ByVal FirstName As String, ByVal LastName As String, ByVal Address As String, ByVal Email As String, ByVal GrandTotal As Decimal)
+
+
+        'Get OrderSummary
+        Dim CartHTML As String = String.Empty
+
+
+        Dim InMyCart As New List(Of ShoppingCart)
+        InMyCart = GoToCart()
+
+        For i As Integer = 0 To InMyCart.Count - 1
+
+            Dim ItemHTML As String = String.Empty
+            Dim sc As New ShoppingCart
+            Dim ProductID As Integer = InMyCart(i).ProductID
+            Dim Qty As Integer = InMyCart(i).Qty
+            Dim Notes As String = InMyCart(i).Notes
+            Dim Price As Decimal = InMyCart(i).Price
+            Dim DisplayName As String = InMyCart(i).ItemName
+            Dim Category As String = InMyCart(i).Category
+            '  Dim Item As String = GetItemDetails(ProductID)
+            sc.ProductID = ProductID
+            sc.Qty = Qty
+            sc.ItemName = DisplayName
+            sc.Category = Category
+            sc.Notes = Notes
+            sc.Price = Math.Round(Price, 2)
+
+            ItemHTML = "<h4> Qty:" & Qty & " Item:" & DisplayName & " " & Notes & " Item Price:" & Price & "</h4>"
+            CartHTML = CartHTML & " " & ItemHTML
+
+        Next
+
+        Dim smtpserver As New SmtpClient()
+        smtpserver.Credentials = New Net.NetworkCredential("christian@brewrocket.io", "WebD00D91") 'HASH FOR LATER
+        smtpserver.Port = 587
+        smtpserver.Host = "mail.oak.arvixe.com"
+        smtpserver.EnableSsl = False
+
+        Dim EmailBody As String = String.Empty
+        Dim reader As StreamReader = New StreamReader(HttpContext.Current.Server.MapPath("~/email_OrderConfirmation.html"))
+
+        'TO DO: Create HTML email for ForgotPassword.html 
+        EmailBody = reader.ReadToEnd
+        EmailBody = EmailBody.Replace("{oName}", FirstName & " " & LastName)
+        EmailBody = EmailBody.Replace("{oDate}", Date.Now.ToString("mm/dd/yyyy"))
+        EmailBody = EmailBody.Replace("{OrderList}", CartHTML)
+        EmailBody = EmailBody.Replace("{OrderTotal}", GrandTotal)
+        EmailBody = EmailBody.Replace("{ShippingAddress}", Address)
+        Dim Emailr = New MailMessage()
+        Try
+            Emailr.From = New MailAddress("sales@WinstonsHumidor.com", "Winston's Humidor", System.Text.Encoding.UTF8)
+            Emailr.To.Add(Email)
+            Emailr.Bcc.Add("sales@WinstonsHumidor.com")
+            Emailr.Subject = "Order Summary"
+            Emailr.Body = EmailBody
+            Emailr.IsBodyHtml = True
+            smtpserver.Send(Emailr)
+
+        Catch ex As Exception
+
+        End Try
+
         Return ""
     End Function
 
