@@ -99,6 +99,7 @@
     <Content Include="Checkout_1.html" />
     <Content Include="Cigars.html" />
     <Content Include="Coffee.html" />
+    <Content Include="ComingSoon.html" />
     <Content Include="css\bootstrap.min.css" />
     <Content Include="css\font-awesome.min.css" />
     <Content Include="css\main.css" />

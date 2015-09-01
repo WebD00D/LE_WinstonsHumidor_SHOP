@@ -65,6 +65,8 @@ Public Class Engine
         Public Brand As String
         Public Price As String
         Public IsFeatured As String
+        Public IsOnSale As String
+        Public SalePrice As String
     End Class
 
     Public Class Apparel
@@ -411,7 +413,7 @@ Public Class Engine
 
                     Dim OldAccessoryQty As Integer = GetAccessoryCounts(cartItem.ProductID)
                     Dim NewAccessoryQty As Integer = OldAccessoryQty - cartItem.Qty
-                    cmdtext = "UPDATE Acccessories SET Qty = " & NewAccessoryQty & " WHERE ProductID = " & cartItem.ProductID
+                    cmdtext = "UPDATE Accessories SET Qty = " & NewAccessoryQty & " WHERE ProductID = " & cartItem.ProductID
 
                 Case "Apparel"
                     Dim Apparel As List(Of Apparel) = GetApparelCounts(cartItem.ProductID)
@@ -771,15 +773,18 @@ Public Class Engine
             sc.Notes = Notes
             sc.Price = Math.Round(Price, 2)
 
-            ItemHTML = "<h4> Qty:" & Qty & " Item:" & DisplayName & " " & Notes & " Item Price:" & Price & "</h4>"
+            ItemHTML = " Qty:" & Qty & " Item:" & DisplayName & " " & Notes & " Item Price:" & Price & "<br />"
             CartHTML = CartHTML & " " & ItemHTML
 
         Next
 
+        'kevin@winstonshumidor.com
+        'nymets2009
+
         Dim smtpserver As New SmtpClient()
         smtpserver.Credentials = New Net.NetworkCredential("christian@brewrocket.io", "WebD00D91") 'HASH FOR LATER
-        smtpserver.Port = 587
-        smtpserver.Host = "mail.oak.arvixe.com"
+        smtpserver.Port = 587 '993 for gmail
+        smtpserver.Host = "mail.oak.arvixe.com" 'aspmx.l.google.com
         smtpserver.EnableSsl = False
 
         Dim EmailBody As String = String.Empty
@@ -790,7 +795,7 @@ Public Class Engine
         EmailBody = EmailBody.Replace("{oName}", FirstName & " " & LastName)
         EmailBody = EmailBody.Replace("{oDate}", Date.Now.ToString("mm/dd/yyyy"))
         EmailBody = EmailBody.Replace("{OrderList}", CartHTML)
-        EmailBody = EmailBody.Replace("{OrderTotal}", GrandTotal)
+        EmailBody = EmailBody.Replace("{OrderTotal}", "$" & GrandTotal)
         EmailBody = EmailBody.Replace("{ShippingAddress}", Address)
         Dim Emailr = New MailMessage()
         Try
@@ -1408,7 +1413,7 @@ Public Class Engine
         Dim dt As New DataTable
         Select Case Category
             Case "Accessory"
-                dt = FillFeaturedProductDetailsDT("SELECT Name,Price FROM Accessories WHERE ProductID =" & ProductID)
+                dt = FillFeaturedProductDetailsDT("SELECT Name,Price FROM Accessories WHERE ProductID =" & ProductID & " AND IsFeatured = 1")
                 Select Case oParam
                     Case "Name"
                         Return dt.Rows(0).Item("Name")
@@ -1641,7 +1646,7 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories")
+                dt = FillDataTable("SELECT * FROM Accessories WHERE IsFeatured = 1")
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()
@@ -1655,6 +1660,9 @@ Public Class Engine
                         A.ProductID = CStr(item("ProductID"))
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
+                        A.IsOnSale = item("IsOnSale")
+                        Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
+                        A.SalePrice = CStr(DecSalePrice)
                         A.IsFeatured = item("IsFeatured")
                         AccessoryList.Add(A)
                     Next
@@ -1832,6 +1840,9 @@ Public Class Engine
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
                         A.IsFeatured = item("IsFeatured")
+                        A.IsOnSale = item("IsOnSale")
+                        Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
+                        A.SalePrice = CStr(DecSalePrice)
                         AccessoryList.Add(A)
                     Next
                     Return AccessoryList
@@ -2029,6 +2040,9 @@ Public Class Engine
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
                         A.IsFeatured = item("IsFeatured")
+                        A.IsOnSale = item("IsOnSale")
+                        Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
+                        A.SalePrice = CStr(DecSalePrice)
                         AccessoryList.Add(A)
                     Next
                     Return AccessoryList
