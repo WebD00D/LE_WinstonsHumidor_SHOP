@@ -143,6 +143,9 @@
     </div>
 
 
+ 
+
+
     <section id="HomeMaster"></section>
 
     <!-----------------------------HEADER VIEWS START----------------------------------->
@@ -339,7 +342,7 @@
 
                 <li><a style="font-size:xx-large" class="orangetowhite" href="https://www.facebook.com/pages/Winstons-Humidor/125627294536?fref=ts"><i class="icon-facebook"></i></a></li>
                 <li><a style="font-size:xx-large" class="orangetowhite" href="#"><i class="icon-twitter"></i></a></li>
-                <li><a style="font-size:xx-large" class="orangetowhite" href="#"><i class="icon-instagram"></i></a></li>
+                <li><a data-toggle='modal' data-target='#instamodal' style="font-size:xx-large" class="orangetowhite" href="#"><i class="icon-instagram"></i></a></li>
                 <li></li>
             </ul>
             <br />
@@ -425,7 +428,27 @@
     </div>
 
 
+    <div class="modal fade" id="instamodal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
 
+                <div class="col-lg-12 text-center">
+                    <div id="instafeed" class="col-lg-12 text-center" style="padding:0px">
+
+
+                        
+                    </div>
+                    
+                        <a href="http://www.instagram.com" style="font-size:x-large" class="btn btn-lg btn-primary"><i class="icon-instagram"></i> <b>See more on Instagram</b> </a>
+                    
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-news" data-dismiss="modal"><i class="glyphicon glyphicon-remove"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -439,12 +462,31 @@
     <script src="js/main.js" type="text/javascript"></script>
     <script src="js/smoothscroll.js" type="text/javascript"></script>
     <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
-
+    <script src="js/instafeed.min.js" type="text/javascript"></script>
 
 
     <script>
 
         $(document).ready(function () {
+
+
+
+            $("#instafeed").empty();
+            var userFeed = new Instafeed({
+                get: 'tagged',
+                userId: 1962086059,
+                template: '   <a href="{{image}}" target="_blank" rel="group"  class="fancybox col-lg-4"><img style="margin-top:15px;margin-bottom:15px"  class="img-responsive center-block " src="{{image}}" /> </a> ',
+
+                accessToken: '1962086059.467ede5.fb2b10bc578d49929330a66aa04bb01e',
+                limit: 9,
+                sortBy: 'most-recent',
+                resolution: 'standard_resolution',
+                tagName: 'i2kfireplaces'
+
+            });
+            userFeed.run();
+
+
 
 
             $(function () {

@@ -153,6 +153,7 @@
     <Content Include="index.html" />
     <Content Include="Index_NEW.html" />
     <Content Include="js\bootstrap.min.js" />
+    <Content Include="js\instafeed.min.js" />
     <Content Include="js\jquery.min.js" />
     <Content Include="js\main.js" />
     <Content Include="js\smoothscroll.js" />
