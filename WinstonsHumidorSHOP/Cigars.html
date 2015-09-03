@@ -265,7 +265,10 @@
                                 <li><b>Description:</b> <span id="cDescription"></span></li>
                                 <li><b>Box Count:</b> <span id="cBoxCount"></span></li>
                                 <li><b>Box Price:</b> $<span id="cBoxPrice"></span></li>
+                                <li id="liBoxSalePrice"><b>Box Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cBoxSalePrice"></span></b></li>
                                 <li><b>Single Price:</b> $<span id="cSinglePrice"></span></li>
+                                <li id="liSingleSalePrice"><b>Single Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSingleSalePrice"></span></b></li>
+                                
                             </ul>
                         </div>
                         <div class="col-lg-6">
@@ -391,9 +394,9 @@
 
                         var content = "  <div class='text-center featuredprod cigar single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Cigars);padding-top:55%;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12 text-center' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                   "  <a href='#' class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span>" +
+                   "  <a href='#' class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span>" +
       "  <ul class='list-inline text-center' style='padding-right:0px;margin-top:10px'> " +
-      "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px;'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+      "  <li><a class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px;'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -471,9 +474,9 @@
 
                                 var content = "  <div class='col-lg-3 text-center featuredprod cigar' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Cigars);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
                      "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                     "  <a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
+                     "  <a class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
                      "  <ul class='list-inline' style='margin-top:10px'> " +
-                     "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+                     "  <li><a class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
                      "  </ul>     " +
                      "  </div>    " +
                      "  </div>    "
@@ -533,9 +536,9 @@
 
                         var content = "  <div class='col-lg-3 text-center featuredprod cigar ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Cigars);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                          " <a href='#' class='text-center' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>!" + item.Brand + ' ' + item.Name + "</span></a>" +
+                          " <a href='#' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' class='text-center' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>!" + item.Brand + ' ' + item.Name + "</span></a>" +
              "  <ul class='list-inline'> " +
-             "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+             "  <li><a class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -596,9 +599,9 @@
 
                         var content = "  <div class='col-lg-3 text-center featuredprod cigar' style='background-image:url(ImageHandler.ashx?id="+ item.ProductID +"&category=Cigars);padding-top:218px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px'>  " +
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-             "  <a href='#' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + "  data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
+             "  <a href='#' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + "  data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
              "  <ul class='list-inline' style='margin-top:10px'> " +
-             "  <li><a class='cigarz' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+             "  <li><a class='cigarz' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -633,20 +636,53 @@
             var _Option; //for box or single
             var _DisplayName;
             var _BaseUnitPrice;
-            //C. = item("IsBoxSaleOnly")
-            //C.IsSingleSaleOnly = item("IsSingleSaleOnly")
-            //C.IsFeatured = item("IsFeatured")
-            //C.Body = item("Body")
-
-            //$("#NewsandEventsLoadr").delegate(".titlezz", "click", function () {
-                
-            //    $("#NewsandEventsLoadr").delegate(".cigarz", "click");
-            //})
             
           
             $("#NewsandEventsLoadr").delegate(".cigarz", "click", function (e) {
-           
+   
                 $("#lbladdtocartmsg").text("");
+                $("#liSingleSalePrice").hide();
+                $("#liBoxSalePrice").hide();
+                $("#Qty").val("");
+
+                if ($(this).attr('data-boxisonsale') == 'True') {
+                    $("#liBoxSalePrice").show();
+                    _BoxPrice = $(this).attr('data-boxsaleprice');
+                    $("#cBoxSalePrice").text(_BoxPrice)
+                    $("#cBoxPrice").text($(this).attr('data-boxPrice'))
+                    $("#cBoxPrice").css("text-decoration", "line-through")
+                }
+                if ($(this).attr('data-boxisonsale') == 'False') {
+
+                    _BoxPrice = $(this).attr('data-boxPrice');
+                    $("#cBoxPrice").css("text-decoration", "none")
+                    $("#cBoxPrice").text($(this).attr('data-boxPrice'))
+                    $("#liBoxSalePrice").hide();
+                }
+
+
+               // alert($(this).attr('data-singleisonsale'));
+                // alert();
+
+                if ($(this).attr('data-singleisonsale') == 'True') {
+                    $("#liSingleSalePrice").show();
+                    _SinglePrice = $(this).attr('data-singlesaleprice');
+                    $("#cSingleSalePrice").text(_SinglePrice)
+                    var singleprice = $(this).attr('data-SinglePrice')
+                    $("#cSinglePrice").text(singleprice)
+                    $("#cSinglePrice").css("text-decoration", "line-through")
+
+                }
+                
+                if ($(this).attr('data-singleisonsale') == 'False') {
+                    _SinglePrice = $(this).attr('data-SinglePrice');
+                    $("#cSinglePrice").css("text-decoration", "none")
+                    $("#cSinglePrice").text($(this).attr('data-SinglePrice'))
+                    $("#liSingleSalePrice").hide();
+                }
+
+               
+ 
                 _ProductViewing = $(this).attr('data-prodid');
                 var ProductID = $(this).attr('data-prodid');
                 var Brand = $(this).attr('data-brand');
@@ -657,10 +693,10 @@
                 var Body = $(this).attr('data-body');
                 var Description = $(this).attr('data-description');
                 var SKU = $(this).attr('data-SKU');
-                var SinglePrice = $(this).attr('data-SinglePrice');
-                _SinglePrice = $(this).attr('data-SinglePrice');
-                var BoxPrice = $(this).attr('data-boxPrice');
-                _BoxPrice = $(this).attr('data-boxPrice');
+               // var SinglePrice = $(this).attr('data-SinglePrice');
+               // _SinglePrice = $(this).attr('data-SinglePrice');
+               // var BoxPrice = $(this).attr('data-boxPrice');
+               // _BoxPrice = $(this).attr('data-boxPrice');
                 var BoxCount = $(this).attr('data-boxCount');
                 _BoxCount = $(this).attr('data-boxCount');
                 var BoxQty = $(this).attr('data-boxQty');
@@ -699,8 +735,8 @@
                     $("#ckSingles").attr('disabled', false);
                     $("#ckBoxes").prop('checked', false);
                     $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text(BoxPrice);
+                   //$("#cSinglePrice").text(_SinglePrice);
+                   // $("#cBoxPrice").text(_BoxPrice);
                     $("#cBoxCount").text(BoxCount);
                 }
 
@@ -710,7 +746,7 @@
                     $("#ckSingles").attr('disabled', false);
                     $("#ckBoxes").prop('checked', false);
                     $("#ckBoxes").attr('disabled', true);
-                    $("#cSinglePrice").text(SinglePrice);
+                    //$("#cSinglePrice").text(_SinglePrice);
                     $("#cBoxPrice").text("N/A");
                     $("#cBoxCount").text("N/A");
                    
@@ -723,7 +759,7 @@
                     $("#ckBoxes").prop('checked', true);
                     $("#ckBoxes").attr('disabled', false);
                     $("#cSinglePrice").text("N/A");
-                    $("#cBoxPrice").text(BoxPrice);
+                    //$("#cBoxPrice").text(_BoxPrice);
                     $("#cBoxCount").text(BoxCount);
                 }
              
@@ -733,6 +769,48 @@
             $("#CigarLoader").delegate(".cigarz", "click", function (e) {
 
                 $("#lbladdtocartmsg").text("");
+                $("#liSingleSalePrice").hide();
+                $("#liBoxSalePrice").hide();
+                $("#Qty").val("");
+
+                if ($(this).attr('data-boxisonsale') == 'True') {
+                    $("#liBoxSalePrice").show();
+                    _BoxPrice = $(this).attr('data-boxsaleprice');
+                    $("#cBoxSalePrice").text(_BoxPrice)
+                    $("#cBoxPrice").text($(this).attr('data-boxPrice'))
+                    $("#cBoxPrice").css("text-decoration", "line-through")
+                }
+                if ($(this).attr('data-boxisonsale') == 'False') {
+
+                    _BoxPrice = $(this).attr('data-boxPrice');
+                    $("#cBoxPrice").css("text-decoration", "none")
+                    $("#cBoxPrice").text($(this).attr('data-boxPrice'))
+                    $("#liBoxSalePrice").hide();
+                }
+
+
+                // alert($(this).attr('data-singleisonsale'));
+                // alert();
+
+                if ($(this).attr('data-singleisonsale') == 'True') {
+                    $("#liSingleSalePrice").show();
+                    _SinglePrice = $(this).attr('data-singlesaleprice');
+                    $("#cSingleSalePrice").text(_SinglePrice)
+                    var singleprice = $(this).attr('data-SinglePrice')
+                    $("#cSinglePrice").text(singleprice)
+                    $("#cSinglePrice").css("text-decoration", "line-through")
+
+                }
+
+                if ($(this).attr('data-singleisonsale') == 'False') {
+                    _SinglePrice = $(this).attr('data-SinglePrice');
+                    $("#cSinglePrice").css("text-decoration", "none")
+                    $("#cSinglePrice").text($(this).attr('data-SinglePrice'))
+                    $("#liSingleSalePrice").hide();
+                }
+
+
+
                 _ProductViewing = $(this).attr('data-prodid');
                 var ProductID = $(this).attr('data-prodid');
                 var Brand = $(this).attr('data-brand');
@@ -743,10 +821,10 @@
                 var Body = $(this).attr('data-body');
                 var Description = $(this).attr('data-description');
                 var SKU = $(this).attr('data-SKU');
-                var SinglePrice = $(this).attr('data-SinglePrice');
-                _SinglePrice = $(this).attr('data-SinglePrice');
-                var BoxPrice = $(this).attr('data-boxPrice');
-                _BoxPrice = $(this).attr('data-boxPrice');
+                // var SinglePrice = $(this).attr('data-SinglePrice');
+                // _SinglePrice = $(this).attr('data-SinglePrice');
+                // var BoxPrice = $(this).attr('data-boxPrice');
+                // _BoxPrice = $(this).attr('data-boxPrice');
                 var BoxCount = $(this).attr('data-boxCount');
                 _BoxCount = $(this).attr('data-boxCount');
                 var BoxQty = $(this).attr('data-boxQty');
@@ -757,14 +835,17 @@
                 _BoxOnly = $(this).attr('data-boxonly');
                 var IsSingleSaleOnly = $(this).attr('data-singleonly');
                 _SingleOnly = $(this).attr('data-singleonly');
-               
+
+
+
                 $("#cBrand").text(Brand);
                 $("#cName").text(Name);
                 $("#cLength").text(Length);
                 $("#cRing").text(Ring);
                 $("#cBody").text(Body);
                 $("#cDescription").text(Description);
-              
+
+
 
 
                 $("#prodimgholder").empty();
@@ -774,7 +855,7 @@
 
                 $("#QtyMsg").hide();
                 $("#Total").text('$' + Total);
-                
+
 
                 if (IsSingleSaleOnly == 'False' && IsBoxSaleOnly == 'False') {
 
@@ -782,8 +863,8 @@
                     $("#ckSingles").attr('disabled', false);
                     $("#ckBoxes").prop('checked', false);
                     $("#ckBoxes").attr('disabled', false);
-                    $("#cSinglePrice").text(SinglePrice);
-                    $("#cBoxPrice").text(BoxPrice);
+                    //$("#cSinglePrice").text(_SinglePrice);
+                    // $("#cBoxPrice").text(_BoxPrice);
                     $("#cBoxCount").text(BoxCount);
                 }
 
@@ -793,10 +874,10 @@
                     $("#ckSingles").attr('disabled', false);
                     $("#ckBoxes").prop('checked', false);
                     $("#ckBoxes").attr('disabled', true);
-                    $("#cSinglePrice").text(SinglePrice);
+                    //$("#cSinglePrice").text(_SinglePrice);
                     $("#cBoxPrice").text("N/A");
                     $("#cBoxCount").text("N/A");
-                   
+
                 }
 
                 if (IsBoxSaleOnly == 'True' && IsSingleSaleOnly == 'False') {
@@ -806,7 +887,7 @@
                     $("#ckBoxes").prop('checked', true);
                     $("#ckBoxes").attr('disabled', false);
                     $("#cSinglePrice").text("N/A");
-                    $("#cBoxPrice").text(BoxPrice);
+                    //$("#cBoxPrice").text(_BoxPrice);
                     $("#cBoxCount").text(BoxCount);
                 }
              

@@ -164,6 +164,7 @@
     <Content Include="ProductDetails.html" />
     <Content Include="ReviewOrder.html" />
     <Content Include="ShippingAndPayment.html" />
+    <Content Include="SoonToBeIndex.html" />
     <Content Include="TestPage.html" />
     <Content Include="css\Type\chiseb.svg" />
     <Content Include="css\Type\chiser.svg" />
@@ -228,7 +229,7 @@
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
     </None>
-    <None Include="My Project\PublishProfiles\beta.rvawebdood.com - Web Deploy.pubxml" />
+    <None Include="My Project\PublishProfiles\winstonshumidor.com - Web Deploy.pubxml" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <CustomToolNamespace>My</CustomToolNamespace>

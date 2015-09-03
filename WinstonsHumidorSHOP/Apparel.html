@@ -269,7 +269,7 @@
                                 <li><b>Name: </b> <span id="cName"></span></li>
                                 <li><b>Description:</b><span id="cDescription"></span></li>
                                 <li><b>Price :</b> $<span id="cPrice"></span></li>
-
+                                <li id="liSalePrice"><b>Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSalePrice"></span></b></li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
@@ -405,9 +405,9 @@
 
                         var content = "  <div class='text-center featuredprod apparel single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Apparel);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                   "  <a data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
+                   "  <a data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
       "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-      "  <li><a class='accessoriez' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+      "  <li><a class='accessoriez' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -489,9 +489,9 @@
 
                             var content = "  <div class='text-center featuredprod apparel col-lg-3 ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Apparel);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
      "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                  "  <a href='#' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
+                  "  <a href='#' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
      "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-     "  <li><a class='accessoriez' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+     "  <li><a class='accessoriez' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
      "  </ul>     " +
      "  </div>    " +
      "  </div>    "
@@ -556,9 +556,9 @@
 
                         var content = "  <div class='text-center featuredprod apparel col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Apparel);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                   "  <a href='#' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
+                   "  <a href='#' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center accessoriez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Name + "</span></a>" +
       "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-      "  <li><a class='accessoriez' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+      "  <li><a class='accessoriez' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-xxxl=" + item.XXXL + "  data-xxl=" + item.XXL + " data-xl=" + item.XL + "  data-lg=" + item.LG + " data-md=" + item.MD + "  data-sm=" + item.SM + "  data-xs=" + item.XS + "  data-productid=" + item.ProductID + "  data-price='" + item.Price + "' data-SKU='" + item.SKU + "' data-name='" + item.Name + "' data-description='" + item.Description + "' href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -598,12 +598,30 @@
                 $("#SizeSelect option:selected").val("-1");
                 $("#Qty").val("");
                 $("#lbladdtocartmsg").text("");
+                $("#liSalePrice").hide();
                 _ProductViewing = $(this).attr('data-productid');
                 _Name = $(this).attr('data-name');
                 _DisplayName = _Name;
 
-               
-                _Price = $(this).attr('data-price');
+
+
+                if ($(this).attr('data-isonsale') == 'True') {
+                    $("#liSalePrice").show();
+                    _Price = $(this).attr('data-saleprice');
+                    $("#cSalePrice").text(_Price)
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#cPrice").css("text-decoration", "line-through")
+
+                }
+                if ($(this).attr('data-isonsale') == 'False') {
+
+                    _Price = $(this).attr('data-price');
+                    $("#cPrice").css("text-decoration", "none")
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#liSalePrice").hide();
+                }
+
+                //_Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
           
                 _XS = $(this).attr('data-xs');
@@ -613,13 +631,10 @@
                 _XL = $(this).attr('data-xl');
                 _XXL = $(this).attr('data-xxl');
                 _XXXL = $(this).attr('data-xxxl');
-
-               
                 $("#cName").text(_Name);
-
                 $("#cDescription").text(_Description);
 
-                $("#cPrice").text(_Price);
+               // $("#cPrice").text(_Price);
 
 
                 $("#prodimgholder").empty();
@@ -637,14 +652,31 @@
 
                 $("#SizeSelect option:selected").val("-1");
                 $("#Qty").val("");
-
                 $("#lbladdtocartmsg").text("");
+                $("#liSalePrice").hide();
                 _ProductViewing = $(this).attr('data-productid');
                 _Name = $(this).attr('data-name');
                 _DisplayName = _Name;
 
-               
-                _Price = $(this).attr('data-price');
+
+
+                if ($(this).attr('data-isonsale') == 'True') {
+                    $("#liSalePrice").show();
+                    _Price = $(this).attr('data-saleprice');
+                    $("#cSalePrice").text(_Price)
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#cPrice").css("text-decoration", "line-through")
+
+                }
+                if ($(this).attr('data-isonsale') == 'False') {
+
+                    _Price = $(this).attr('data-price');
+                    $("#cPrice").css("text-decoration", "none")
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#liSalePrice").hide();
+                }
+
+                //_Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
 
                 _XS = $(this).attr('data-xs');
@@ -654,15 +686,10 @@
                 _XL = $(this).attr('data-xl');
                 _XXL = $(this).attr('data-xxl');
                 _XXXL = $(this).attr('data-xxxl');
-
-             
-
-
                 $("#cName").text(_Name);
-
                 $("#cDescription").text(_Description);
 
-                $("#cPrice").text(_Price);
+                // $("#cPrice").text(_Price);
 
 
                 $("#prodimgholder").empty();
@@ -672,6 +699,7 @@
 
                 $("#QtyMsg").hide();
                 $("#Total").text('$' + Total);
+
 
             })
 

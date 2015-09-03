@@ -271,7 +271,7 @@
                                 <li><b>Body:</b><span id="cBody"></span></li>
                                 <li><b>Description:</b><span id="cDescription"></span></li>
                                 <li><b>Price :</b> $<span id="cPrice"></span></li>
-
+                                <li id="liSalePrice"><b>Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSalePrice"></span></b></li>
                             </ul>
                         </div>
                         <div class="col-lg-6">
@@ -396,9 +396,9 @@
 
                         var content = "  <div class='text-center featuredprod coffee single-partner ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Coffee);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
       "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                   "  <a  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
+                   "  <a data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "'  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
       "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-      "  <li><a class='coffeez' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+      "  <li><a data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' class='coffeez' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -476,9 +476,9 @@
 
                             var content = "  <div class='text-center featuredprod coffee col-lg-3 ' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Coffee);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                          "  <a href='#'  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
+                          "  <a data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' href='#'  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
              "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-             "  <li><a class='coffeez' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+             "  <li><a data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' class='coffeez' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -543,9 +543,9 @@
 
                         var content = "  <div class='text-center featuredprod coffee col-lg-3' style='background-image:url(ImageHandler.ashx?id=" + item.ProductID + "&category=Coffee);padding-top:253.2px;background-size:cover;background-repeat:no-repeat;background-position:center;padding-left:0px;padding-right:0px;margin:0px'>  " +
            "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
-                        "  <a href='#'  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
+                        "  <a href='#' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "'  data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center coffeez' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + ' ' + item.Name + "</span></a>" +
            "  <ul class='list-inline' style='padding-right:0px;margin-top:10px'> " +
-           "  <li><a class='coffeez' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+           "  <li><a class='coffeez' data-isonsale='" + item.IsOnSale + "' data-saleprice='" + item.SalePrice + "' data-coffeeid=" + item.CoffeeID + " data-sku='" + item.SKU + "' data-body='" + item.Body + "' data-roast='" + item.Roast + "' data-qty=" + item.Qty + " data-price='" + item.Price + "' data-description='" + item.Description + "'  data-name='" + item.Name + "' data-brand='" + item.Brand + "'  data-productid=" + item.ProductID + "  href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
            "  </ul>     " +
            "  </div>    " +
            "  </div>    "
@@ -590,20 +590,42 @@
 
             $("#NewsandEventsLoadr").delegate(".coffeez", "click", function (e) {
 
-
-
+                $("#Qty").val("");
                 $("#lbladdtocartmsg").text("");
+                $("#liSalePrice").hide();
+
+            
                 _ProductViewing = $(this).attr('data-productid');
                 _Brand = $(this).attr('data-brand');
                 _Name = $(this).attr('data-name');
                 _DisplayName = _Brand + ' ' + _Name;
                 _Roast = $(this).attr('data-roast');
                 _Body = $(this).attr('data-body');
-           
                 _Qty = $(this).attr('data-qty');
-                _Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
                 _Option = _Roast + ' ' + _Body;
+
+
+                // _Price = $(this).attr('data-price');
+
+
+
+                if ($(this).attr('data-isonsale') == 'True') {
+                    $("#liSalePrice").show();
+                    _Price = $(this).attr('data-saleprice');
+                    $("#cSalePrice").text(_Price)
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#cPrice").css("text-decoration", "line-through")
+
+                }
+                if ($(this).attr('data-isonsale') == 'False') {
+
+                    _Price = $(this).attr('data-price');
+                    $("#cPrice").css("text-decoration", "none")
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#liSalePrice").hide();
+                }
+
 
                 $("#cBrand").text(_Brand);
                 $("#cName").text(_Name);
@@ -613,7 +635,7 @@
 
                 $("#cDescription").text(_Description);
                 $("#cQty").text(_Qty);
-                $("#cPrice").text(_Price);
+               // $("#cPrice").text(_Price);
 
 
                 $("#prodimgholder").empty();
@@ -630,28 +652,52 @@
             $("#CigarLoader").delegate(".coffeez", "click", function (e) {
 
 
+                $("#Qty").val("");
                 $("#lbladdtocartmsg").text("");
+                $("#liSalePrice").hide();
+
+
                 _ProductViewing = $(this).attr('data-productid');
                 _Brand = $(this).attr('data-brand');
                 _Name = $(this).attr('data-name');
                 _DisplayName = _Brand + ' ' + _Name;
                 _Roast = $(this).attr('data-roast');
                 _Body = $(this).attr('data-body');
-
                 _Qty = $(this).attr('data-qty');
-                _Price = $(this).attr('data-price');
                 _Description = $(this).attr('data-description');
                 _Option = _Roast + ' ' + _Body;
+
+
+                // _Price = $(this).attr('data-price');
+
+
+
+                if ($(this).attr('data-isonsale') == 'True') {
+                    $("#liSalePrice").show();
+                    _Price = $(this).attr('data-saleprice');
+                    $("#cSalePrice").text(_Price)
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#cPrice").css("text-decoration", "line-through")
+
+                }
+                if ($(this).attr('data-isonsale') == 'False') {
+
+                    _Price = $(this).attr('data-price');
+                    $("#cPrice").css("text-decoration", "none")
+                    $("#cPrice").text($(this).attr('data-price'))
+                    $("#liSalePrice").hide();
+                }
+
 
                 $("#cBrand").text(_Brand);
                 $("#cName").text(_Name);
                 $("#cRoast").text(_Roast);
                 $("#cBody").text(_Body);
-             
+
 
                 $("#cDescription").text(_Description);
                 $("#cQty").text(_Qty);
-                $("#cPrice").text(_Price);
+                // $("#cPrice").text(_Price);
 
 
                 $("#prodimgholder").empty();
