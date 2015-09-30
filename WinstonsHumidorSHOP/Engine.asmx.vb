@@ -126,6 +126,8 @@ Public Class Engine
         Public SingleSalePrice As String
         Public BoxSalePrice As String
         Public Body As String
+        Public MaxBoxPurchase As String
+        Public MaxSinglePurchase As String
     End Class
 
     Public Class Pipe
@@ -681,8 +683,6 @@ Public Class Engine
         End If
 
         Try
-
-
             Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order", True)
             Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
             Dim response = gate.Send(Request)
@@ -711,6 +711,7 @@ Public Class Engine
             Else
                 UpdateInventory()
                 CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
+                UpdateDiscountMaxUsage()
                 SendConfirmationEmails(FirstName, LastName, Street & " " & City & " " & State & " " & Zipcode, Email, _grandtotal)
                 ClearShoppingCart()
             End If
@@ -785,7 +786,7 @@ Public Class Engine
             sc.Notes = Notes
             sc.Price = Math.Round(Price, 2)
 
-            ItemHTML = " Qty:" & Qty & " Item:" & DisplayName & " " & Notes & " Item Price:" & Price & "<br />"
+            ItemHTML = " Qty: " & Qty & " Item: " & DisplayName & " " & Notes & " Item Price: " & Price & "<br />"
             CartHTML = CartHTML & " " & ItemHTML
 
         Next
@@ -805,7 +806,7 @@ Public Class Engine
         'TO DO: Create HTML email for ForgotPassword.html 
         EmailBody = reader.ReadToEnd
         EmailBody = EmailBody.Replace("{oName}", FirstName & " " & LastName)
-        EmailBody = EmailBody.Replace("{oDate}", Date.Now.ToString("mm/dd/yyyy"))
+        EmailBody = EmailBody.Replace("{oDate}", Date.Today.ToString())
         EmailBody = EmailBody.Replace("{OrderList}", CartHTML)
         EmailBody = EmailBody.Replace("{OrderTotal}", "$" & GrandTotal)
         EmailBody = EmailBody.Replace("{ShippingAddress}", Address)
@@ -978,7 +979,25 @@ Public Class Engine
         Return ""
     End Function
 
-    <WebMethod()> _
+    <WebMethod(True)> _
+    Public Function UpdateDiscountMaxUsage()
+
+        If Not IsNothing(Session("DiscountCode")) Then
+            Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
+            Using cmd As SqlCommand = con.CreateCommand
+                cmd.Connection = con
+                cmd.Connection.Open()
+                cmd.CommandType = CommandType.Text
+                cmd.CommandText = "UPDATE Discounts SET MaxNbr = MaxNbr - 1 WHERE DiscountCode = '" & Session("DiscountCode") & "'"
+                cmd.ExecuteNonQuery()
+                cmd.Connection.Close()
+            End Using
+        End If
+
+        Return ""
+    End Function
+
+    <WebMethod(True)> _
     Public Function ApplyDiscount(ByVal DiscountCode As String)
         Dim con As New SqlConnection(ConfigurationManager.ConnectionStrings("connex").ConnectionString)
         Dim dt As New DataTable
@@ -986,7 +1005,8 @@ Public Class Engine
             cmd.Connection = con
             cmd.Connection.Open()
             cmd.CommandType = CommandType.Text
-            cmd.CommandText = "SELECT DiscountAmount FROM Configuration WHERE DiscountCode = '" & DiscountCode & "' AND DiscountCodeIsValid = 1"
+            ' UPDATE Discounts SET MAXNbr = MaxNbr - 1 WHERE DiscountID = 
+            cmd.CommandText = "SELECT DiscountID,DiscountCode,DiscountAmount,DiscountCodeIsValid,DiscountStarts,DiscountEnds,MaxNbr FROM Discounts WHERE DiscountCode = '" & DiscountCode & "'"
             Using da As New SqlDataAdapter
                 da.SelectCommand = cmd
                 da.Fill(dt)
@@ -997,7 +1017,31 @@ Public Class Engine
         If dt.Rows().Count = 0 Then
             Return 0
         Else
-            Return Math.Round(dt.Rows(0).Item("DiscountAmount"), 2)
+
+            'Validate If Code is invalid or not
+            If CBool(dt.Rows(0).Item("DiscountCodeIsValid")) = False Then
+                Return 0
+            End If
+
+            'Check if discount has started yet
+            Dim DiscountStartDate As Date = CDate(dt.Rows(0).Item("DiscountStarts"))
+            Dim DiscountEndDate As Date = CDate(dt.Rows(0).Item("DiscountEnds"))
+
+            If DiscountStartDate > Date.Today Then
+                Session("DiscountCode") = Nothing
+                Return 0
+            ElseIf DiscountEndDate < Date.Today Then
+                Session("DiscountCode") = Nothing
+                Return 0
+            ElseIf dt.Rows(0).Item("MaxNbr") <= 0 Then
+                Session("DiscountCode") = Nothing
+                Return 0
+            Else
+                Session("DiscountCode") = dt.Rows(0).Item("DiscountCode")
+                Return Math.Round(dt.Rows(0).Item("DiscountAmount"), 2)
+            End If
+
+
         End If
 
     End Function
@@ -1658,7 +1702,7 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories WHERE IsFeatured = 1")
+                dt = FillDataTable("SELECT * FROM Accessories WHERE IsFeatured = 1 AND ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()
@@ -1676,6 +1720,26 @@ Public Class Engine
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         A.IsFeatured = item("IsFeatured")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
+
                         AccessoryList.Add(A)
                     Next
                     Return AccessoryList
@@ -1684,7 +1748,7 @@ Public Class Engine
                 End If
 
             Case "Apparel"
-                dt = FillDataTable("SELECT * FROM Apparel WHERE IsFeatured = 1")
+                dt = FillDataTable("SELECT * FROM Apparel WHERE IsFeatured = 1 AND ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     ApparelList.Clear()
@@ -1704,7 +1768,25 @@ Public Class Engine
                         A.XXL = item("XXL_Qty")
                         A.XXXL = item("XXXL_Qty")
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         ApparelList.Add(A)
@@ -1715,7 +1797,7 @@ Public Class Engine
                 End If
 
             Case "Cigars"
-                dt = FillDataTable("SELECT * FROM Cigars WHERE IsFeatured = 1")
+                dt = FillDataTable("SELECT * FROM Cigars WHERE IsFeatured = 1 AND ShowInStore = 1")
 
                 If dt.Rows.Count > 0 Then
 
@@ -1739,12 +1821,49 @@ Public Class Engine
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
                         C.Body = item("Body")
-                        C.SingleIsOnSale = item("SingleIsOnSale")
-                        C.BoxIsOnSale = item("BoxIsOnSale")
+
+                        Dim SingleIsOnSale As Boolean = True
+                        If CBool(item("SingleIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SingleSaleStartDate As Date = CDate(item("SingleSaleStartDate"))
+                            Dim SingleSaleEndDate As Date = CDate(item("SingleSaleEndDate"))
+                            If SingleSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                SingleIsOnSale = False
+                            End If
+                            If SingleSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                SingleIsOnSale = False
+                            End If
+                        Else
+                            SingleIsOnSale = False
+                        End If
+                        C.SingleIsOnSale = SingleIsOnSale
+
+                        Dim BoxIsOnSale As Boolean = True
+                        If CBool(item("BoxIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim BoxSaleStartDate As Date = CDate(item("BoxSaleStartDate"))
+                            Dim BoxSaleEndDate As Date = CDate(item("BoxSaleEndDate"))
+                            If BoxSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                BoxIsOnSale = False
+                            End If
+                            If BoxSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                BoxIsOnSale = False
+                            End If
+                        Else
+                            BoxIsOnSale = False
+                        End If
+                        C.BoxIsOnSale = BoxIsOnSale
+
                         Dim DecSingleSalePrice As Decimal = Decimal.Round(item("SingleSalePrice"), 2)
                         Dim DecBoxSalePrice As Decimal = Decimal.Round(item("BoxSalePrice"), 2)
                         C.SingleSalePrice = CStr(DecSingleSalePrice)
                         C.BoxSalePrice = CStr(DecBoxSalePrice)
+                        C.MaxBoxPurchase = item("MaxBoxPurchaseAmount")
+                        C.MaxSinglePurchase = item("MaxSinglePurchaseAmount")
                         CigarList.Add(C)
                     Next
                     Return CigarList
@@ -1752,7 +1871,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "Coffee"
-                dt = FillDataTable("SELECT * FROM Coffee WHERE IsFeatured = 1")
+                dt = FillDataTable("SELECT * FROM Coffee WHERE IsFeatured = 1 AND ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     CoffeeList.Clear()
@@ -1769,7 +1888,25 @@ Public Class Engine
                         C.Roast = item("Roast")
                         C.Body = item("Body")
                         C.IsFeatured = item("IsFeatured")
-                        C.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        C.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         C.SalePrice = CStr(DecSalePrice)
                         CoffeeList.Add(C)
@@ -1780,7 +1917,7 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes WHERE IsFeatured = 1 ")
+                dt = FillDataTable("SELECT * FROM Pipes WHERE IsFeatured = 1 AND ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
@@ -1799,7 +1936,26 @@ Public Class Engine
                         P.BodyShape = item("BodyShape")
                         P.Material = item("Material")
                         P.IsFeatured = item("IsFeatured")
-                        P.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        P.IsOnSale = IsOnSale
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         P.SalePrice = CStr(DecSalePrice)
                         PipeList.Add(P)
@@ -1809,7 +1965,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "PipeTobacco"
-                dt = FillDataTable("SELECT * FROM PipeTobacco WHERE IsFeatured = 1")
+                dt = FillDataTable("SELECT * FROM PipeTobacco WHERE IsFeatured = 1 AND ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     PipeTobaccoList.Clear()
@@ -1827,7 +1983,27 @@ Public Class Engine
                         PT.Cut = item("Cut")
                         PT.Strength = item("Strength")
                         PT.IsFeatured = item("IsFeatured")
-                        PT.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        PT.IsOnSale = IsOnSale
+
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         PT.SalePrice = CStr(DecSalePrice)
                         PipeTobaccoList.Add(PT)
@@ -1851,9 +2027,9 @@ Public Class Engine
 
             Case "Accessory"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM Accessories")
+                    dt = FillDataTable("SELECT * FROM Accessories WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM Accessories WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM Accessories WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
                 If dt.Rows.Count > 0 Then
@@ -1870,7 +2046,27 @@ Public Class Engine
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
+
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         AccessoryList.Add(A)
@@ -1882,9 +2078,9 @@ Public Class Engine
 
             Case "Apparel"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM Apparel")
+                    dt = FillDataTable("SELECT * FROM Apparel WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM Apparel WHERE Name LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM Apparel WHERE Name LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
                 If dt.Rows.Count > 0 Then
@@ -1906,7 +2102,26 @@ Public Class Engine
                         A.XXL = item("XXL_Qty")
                         A.XXXL = item("XXXL_Qty")
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         ApparelList.Add(A)
@@ -1918,9 +2133,9 @@ Public Class Engine
 
             Case "Cigars"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM Cigars")
+                    dt = FillDataTable("SELECT * FROM Cigars WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM Cigars WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM Cigars WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
 
@@ -1946,12 +2161,49 @@ Public Class Engine
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
                         C.Body = item("Body")
-                        C.SingleIsOnSale = item("SingleIsOnSale")
-                        C.BoxIsOnSale = item("BoxIsOnSale")
+
+                        Dim SingleIsOnSale As Boolean = True
+                        If CBool(item("SingleIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SingleSaleStartDate As Date = CDate(item("SingleSaleStartDate"))
+                            Dim SingleSaleEndDate As Date = CDate(item("SingleSaleEndDate"))
+                            If SingleSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                SingleIsOnSale = False
+                            End If
+                            If SingleSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                SingleIsOnSale = False
+                            End If
+                        Else
+                            SingleIsOnSale = False
+                        End If
+                        C.SingleIsOnSale = SingleIsOnSale
+
+                        Dim BoxIsOnSale As Boolean = True
+                        If CBool(item("BoxIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim BoxSaleStartDate As Date = CDate(item("BoxSaleStartDate"))
+                            Dim BoxSaleEndDate As Date = CDate(item("BoxSaleEndDate"))
+                            If BoxSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                BoxIsOnSale = False
+                            End If
+                            If BoxSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                BoxIsOnSale = False
+                            End If
+                        Else
+                            BoxIsOnSale = False
+                        End If
+                        C.BoxIsOnSale = BoxIsOnSale
+
                         Dim DecSingleSalePrice As Decimal = Decimal.Round(item("SingleSalePrice"), 2)
                         Dim DecBoxSalePrice As Decimal = Decimal.Round(item("BoxSalePrice"), 2)
                         C.SingleSalePrice = CStr(DecSingleSalePrice)
                         C.BoxSalePrice = CStr(DecBoxSalePrice)
+                        C.MaxBoxPurchase = item("MaxBoxPurchaseAmount")
+                        C.MaxSinglePurchase = item("MaxSinglePurchaseAmount")
                         CigarList.Add(C)
                     Next
                     Return CigarList
@@ -1960,9 +2212,9 @@ Public Class Engine
                 End If
             Case "Coffee"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM Coffee")
+                    dt = FillDataTable("SELECT * FROM Coffee WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM Coffee WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Roast LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM Coffee WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR Roast LIKE '%" & SearchText & "%' OR Body LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
                 If dt.Rows.Count > 0 Then
@@ -1981,7 +2233,27 @@ Public Class Engine
                         C.Roast = item("Roast")
                         C.Body = item("Body")
                         C.IsFeatured = item("IsFeatured")
-                        C.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        C.IsOnSale = IsOnSale
+
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         C.SalePrice = CStr(DecSalePrice)
                         CoffeeList.Add(C)
@@ -1993,9 +2265,9 @@ Public Class Engine
 
             Case "Pipes"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM Pipes")
+                    dt = FillDataTable("SELECT * FROM Pipes WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM Pipes WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR StemShape LIKE '%" & SearchText & "%' OR BowlFinish LIKE '%" & SearchText & "%'  OR BodyShape LIKE '%" & SearchText & "%'  OR Material LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM Pipes WHERE Brand LIKE '%" & SearchText & "%' OR Name LIKE '%" & SearchText & "%' OR StemShape LIKE '%" & SearchText & "%' OR BowlFinish LIKE '%" & SearchText & "%'  OR BodyShape LIKE '%" & SearchText & "%'  OR Material LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
                 If dt.Rows.Count > 0 Then
@@ -2016,7 +2288,27 @@ Public Class Engine
                         P.BodyShape = item("BodyShape")
                         P.Material = item("Material")
                         P.IsFeatured = item("IsFeatured")
-                        P.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        P.IsOnSale = IsOnSale
+
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         P.SalePrice = CStr(DecSalePrice)
                         PipeList.Add(P)
@@ -2027,9 +2319,9 @@ Public Class Engine
                 End If
             Case "PipeTobacco"
                 If Trim(SearchText) = String.Empty Then
-                    dt = FillDataTable("SELECT * FROM PipeTobacco")
+                    dt = FillDataTable("SELECT * FROM PipeTobacco WHERE ShowInStore = 1")
                 Else
-                    dt = FillDataTable("SELECT * FROM PipeTobacco WHERE Brand LIKE '%" & SearchText & "%' OR Tobacco LIKE '%" & SearchText & "%' OR Style LIKE '%" & SearchText & "%' OR Cut LIKE '%" & SearchText & "%' OR Strength LIKE '%" & SearchText & "%'")
+                    dt = FillDataTable("SELECT * FROM PipeTobacco WHERE Brand LIKE '%" & SearchText & "%' OR Tobacco LIKE '%" & SearchText & "%' OR Style LIKE '%" & SearchText & "%' OR Cut LIKE '%" & SearchText & "%' OR Strength LIKE '%" & SearchText & "%' AND ShowInStore = 1")
                 End If
 
                 If dt.Rows.Count > 0 Then
@@ -2049,7 +2341,27 @@ Public Class Engine
                         PT.Cut = item("Cut")
                         PT.Strength = item("Strength")
                         PT.IsFeatured = item("IsFeatured")
-                        PT.IsOnSale = item("IsOnSale")
+
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        PT.IsOnSale = IsOnSale
+
+
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         PT.SalePrice = CStr(DecSalePrice)
                         PipeTobaccoList.Add(PT)
@@ -2073,7 +2385,7 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories")
+                dt = FillDataTable("SELECT * FROM Accessories WHERE ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()
@@ -2088,7 +2400,24 @@ Public Class Engine
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         AccessoryList.Add(A)
@@ -2099,7 +2428,7 @@ Public Class Engine
                 End If
 
             Case "Apparel"
-                dt = FillDataTable("SELECT * FROM Apparel")
+                dt = FillDataTable("SELECT * FROM Apparel WHERE ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     ApparelList.Clear()
@@ -2119,7 +2448,24 @@ Public Class Engine
                         A.XXL = item("XXL_Qty")
                         A.XXXL = item("XXXL_Qty")
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         ApparelList.Add(A)
@@ -2130,7 +2476,7 @@ Public Class Engine
                 End If
 
             Case "Cigars"
-                dt = FillDataTable("SELECT * FROM Cigars")
+                dt = FillDataTable("SELECT * FROM Cigars WHERE ShowInStore = 1")
 
                 If dt.Rows.Count > 0 Then
 
@@ -2154,12 +2500,49 @@ Public Class Engine
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
                         C.Body = item("Body")
-                        C.SingleIsOnSale = item("SingleIsOnSale")
-                        C.BoxIsOnSale = item("BoxIsOnSale")
+
+                        Dim SingleIsOnSale As Boolean = True
+                        If CBool(item("SingleIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SingleSaleStartDate As Date = CDate(item("SingleSaleStartDate"))
+                            Dim SingleSaleEndDate As Date = CDate(item("SingleSaleEndDate"))
+                            If SingleSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                SingleIsOnSale = False
+                            End If
+                            If SingleSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                SingleIsOnSale = False
+                            End If
+                        Else
+                            SingleIsOnSale = False
+                        End If
+                        C.SingleIsOnSale = SingleIsOnSale
+
+                        Dim BoxIsOnSale As Boolean = True
+                        If CBool(item("BoxIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim BoxSaleStartDate As Date = CDate(item("BoxSaleStartDate"))
+                            Dim BoxSaleEndDate As Date = CDate(item("BoxSaleEndDate"))
+                            If BoxSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                BoxIsOnSale = False
+                            End If
+                            If BoxSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                BoxIsOnSale = False
+                            End If
+                        Else
+                            BoxIsOnSale = False
+                        End If
+                        C.BoxIsOnSale = BoxIsOnSale
+
                         Dim DecSingleSalePrice As Decimal = Decimal.Round(item("SingleSalePrice"), 2)
                         Dim DecBoxSalePrice As Decimal = Decimal.Round(item("BoxSalePrice"), 2)
                         C.SingleSalePrice = CStr(DecSingleSalePrice)
                         C.BoxSalePrice = CStr(DecBoxSalePrice)
+                        C.MaxBoxPurchase = item("MaxBoxPurchaseAmount")
+                        C.MaxSinglePurchase = item("MaxSinglePurchaseAmount")
                         CigarList.Add(C)
                     Next
                     Return CigarList
@@ -2167,7 +2550,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "Coffee"
-                dt = FillDataTable("SELECT * FROM Coffee")
+                dt = FillDataTable("SELECT * FROM Coffee WHERE ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     CoffeeList.Clear()
@@ -2184,7 +2567,24 @@ Public Class Engine
                         C.Roast = item("Roast")
                         C.Body = item("Body")
                         C.IsFeatured = item("IsFeatured")
-                        C.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        C.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         C.SalePrice = CStr(DecSalePrice)
                         CoffeeList.Add(C)
@@ -2195,7 +2595,7 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes ")
+                dt = FillDataTable("SELECT * FROM Pipes WHERE ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
@@ -2214,7 +2614,24 @@ Public Class Engine
                         P.BodyShape = item("BodyShape")
                         P.Material = item("Material")
                         P.IsFeatured = item("IsFeatured")
-                        P.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        P.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         P.SalePrice = CStr(DecSalePrice)
                         PipeList.Add(P)
@@ -2224,7 +2641,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "PipeTobacco"
-                dt = FillDataTable("SELECT * FROM PipeTobacco ")
+                dt = FillDataTable("SELECT * FROM PipeTobacco WHERE ShowInStore = 1")
                 If dt.Rows.Count > 0 Then
 
                     PipeTobaccoList.Clear()
@@ -2242,7 +2659,24 @@ Public Class Engine
                         PT.Cut = item("Cut")
                         PT.Strength = item("Strength")
                         PT.IsFeatured = item("IsFeatured")
-                        PT.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        PT.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         PT.SalePrice = CStr(DecSalePrice)
 
@@ -2267,7 +2701,7 @@ Public Class Engine
         Select Case ProductCategory
 
             Case "Accessory"
-                dt = FillDataTable("SELECT * FROM Accessories WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM Accessories WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
                 If dt.Rows.Count > 0 Then
                     AccessoryList.Clear()
                     For Each item As DataRow In dt.Rows()
@@ -2282,7 +2716,24 @@ Public Class Engine
                         Dim DecPrice As Decimal = Decimal.Round(item("Price"), 2)
                         A.Price = CStr(DecPrice)
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         AccessoryList.Add(A)
@@ -2293,7 +2744,7 @@ Public Class Engine
                 End If
 
             Case "Apparel"
-                dt = FillDataTable("SELECT * FROM Apparel  WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM Apparel  WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
                 If dt.Rows.Count > 0 Then
 
                     ApparelList.Clear()
@@ -2313,7 +2764,24 @@ Public Class Engine
                         A.XXL = item("XXL_Qty")
                         A.XXXL = item("XXXL_Qty")
                         A.IsFeatured = item("IsFeatured")
-                        A.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        A.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         A.SalePrice = CStr(DecSalePrice)
                         ApparelList.Add(A)
@@ -2324,7 +2792,7 @@ Public Class Engine
                 End If
 
             Case "Cigars"
-                dt = FillDataTable("SELECT * FROM Cigars  WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM Cigars  WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
 
                 If dt.Rows.Count > 0 Then
 
@@ -2348,12 +2816,49 @@ Public Class Engine
                         C.IsSingleSaleOnly = item("IsSingleSaleOnly")
                         C.IsFeatured = item("IsFeatured")
                         C.Body = item("Body")
-                        C.SingleIsOnSale = item("SingleIsOnSale")
-                        C.BoxIsOnSale = item("BoxIsOnSale")
+                        
+                        Dim SingleIsOnSale As Boolean = True
+                        If CBool(item("SingleIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SingleSaleStartDate As Date = CDate(item("SingleSaleStartDate"))
+                            Dim SingleSaleEndDate As Date = CDate(item("SingleSaleEndDate"))
+                            If SingleSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                SingleIsOnSale = False
+                            End If
+                            If SingleSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                SingleIsOnSale = False
+                            End If
+                        Else
+                            SingleIsOnSale = False
+                        End If
+                        C.SingleIsOnSale = SingleIsOnSale
+
+                        Dim BoxIsOnSale As Boolean = True
+                        If CBool(item("BoxIsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim BoxSaleStartDate As Date = CDate(item("BoxSaleStartDate"))
+                            Dim BoxSaleEndDate As Date = CDate(item("BoxSaleEndDate"))
+                            If BoxSaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                BoxIsOnSale = False
+                            End If
+                            If BoxSaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                BoxIsOnSale = False
+                            End If
+                        Else
+                            BoxIsOnSale = False
+                        End If
+                        C.BoxIsOnSale = BoxIsOnSale
+
                         Dim DecSingleSalePrice As Decimal = Decimal.Round(item("SingleSalePrice"), 2)
                         Dim DecBoxSalePrice As Decimal = Decimal.Round(item("BoxSalePrice"), 2)
                         C.SingleSalePrice = CStr(DecSingleSalePrice)
                         C.BoxSalePrice = CStr(DecBoxSalePrice)
+                        C.MaxBoxPurchase = item("MaxBoxPurchaseAmount")
+                        C.MaxSinglePurchase = item("MaxSinglePurchaseAmount")
                         CigarList.Add(C)
                     Next
                     Return CigarList
@@ -2361,7 +2866,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "Coffee"
-                dt = FillDataTable("SELECT * FROM Coffee  WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM Coffee  WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
                 If dt.Rows.Count > 0 Then
 
                     CoffeeList.Clear()
@@ -2378,7 +2883,24 @@ Public Class Engine
                         C.Roast = item("Roast")
                         C.Body = item("Body")
                         C.IsFeatured = item("IsFeatured")
-                        C.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        C.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         C.SalePrice = CStr(DecSalePrice)
                         CoffeeList.Add(C)
@@ -2389,7 +2911,7 @@ Public Class Engine
                 End If
 
             Case "Pipes"
-                dt = FillDataTable("SELECT * FROM Pipes  WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM Pipes  WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
                 If dt.Rows.Count > 0 Then
 
                     PipeList.Clear()
@@ -2408,7 +2930,24 @@ Public Class Engine
                         P.BodyShape = item("BodyShape")
                         P.Material = item("Material")
                         P.IsFeatured = item("IsFeatured")
-                        P.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        P.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         P.SalePrice = CStr(DecSalePrice)
                         PipeList.Add(P)
@@ -2418,7 +2957,7 @@ Public Class Engine
                     Return 0
                 End If
             Case "PipeTobacco"
-                dt = FillDataTable("SELECT * FROM PipeTobacco  WHERE ProductID = " & ProductID)
+                dt = FillDataTable("SELECT * FROM PipeTobacco  WHERE ProductID = " & ProductID & " AND ShowInStore = 1 ")
                 If dt.Rows.Count > 0 Then
 
                     PipeTobaccoList.Clear()
@@ -2436,7 +2975,24 @@ Public Class Engine
                         PT.Cut = item("Cut")
                         PT.Strength = item("Strength")
                         PT.IsFeatured = item("IsFeatured")
-                        PT.IsOnSale = item("IsOnSale")
+                        Dim IsOnSale As Boolean = True
+                        If CBool(item("IsOnSale")) Then
+                            'is it though? Maybe the date has expired. Let's check before we set the IsOnSale variable
+                            Dim SaleStartDate As Date = CDate(item("SaleStartDate"))
+                            Dim SaleEndDate As Date = CDate(item("SaleEndDate"))
+                            If SaleStartDate.Date > Date.Today Then
+                                'the sale hasn't started yet
+                                IsOnSale = False
+                            End If
+                            If SaleEndDate.Date < Date.Today Then
+                                'The sale has already ended.
+                                IsOnSale = False
+                            End If
+                        Else
+                            IsOnSale = False
+                        End If
+
+                        PT.IsOnSale = IsOnSale
                         Dim DecSalePrice As Decimal = Decimal.Round(item("SalePrice"), 2)
                         PT.SalePrice = CStr(DecSalePrice)
                         PipeTobaccoList.Add(PT)
