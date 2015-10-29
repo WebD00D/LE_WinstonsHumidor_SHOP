@@ -684,6 +684,9 @@ Public Class Engine
 
         Try
             Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order", True)
+            'Christian's Test Credentials > Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+
+            'Dim gate = New Gateway("5Rc58T5rs7", "8b6GR7w64T338fdb")
             Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
             Dim response = gate.Send(Request)
             Dim ResponseCode As String = response.ResponseCode
