@@ -13,11 +13,13 @@
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
+ <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
     <!-- Bootstrap core CSS -->
     <link href="css/style.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.css" rel="stylesheet" />
+
 
 
 
@@ -35,7 +37,7 @@
             <a href="Cigars.html" class="smoothScroll">Cigars</a>
             <a href="Pipes.html" class="smoothScroll">Pipes</a>
             <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
-            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="#" class="smoothScroll">Apparel</a>
             <a href="Accessories.html" class="smoothScroll">Accessories</a>
             <a href="Coffee.html" class="smoothScroll">Coffee</a>
             <a href="Events.html" class="smoothScroll">Blog / Events</a>
@@ -155,8 +157,7 @@
 
     <!-----------------------------HEADER VIEWS START----------------------------------->
     <!-- DESKTOP VIEW -->
-    <div id="headerwrap" class=" hidden-xs " style="background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg);background-size:cover;background-repeat:no-repeat">
-
+    <!--<div id="headerwrap" class=" hidden-xs " style="background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg);background-size:cover;background-repeat:no-repeat;height:100vh">
         <div class="col-lg-12">
             <img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:220px;margin-top:4%" />
             <h1 class="text-center" id="WinstonsHumidorhome" style="margin-top:50px"><span style="font-size:100px;font-weight:300">WINSTON'S HUMIDOR</span></h1>
@@ -170,8 +171,21 @@
 
 
         </div>
+    </div>--><!-- /headerwrap -->
 
+    <div id="headerwrap" class=" hidden-xs mainslider" style="background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg);background-size:cover;background-repeat:no-repeat;height:100vh">
+      
+        <div class="col-lg-12" >
+            <img src="images/WinstonHumidor_Cigar_Brown.png" class="img img-responsive center-block " style="height:220px;margin-top:4%" />
+            <h1 class="text-center" id="WinstonsHumidorhome" style="margin-top:50px"><span style="font-size:100px;font-weight:300">WINSTON'S HUMIDOR</span></h1>
+            <p style="font-size:50px;color:white" id="aboutHome">sit. stay. smoke.</p>
+            <br />
+            <ul class="list-inline">
+                <li><a class="homepagelinks smoothScroll" href="#featuredproductsect">Shop Now</a></li>
 
+            </ul>
+            <br />
+        </div>
     </div><!-- /headerwrap -->
     <!-- MOBILE VIEW -->
     <div class=" hidden-sm hidden-md hidden-lg hidden-xl" style="background:linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg);background-size:cover;background-repeat:no-repeat;background-position-x:10%;">
@@ -470,7 +484,8 @@
     <script src="js/bootstrap.min.js" type="text/javascript"></script>
     <script src="js/main.js" type="text/javascript"></script>
     <script src="js/smoothscroll.js" type="text/javascript"></script>
-    <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script>
+  <script src="css/owl-carousel/owl.carousel.min.js" type="text/javascript"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.5.8/slick.min.js"></script>
     <script src="js/instafeed.min.js" type="text/javascript"></script>
 
 
@@ -496,30 +511,32 @@
             userFeed.run();
 
 
+        
+
+            //$(function () {
+            //    var header = $('#headerwrap');
+            //    var backgrounds = [
+            //      "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg)",
+            //      "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9863.jpg)",
+            //      "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9877.jpg)",
+            //      "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9889.jpg)"];
+            //    var current = 0;
+
+            //    function nextBackground() {
+            //        header.css(
+            //            'background',
+            //        backgrounds[current = ++current % backgrounds.length]);
+            //        header.css('background-size', 'cover');
+            //        header.css('background-repeat', 'no-repeat');
+            //        header.css('background-position', '10%');
+            //        setTimeout(nextBackground, 5000);
+            //    }
+            //    setTimeout(nextBackground, 5000);
+            //    header.css('background', backgrounds[0]);
+
+            //});
 
 
-            $(function () {
-                var header = $('#headerwrap');
-                var backgrounds = [
-                  "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9868.jpg)",
-                  "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9863.jpg)",
-                  "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9877.jpg)",
-                  "linear-gradient(rgba(01,01,01,1),rgba(160,82,45,0.5)),url(images/certs/IMG_9889.jpg)"];
-                var current = 0;
-
-                function nextBackground() {
-                    header.css(
-                        'background',
-                    backgrounds[current = ++current % backgrounds.length]);
-                    header.css('background-size', 'cover');
-                    header.css('background-repeat', 'no-repeat');
-                    header.css('background-position', '10%');
-                    setTimeout(nextBackground, 5000);
-                }
-                setTimeout(nextBackground, 5000);
-                header.css('background', backgrounds[0]);
-
-            });
 
 
 

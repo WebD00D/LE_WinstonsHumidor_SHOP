@@ -4,12 +4,17 @@ Imports System.ComponentModel
 Imports System.Data.SqlClient
 Imports MailChimp
 Imports AuthorizeNet
+Imports System.Collections.Generic
+Imports AuthorizeNet.Api.Controllers
+Imports AuthorizeNet.Api.Contracts.V1
+Imports AuthorizeNet.Api.Controllers.Bases
 Imports System.Security
 Imports System.Security.Cryptography
 Imports System.IO.MemoryStream
 Imports System.Threading.Tasks
 Imports System.IO
 Imports System.Text
+Imports System.Linq
 Imports System.Net.Mail
 Imports System.Net.Mail.SmtpClient
 Imports System.Net.Mail.SmtpDeliveryFormat
@@ -683,26 +688,36 @@ Public Class Engine
         End If
 
         Try
-            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order", True)
-            'Christian's Test Credentials > Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
 
-            'Dim gate = New Gateway("5Rc58T5rs7", "8b6GR7w64T338fdb")
-            Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
+            'ApiOperationBase( AuthorizeNet.Environment.PRODUCTION_TESTMODE()
+            'ApiOperationBase(Of ANetApiRequest, ANetApiResponse).RunEnvironment = AuthorizeNet.Environment.SANDBOX_TESTMODE
+            'ApiOperationBase(Of ANetApiRequest, ANetApiResponse).MerchantAuthentication = New merchantAuthenticationType() With { _
+            '.name = "2hBf5VN3S",
+            '.Item = "6Ls78h5w2dSMh56M"
+            '}
+
+            ''Christian's Test Credentials > 
+            'Dim gate = New Gateway("5Rc58T5rs7", "7g87DnT8P8fmHC4y")
+            Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order", True)
+            Dim gate = New Gateway("5Rc58T5rs7", "9nMbt778sf5MQx78", False)
             Dim response = gate.Send(Request)
             Dim ResponseCode As String = response.ResponseCode
             Dim ResponseMsg As String = response.Message
+
             If Not response.ResponseCode = "1" Then
                 Select Case response.ResponseCode
                     Case "2"
                         Return "We're sorry, but your card could not be processed. Please try again, or contact support."
                     Case "3"
-                        Return "A valid credit card is required."
+                        Return ResponseCode + " " + ResponseMsg
                     Case "6"
                         Return "The card number entered is invalid. Please try again, or contact support."
                     Case "7"
                         Return "The card expiration date entered is invalid. Please try again, or contact support."
                     Case "8"
                         Return "The card entered has expired. Please try again, or contact support."
+                    Case "13"
+                        Return ResponseCode + " " + ResponseMsg
                     Case "17"
                         Return "We're sorry, but we cannot accept this type of card. Please try again, or contact support."
                     Case "19"
@@ -719,38 +734,7 @@ Public Class Engine
                 ClearShoppingCart()
             End If
 
-            'Let's make the charge. If user selected save item details then we'll create the user profile, and save it.
-            'If saveDetails = True Then
-
-            '    Dim Target As CustomerGateway = New CustomerGateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-            '    Dim Custy = Target.CreateCustomer(Email, "Winston's Humidor Customer Profile")
-            '    Dim CustyID As String = Custy.ProfileID
-            '    Target.AddCreditCard(CustyID, CC, ccMonth, ccYear, ccSecurity)
-            '    Dim Request = New AuthorizationRequest(CC, ccMonth & "" & ccYear, CDec(TotalToCharge), "Winston's Humidor Order")
-            '    'Step 2 - Create the gateway, sending in your credentials
-            '    Dim gate = New Gateway("2hBf5VN3S", "6Ls78h5w2dSMh56M")
-            '    ' Step 3 - Send the request to the gateway
-            '    Dim response = gate.Send(Request)
-            '    'Use for codes to showing to customer, and storing transaction id's in db
-            '    Dim ResponseCode As String = response.ResponseCode
-            '    Dim ResponseMsg As String = response.Message
-            '    ' Target.AuthorizeAndCapture()
-
-            '    If Not response.ResponseCode = "1" Then
-            '        'transaction failed
-            '        Return "FAILED"
-            '    Else
-            '        'save users info
-            '        CreateUser(CustyID, Email, Password, FirstName, LastName, Street, State, City, Zipcode)
-            '        'update purchased product quantities
-            '        UpdateInventory()
-            '        'insert new order in the database 
-            '        CreateNewOrder(CDec(TotalToCharge), FirstName, LastName, Street, City, State, Zipcode, Email)
-            '    End If
-
-            'Else
-            '    'BASE CHARGE CODE WORKING BELOW
-            'End If
+         
 
             Return "Success"
         Catch ex As Exception

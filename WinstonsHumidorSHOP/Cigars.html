@@ -19,7 +19,18 @@
     <link href="css/main.css" rel="stylesheet" />
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     <link href="css/owl-carousel/owl.carousel.css" rel="stylesheet" />
+    <style type="text/css">
    
+    @media screen and (min-width: 768px) {
+    .custom-class {
+        width: 100%; /* either % (e.g. 60%) or px (400px) */
+    }
+    .custom-class2 {
+        width: 60%; /* either % (e.g. 60%) or px (400px) */
+    }
+}
+
+    </style>
 </head>
 
 <body style="background-color:white">
@@ -246,53 +257,76 @@
     
     <!-- Modal -->
     <div class="modal fade" id="viewCigarModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="background-color:rgba(01,01,01,0.7)">
-        <div class="modal-dialog" role="document" >
-            <div class="modal-content">
+        <div class="modal-dialog custom-class2" role="document">
+            <div class="modal-content custom-class">
 
                 <div>
                     <div class="col-lg-12">
-                        <br />
-                        <div id="prodimgholder">
+
+                        <div class="col-lg-12">
+
+                            <div class="col-lg-8">
+
+                                <br />
+                                <div id="prodimgholdersmall" class="hidden-lg">
+
+                                </div>
+                                <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
+                                    <li><b>Brand: </b> <span id="cBrand"></span></li>
+                                    <li><b>Name: </b> <span id="cName"></span></li>
+                                    <li><b>Length: </b><span id="cLength"></span></li>
+                                    <li><b>Ring: </b><span id="cRing"></span> </li>
+                                    <li><b>Body: </b> <span id="cBody"></span></li>
+
+                                    <li><b>Box Count:</b> <span id="cBoxCount"></span></li>
+                                    <li><b>Box Price:</b> $<span id="cBoxPrice"></span></li>
+                                    <li id="liBoxSalePrice"><b>Box Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cBoxSalePrice"></span></b></li>
+                                    <li><b>Single Price:</b> $<span id="cSinglePrice"></span></li>
+                                    <li id="liSingleSalePrice"><b>Single Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSingleSalePrice"></span></b></li>
+
+                                </ul>
+
+                                <div style="max-height:150px;overflow-y:scroll">
+
+                                    <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
+                                        <li><b>Description:</b> <span id="cDescription"></span></li>
+                                    </ul>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <br />
+                                <div id="prodimgholder" class="hidden-md hidden-sm hidden-xs">
+
+                                </div>
+
+                                <b>Please choose an available option:</b>
+                                <ul class="list-inline" style="font-size:large;font-family:'chiser'">
+                                    <li><input id="ckSingles" type="checkbox" /> Singles</li>
+                                    <li><input id="ckBoxes" type="checkbox" /> Boxes</li>
+                                    <li>
+
+                                        <input id="Qty" placeholder="Quantity" class="form-control" />
+                                    </li>
+
+                                </ul>
+                                <label id="QtyMsg" style="color:red"></label>
+
+                                <b style="font-family:'chiser'">
+                                    Total:<span id="Total">$100.56</span>
+                                </b>
+                                <br />
+                                <br />
+                            </div>
+
+
+
+
 
                         </div>
-                        <!--<img src="images/IMG_9642.jpg" class="img-thumbnail img-thumbnail center-block" style="margin:0px" />-->
-                      <br />
-                      
-                        <div class="col-lg-6 text-left">
-                            <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
-                                <li><b>Brand: </b> <span id="cBrand"></span></li>
-                                <li><b>Name: </b> <span id="cName"></span></li>
-                                <li><b>Length: </b><span id="cLength"></span></li>
-                                <li><b>Ring: </b><span id="cRing"></span> </li>
-                                <li><b>Body: </b> <span id="cBody"></span></li>
-                                <li><b>Description:</b> <span id="cDescription"></span></li>
-                                <li><b>Box Count:</b> <span id="cBoxCount"></span></li>
-                                <li><b>Box Price:</b> $<span id="cBoxPrice"></span></li>
-                                <li id="liBoxSalePrice"><b>Box Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cBoxSalePrice"></span></b></li>
-                                <li><b>Single Price:</b> $<span id="cSinglePrice"></span></li>
-                                <li id="liSingleSalePrice"><b>Single Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSingleSalePrice"></span></b></li>
-                                
-                            </ul>
-                        </div>
-                        <div class="col-lg-6">
-                            <ul class="list-inline" style="font-size:large;font-family:'chiser'">
-                                <li><input id="ckSingles" type="checkbox" /> Singles</li>
-                                <li><input id="ckBoxes" type="checkbox" /> Boxes</li>
-                                <li>
-                                    <b>Quantity: </b> 
-                                    <input id="Qty" class="form-control" />
-                                </li>
-                                
-                            </ul>
-                            <label id="QtyMsg" style="color:red"></label>
-                            <br />
-                            <b style="font-family:'chiser'">
-                                Total:<span id="Total">$100.56</span>
-                            </b>
-                            <br />
-                            <br />
-                        </div>
                     </div>
+
+
 
                 </div>
                 <div class="modal-footer">
@@ -399,7 +433,7 @@
       "  <div class='col-lg-12 text-center' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
                    "  <a href='#' class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + '  <br /> ' + item.Name + "</span>" +
       "  <ul class='list-inline text-center' style='padding-right:0px;margin-top:10px'> " +
-      "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px;'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+      "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px;'>Starts at $" + item.SinglePrice + "</a> </li> " +
       "  </ul>     " +
       "  </div>    " +
       "  </div>    "
@@ -479,7 +513,7 @@
                      "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
                      "  <a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' href='#' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + '   <br /> ' + item.Name + "</span></a>" +
                      "  <ul class='list-inline' style='margin-top:10px'> " +
-                     "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+                     "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'>Starts at $" + item.SinglePrice +"</a> </li> " +
                      "  </ul>     " +
                      "  </div>    " +
                      "  </div>    "
@@ -541,7 +575,7 @@
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
                           " <a href='#'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' class='text-center' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>!" + item.Brand + '  <br /> ' + item.Name + "</span></a>" +
              "  <ul class='list-inline'> " +
-             "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+             "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'>Starts at $" + item.SinglePrice + "</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -604,7 +638,7 @@
              "  <div class='col-lg-12' style='padding:5px;padding-bottom:10px;background-color:rgba(01,01,01,0.7)'>" +
              "  <a href='#'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + "  data-toggle='modal' data-target='#viewCigarModal' class='text-center cigarz' style='color:white;font-family:'chiser'><span style='font-family:" + 'chiser' + ";color:white;'>" + item.Brand + '  <br /> ' + item.Name + "</span></a>" +
              "  <ul class='list-inline' style='margin-top:10px'> " +
-             "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'><i class='glyphicon glyphicon-shopping-cart'></i> Buy</a> </li> " +
+             "  <li><a class='cigarz'  data-maxsinglepurchase='" + item.MaxSinglePurchase + "' data-maxboxpurchase='" + item.MaxBoxPurchase + "' data-boxsaleprice='" + item.BoxSalePrice + "' data-singlesaleprice='" + item.SingleSalePrice + "' data-boxisonsale='" + item.BoxIsOnSale + "' data-singleisonsale='" + item.SingleIsOnSale + "' data-singleonly=" + item.IsSingleSaleOnly + " data-boxonly=" + item.IsBoxSaleOnly + " data-boxQty=" + item.BoxQty + " data-SingleQty=" + item.SingleQty + " data-boxCount=" + item.BoxCount + " data-boxPrice=" + item.BoxPrice + " data-SinglePrice=" + item.SinglePrice + " data-SKU='" + item.SKU + "' data-description='" + item.Description + "' data-prodid=" + item.ProductID + " data-body=" + item.Body + " data-ring=" + item.Ring + " data-length=" + item.Length + " data-name=" + item.Name + " data-brand=" + item.Brand + " href='#' data-toggle='modal' data-target='#viewCigarModal' style='background-color:rgba(206,70,70,1);color:white;padding:5px;padding-left:12px;padding-right:12px;border-radius:7px'>Starts at $" + item.SinglePrice + "</a> </li> " +
              "  </ul>     " +
              "  </div>    " +
              "  </div>    "
@@ -733,8 +767,10 @@
 
 
                 $("#prodimgholder").empty();
-                var img = "<img  src='ImageHandler.ashx?id=" + ProductID + "&category=Cigars' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
+                $("#prodimgholdersmall").empty();
+                var img = "<img   src='ImageHandler.ashx?id=" + ProductID + "&category=Cigars' class='img-thumbnail img-responsive center-block' style='margin:0px;' /><br />"
                 $(img).appendTo("#prodimgholder");
+                $(img).appendTo("#prodimgholdersmall");
 
 
                 $("#QtyMsg").hide();
