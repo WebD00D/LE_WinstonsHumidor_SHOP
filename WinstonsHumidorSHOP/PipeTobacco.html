@@ -249,36 +249,28 @@
 
                 <div>
                     <div class="col-lg-12">
-                        <br />
-                        <div id="prodimgholder">
 
-                        </div>
-                        <!--<img src="images/IMG_9642.jpg" class="img-thumbnail img-thumbnail center-block" style="margin:0px" />-->
+                        <div class="col-lg-8">
                         <br />
-                        <!--PT.PipeTobaccoID = item("PipeTobaccoID")
-                        PT.ProductID = item("ProductID")
-                        PT.Brand = item("Brand")
-                        PT.SKU = item("SKU")
-                        PT.Tobacco = item("Tobacco")
-                        PT.Description = item("Description")
-                        PT.Price = Math.Round(item("Price"), 2)
-                        PT.Qty = item("Qty")
-                        PT.Style = item("Style")
-                        PT.Cut = item("Cut")
-                        PT.Strength = item("Strength")-->
-
-                        <div class="col-lg-6 text-left">
+                            <div id="prodimgholdersmall" class="hidden-lg">
+        
+                            </div>
                             <ul class="list-unstyled" style="font-size:large;font-family:'chiser'">
                                 <li><b>Brand: </b> <span id="cBrand"></span></li>
-                                <li><b>Tobacco: </b> <span id="cTobacco"></span></li>  
+                                <li><b>Tobacco: </b> <span id="cTobacco"></span></li>
                                 <li><b>Style:</b><span id="cStyle"></span></li>
                                 <li><b>Cut:</b><span id="cCut"></span></li>
                                 <li><b>Strength:</b><span id="cStrength"></span></li>
                                 <li><b>Price :</b> $<span id="cPrice"></span></li>
                                 <li id="liSalePrice"><b>Sale Price: <span style="color:orangered">$</span></b><b><span style="color:orangered" id="cSalePrice"></span></b></li>
                             </ul>
+
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
+                         <br />
+                            <div id="prodimgholder" class="hidden-md hidden-sm hidden-xs">
+
+                            </div>
                             <ul class="list-inline" style="font-size:large;font-family:'chiser'">
 
                                 <li>
@@ -294,7 +286,26 @@
                             </b>
                             <br />
                             <br />
+
                         </div>
+
+                        <br />
+                       
+                        <!--<img src="images/IMG_9642.jpg" class="img-thumbnail img-thumbnail center-block" style="margin:0px" />-->
+                        <br />
+                        <!--PT.PipeTobaccoID = item("PipeTobaccoID")
+                        PT.ProductID = item("ProductID")
+                        PT.Brand = item("Brand")
+                        PT.SKU = item("SKU")
+                        PT.Tobacco = item("Tobacco")
+                        PT.Description = item("Description")
+                        PT.Price = Math.Round(item("Price"), 2)
+                        PT.Qty = item("Qty")
+                        PT.Style = item("Style")
+                        PT.Cut = item("Cut")
+                        PT.Strength = item("Strength")-->
+
+                        
                     </div>
 
                 </div>
@@ -632,8 +643,10 @@
 
 
                 $("#prodimgholder").empty();
+                $("#prodimgholdersmall").empty();
                 var img = "<img  src='ImageHandler.ashx?id=" + _ProductViewing + "&category=PipeTobacco' class='img-thumbnail img-thumbnail center-block' style='margin:0px' /><br />"
                 $(img).appendTo("#prodimgholder");
+                $(img).appendTo("#prodimgholdersmall");
 
 
                 $("#QtyMsg").hide();
