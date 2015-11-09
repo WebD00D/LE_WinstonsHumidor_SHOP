@@ -34,7 +34,7 @@
             <a href="Cigars.html" class="smoothScroll">Cigars</a>
             <a href="Pipes.html" class="smoothScroll">Pipes</a>
             <a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a>
-            <a href="Apparel.html" class="smoothScroll">Apparel</a>
+            <a href="#" class="smoothScroll">Apparel</a>
             <a href="Accessories.html" class="smoothScroll">Accessories</a>
             <a href="Coffee.html" class="smoothScroll">Coffee</a>
             <a href="Events.html" class="smoothScroll">Blog / Events</a>
@@ -72,7 +72,7 @@
                         <li><a href="Cigars.html" class="smoothScroll">Cigars</a></li>
                         <li><a href="Pipes.html" class="smoothScroll">Pipes</a></li>
                         <li><a href="PipeTobacco.html" class="smoothScroll">Pipe Tobacco</a></li>
-                        <li><a href="Apparel.html" class="smoothScroll">Apparel</a></li>
+                        <li><a href="#" class="smoothScroll">Apparel</a></li>
                         <li><a href="Accessories.html" class="smoothScroll">Accessories</a></li>
                         <li><a href="Coffee.html" class="smoothScroll">Coffee</a></li>
 
@@ -497,6 +497,7 @@
             $("#btnSubmitOrder").click(function (e) {
                 e.preventDefault();
 
+                
                
                 // if logged in is true then don't worry about validating payment info fields
                 // but we will still need to check shipping info. 
@@ -511,6 +512,15 @@
                 var City = $("#txtCity");
                 var State = $("#txtState");
                 var Zip = $("#txtZip");
+
+
+                if ($(State).val() === 'VA' || $(State).val() === 'va' || $(State).val() === 'Virginia' || $(State).val() === 'virginia' || $(State).val() === 'VIRGINIA') {
+                    $("#paymentmsg").text("We're sorry, but unfortunately we aren't able to process online orders for residents of Virginia. To continue with your order, please call our store at (804) 379-2985. We appologize for the inconvienance.");
+                    $("#paymentmsg").css("color", "red");
+                    return;
+                }
+              
+
 
                 $(Email).css("border-color", "#ccc");
                 $(FirstName).css("border-color", "#ccc");
