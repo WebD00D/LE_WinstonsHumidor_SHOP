@@ -793,7 +793,6 @@ Public Class Engine
         'TO DO: Create HTML email for ForgotPassword.html 
         EmailBody = reader.ReadToEnd
         EmailBody = EmailBody.Replace("{oName}", FirstName & " " & LastName)
-        EmailBody = EmailBody.Replace("{oDate}", Date.Today.ToString())
         EmailBody = EmailBody.Replace("{OrderList}", CartHTML)
         EmailBody = EmailBody.Replace("{OrderTotal}", "$" & GrandTotal)
         EmailBody = EmailBody.Replace("{ShippingAddress}", Address)
